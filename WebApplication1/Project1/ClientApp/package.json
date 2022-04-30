@@ -1,0 +1,117 @@
+{
+  "name": "ReportApp",
+  "version": "0.0.0",
+  "serviceConnection": "http://localhost:5000/",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "run": "start",
+    "build:ssr": "ng run ReportApp:server:dev",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "package": "package",
+    "make": "make"
+  },
+  "private": true,
+  "author": "VNIIA",
+  "description": "ReportApp",
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "ReportApp"
+      }
+    }
+  },
+  "dependencies": {
+    "@ag-grid-enterprise/clipboard": "^27.2.1",
+    "@angular/animations": "^12.2.16",
+    "@angular/cdk": "^12.2.13",
+    "@angular/cli": "^12.2.17",
+    "@angular/common": "^12.2.16",
+    "@angular/compiler": "^12.2.16",
+    "@angular/compiler-cli": "^12.2.16",
+    "@angular/core": "12.2.16",
+    "@angular/forms": "^12.2.16",
+    "@angular/platform-browser": "^12.2.16",
+    "@angular/platform-browser-dynamic": "^12.2.16",
+    "@angular/platform-server": "^12.2.16",
+    "@angular/router": "^12.2.16",
+    "@auth0/angular-jwt": "^5.0.2",
+    "@fortawesome/fontawesome-free": "^6.1.1",
+    "@fullcalendar/core": "^5.11.0",
+    "@nguniversal/module-map-ngfactory-loader": "9.0.0-next.1",
+    "ag-grid-angular": "^27.2.1",
+    "ag-grid-community": "^27.2.1",
+    "ag-grid-enterprise": "^27.2.1",
+    "angular-oauth2-oidc": "^13.0.1",
+    "bootstrap": "^5.1.3",
+    "browser-tiff.js": "^1.0.1",
+    "calculate-size": "^1.1.1",
+    "chart.js": "^3.7.1",
+    "color": "^4.2.3",
+    "core-js": "^3.22.3",
+    "file-saver": "^2.0.5",
+    "jquery": "^3.6.0",
+    "ngx-logger": "^5.0.9",
+    "oidc-client": "^1.11.5",
+    "popper.js": "^1.16.0",
+    "primeicons": "^5.0.0",
+    "primeng": "13.3.3",
+    "quill": "^1.3.7",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.5.5",
+    "scroll-into-view-if-needed": "^2.2.29",
+    "zone.js": "^0.11.5"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^12.2.17",
+    "@angular/language-service": "^12.2.16",
+    "@types/jasmine": "^4.0.3",
+    "@types/jasminewd2": "~2.0.10",
+    "@types/node": "^17.0.30",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "codelyzer": "^6.0.2",
+    "eslint": "^8.14.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.4",
+    "ini": "^3.0.0",
+    "jasmine-core": "~4.1.0",
+    "jasmine-spec-reporter": "~7.0.0",
+    "karma": "^6.3.19",
+    "karma-chrome-launcher": "^3.1.1",
+    "karma-coverage-istanbul-reporter": "~3.0.3",
+    "karma-jasmine": "~5.0.0",
+    "karma-jasmine-html-reporter": "^1.7.0",
+    "typescript": "^4.1.6"
+  },
+  "optionalDependencies": {
+    "node-sass": "^7.0.1",
+    "protractor": "~7.0.0",
+    "ts-node": "~10.7.0",
+    "tslint": "~6.1.3"
+  },
+  "main": "src/index.html"
+}

@@ -1,0 +1,5 @@
+{
+  "serviceConnection": {
+    "value": "https://localhost:5001"
+  }
+}

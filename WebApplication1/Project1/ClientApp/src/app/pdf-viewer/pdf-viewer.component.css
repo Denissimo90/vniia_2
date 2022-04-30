@@ -1,0 +1,8 @@
+:host >>> .ui-selectbutton .ui-button {
+  border-left: 1px solid #c8c8c8;
+  margin: 0 !important;
+}
+
+:host >>> .ui-dialog .ui-dialog-content {
+  padding: 0 !important;
+}

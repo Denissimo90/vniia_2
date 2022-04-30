@@ -1,0 +1,397 @@
+/* flex */
+.v-flex {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.v-flex-grow {
+  flex: 1;
+  min-height: 0;
+}
+
+.h-flex {
+  width: 100%;
+  display: flex;
+  flex-flow: row;
+}
+
+.h-flex-grow {
+  flex: 1;
+  min-width: 0;
+}
+
+/* dialog */
+.ui-dialog-buttonpane {
+  text-align: center;
+}
+
+body .ui-dialog .ui-dialog-footer {
+  text-align: center;
+}
+
+.ui-dialog-titlebar-close:focus {
+  box-shadow: none !important;
+  color: #333333 !important;
+}
+
+/* toolbar */
+.ui-toolbar .splitter {
+  height: 1.5em;
+  display: inline-block;
+  width: 1px;
+  background-color: #ccc;
+  margin: 0 0.35em;
+}
+
+.ui-toolbar .caption {
+  min-width: 210px;
+  opacity: 1 !important;
+  color: #000;
+  background: none;
+  border: none;
+  cursor: default;
+}
+
+.ui-toolbar .ui-paginator {
+  border: none;
+  background: none;
+  text-align: right;
+}
+
+.ui-toolbar-group-left > *, .ui-toolbar-group-right > * {
+  vertical-align: middle;
+}
+
+body .ui-toolbar .ui-calendar {
+  margin: 0 0.25em;
+}
+body .ui-toolbar p-calendar {
+  display: inline-block;
+}
+
+body .ui-toolbar .ui-inputwrapper-filled .ui-button,
+body .ui-toolbar .p-inputwrapper-filled .ui-button {
+  margin: 0;
+}
+
+  /* horisontal splitter */
+horizontal-split-separator {
+  background: none !important;
+  border: none !important;
+}
+
+.split-pane-content-primary, .split-pane-content-secondary {
+  overflow: hidden;
+}
+
+
+/* invalid input tooltip */
+.ui-tooltip.ng-invalid {
+  max-width: 25em;
+}
+
+.ui-tooltip.ng-invalid .ui-tooltip-text {
+  background-color: #d9534f !important;
+}
+
+.ui-tooltip.ng-invalid .ui-tooltip-arrow {
+  border-bottom-color: #d9534f !important;
+}
+
+/* table, treetable flexbox layout */
+.ui-table.ui-table-flex,
+.ui-treetable.ui-treetable-flex {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ui-table.ui-table-flex .ui-table-scrollable-wrapper,
+.ui-treetable.ui-treetable-flex .ui-treetable-scrollable-wrapper {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+  min-height: 0;
+}
+
+.ui-table.ui-table-flex .ui-table-scrollable-wrapper > div,
+.ui-treetable.ui-treetable-flex .ui-treetable-scrollable-wrapper > div {
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+  min-height: 0;
+  height: 100%;
+}
+
+.ui-table.ui-table-flex .ui-table-scrollable-body,
+.ui-treetable.ui-treetable-flex .ui-treetable-scrollable-body {
+  flex: 1;
+}
+
+/* tabview flexbox layout */
+.tabview-flex .ui-tabview {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  padding: 0;
+  border: 0 !important;
+  background: none;
+}
+
+.tabview-flex .ui-tabview-panels {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 !important;
+  border: none !important;
+}
+
+.tabview-flex .ui-tabview-panel {
+  height: 100%;
+  padding: 0 !important;
+}
+
+body .ui-tabview.ui-tabview-top .ui-tabview-nav {
+  margin-bottom: 0;
+  margin-left: 3px;
+}
+
+.tabview-flex .ui-tabview .ui-tabview-nav > li.ui-state-default {
+  border: 1px solid transparent !important;
+  border-bottom: none !important;
+  top: 2px !important;
+}
+
+.tabview-flex .ui-tabview .ui-tabview-nav > li.ui-state-default a {
+  color: #2d5a80 !important;
+}
+
+.tabview-flex .ui-tabview .ui-tabview-nav > li.ui-state-active {
+  border: 1px solid #bebebe !important;
+  border-top: 1px solid #2d5a80 !important;
+  border-bottom: 1px solid #fbfbfb !important;
+  background-color: #fbfbfb !important;
+}
+
+.tabview-flex .ui-tabview .ui-tabview-nav > li:focus {
+  background-color: #d0e0ef !important;
+}
+
+.tabview-flex .ui-tabview .ui-tabview-nav > li.ui-state-active a {
+  color: #000 !important;
+}
+
+/* treetable flexbox layout */
+.ui-treetable {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.ui-treetable .ui-treetable-tablewrapper {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* load spinner */
+@keyframes ui-progress-spinner-color {
+  100%,
+  0% {
+    stroke: #000000;
+  }
+}
+
+.ui-dialog {
+  display: flex;
+  flex-flow: column;
+  max-height: 90vh;
+  width: 800px;
+}
+
+.ui-dialog.ui-dialog-maximized {
+  min-width: 100vh;
+  min-height: 100vh;
+}
+
+.ui-dialog .ui-dialog-content {
+  overflow: auto;
+  flex: 1;
+}
+
+:host >>> .ui-dynamicdialog {
+  max-width: 80ch;
+}
+
+/* hot fix for paginator and XXXX numbers of pages*/
+body .ui-paginator .ui-paginator-pages .ui-paginator-page {
+  width: auto;
+  margin-left: 5px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+/* hot fix for background of page size component*/
+.ui-toolbar .ui-paginator .ui-dropdown,
+.ui-toolbar .ui-paginator .ui-dropdown .ui-dropdown-trigger,
+.ui-toolbar .ui-paginator .ui-dropdown .ui-dropdown-label {
+  background: none;
+}
+
+/* forms */
+.form-row {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  padding: 0.5em;
+}
+
+.form-row > :nth-child(1) {
+  display: block;
+  width: 30%;
+  align-self: center;
+  text-align: left;
+}
+
+.form-row > :nth-child(1).required:after {
+  content: "*";
+  color: red;
+  padding-left: 0.3em;
+}
+
+.form-row > :nth-child(1).required-orange:after {
+  content: "*";
+  color: darkorange;
+  padding-left: 0.3em;
+}
+
+.form-row > :nth-child(2) {
+  flex: 1;
+  min-width: 0;
+  align-self: center;
+}
+
+.form-row > p-dropdown > .ui-dropdown {
+  width: 100%;
+}
+
+.form-row > app-lookup > div {
+  width: 100% !important;
+}
+
+.form-row > app-dictionary-lookup > div {
+  width: 100% !important;
+}
+
+.ui-dialog-footer {
+  text-align: center;
+}
+
+.flex-form {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: -0.571em -1em;
+}
+
+.flex-form .flex-form-page {
+  flex: 1;
+  min-width: calc(40em - 30px);
+  padding: 0.571em 1em;
+}
+
+.form-row.form-error-row {
+  padding: 0 0 0.5em 0;
+  margin-top: -0.5em;
+  z-index: -9999;
+  opacity: 0;
+  transition: opacity 1s;
+  color: rgb(180, 30, 10);
+  max-height: 0;
+}
+.validation-error {
+  text-align: left;
+  padding: 0.25em 0.25em 0 0.25em;
+  font-size: 0.95em;
+}
+.form-row.form-error-row.form-error-row-show {
+  opacity: 1;
+  max-height: initial;
+  z-index: initial;
+}
+
+.footer-hint {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  font-size: 0.85em;
+  color: rgb(95, 95, 95);
+}
+.footer-hint i {
+  padding-right: 0.4em;
+  padding-left: 0.4em;
+}
+
+.tooltip-invalid-form {
+  max-width: 300px !important;
+}
+.tooltip-invalid-form .ui-tooltip-text {
+  background: rgb(140, 23, 8) !important;
+}
+.tooltip-invalid-form.ui-tooltip-right .ui-tooltip-arrow {
+  border-right-color: rgb(140, 23, 8) !important;
+}
+.tooltip-invalid-form.ui-tooltip-top .ui-tooltip-arrow {
+  border-top-color: rgb(140, 23, 8) !important;
+}
+
+/* dropdown design */
+.ui-dropdown-panel .ui-dropdown-items {
+  padding: 5px;
+}
+
+.ui-dropdown .ui-dropdown-label {
+  text-overflow: ellipsis;
+}
+
+/* calendar fix */
+.ui-datepicker-buttonbar {
+  background: inherit;
+}
+
+.ui-calendar .ui-button {
+  margin: 0 !important;
+  vertical-align: inherit;
+}
+
+.ui-datepicker .ui-timepicker {
+  border: none;
+}
+
+.ui-calendar {
+  display: inline-flex;
+}
+.ui-calendar > .ui-inputtext {
+  flex: 1;
+  min-width: 0;
+}
+.ui-calendar.ui-calendar-w-btn > .ui-inputtext {
+  border-right: 0 !important;
+}
+
+/* ag-grid fix in dialog */
+.ag-theme-balham .ag-menu {
+  z-index: 9999;
+}
+
+/* other */
+app-dictionary-lookup.ng-dirty.ng-invalid input {
+  border-color: #a80000;
+}
+
+/* error messages new line fix */
+.ui-toast-message-content {
+  white-space: pre-line;
+}

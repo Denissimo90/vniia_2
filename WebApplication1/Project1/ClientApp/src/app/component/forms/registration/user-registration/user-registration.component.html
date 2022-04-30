@@ -1,0 +1,40 @@
+<p-dialog [header]="userId ? 'Редактирование пользователя' : 'Создание пользователя'"
+          [modal]="true" [(visible)]="visible" [style]="{width: '500px', height: '800px'}">
+  <form #form="ngForm">
+    <div class="form-line">
+      <label class="required">Логин:</label>
+      <input name="name" pInputText maxlength="255" [(ngModel)]="user.username" required/>
+    </div>
+    <div class="form-line">
+      <label class="required">Фамилия:</label>
+      <input name="name" pInputText maxlength="255" [(ngModel)]="user.lastName" required/>
+    </div>
+    <div class="form-line">
+      <label class="required">Имя:</label>
+      <input name="name" pInputText maxlength="255" [(ngModel)]="user.firstName" required/>
+    </div>
+    <div class="form-line">
+      <label class="required">Отчество:</label>
+      <input name="name" pInputText maxlength="255" [(ngModel)]="user.middleName" required/>
+    </div>
+    <div class="form-line">
+      <label class="required">Email:</label>
+      <input name="name" pInputText maxlength="255" [(ngModel)]="user.email" required/>
+    </div>
+    <div class="form-line">
+      <label class="required">Пароль:</label>
+      <input name="name" type="password" pInputText maxlength="255" [(ngModel)]="user.password" required/>
+    </div>
+  </form>
+
+  <p-footer align="center">
+    <button (click)="saveUser()"
+            pButton label="Сохранить"
+            [disabled]="form.invalid">
+    </button>
+    <button (click)="visible = false"
+            pButton label="Отмена"
+            class="ui-button-secondary">
+    </button>
+  </p-footer>
+</p-dialog>

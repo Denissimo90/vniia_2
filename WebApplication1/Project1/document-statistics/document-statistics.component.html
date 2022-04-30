@@ -1,0 +1,154 @@
+<p-blockUI [blocked]="loading">
+  <div class="full-width-height-center">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+</p-blockUI>
+
+<div class="ui-g-6 panel-container">
+  <p-panel [header]="getHeader('pie')">
+    <p-header class="ui-toolbar-group-right">
+
+      <button pButton icon="fa fa-print" style="margin-left: 10px"
+              class="ui-button-information"
+              iconPos="left" pTooltip="Отчеты"
+              (click)="reportsMenu.toggle($event)">
+      </button>
+
+      <p-menu #reportsMenu [popup]="true">
+        <p-menu-item
+          label="Excel"
+          icon="fa fa-file-excel"
+          (command)="getFile('pie', 'xlsx')"></p-menu-item>
+        <p-menu-item
+          label="Pdf"
+          icon="fa fa-file-pdf"
+          (command)="getFile('pie', 'pdf')"></p-menu-item>
+      </p-menu>
+
+      <button pButton style="margin-left: 10px" class="ui-button-information"
+              icon="fa fa-sync-alt" (click)="reload('pie')" pTooltip="Обновить"></button>
+
+      <button pButton style="margin-left: 10px" class="ui-button-information"
+              icon="fas fa-cog" (click)="statPicker('pie')" pTooltip="Выбрать дату"></button>
+
+    </p-header>
+
+    <p-chart #pieChart type="doughnut" [data]="data" [options]="pieOptions" [plugins]="plugins"></p-chart>
+  </p-panel>
+</div>
+
+<div class="ui-g-6 panel-container">
+  <p-panel [header]="getHeader('specification')">
+    <p-header class="ui-toolbar-group-right">
+
+      <button pButton style="margin-left: 10px" class="ui-button-information"
+              icon="fas fa-expand" (click)="showDialog('specification')" pTooltip="Увеличить"></button>
+
+      <button pButton icon="fa fa-print" style="margin-left: 10px"
+              class="ui-button-information"
+              iconPos="left" pTooltip="Отчеты"
+              (click)="reportsMenu2.toggle($event)">
+      </button>
+
+      <p-menu #reportsMenu2 [popup]="true">
+        <p-menu-item
+          label="Excel"
+          icon="fa fa-file-excel"
+          (command)="getFile('specification', 'xlsx')"></p-menu-item>
+        <p-menu-item
+          label="Pdf"
+          icon="fa fa-file-pdf"
+          (command)="getFile('specification', 'pdf')"></p-menu-item>
+      </p-menu>
+
+      <button pButton style="margin-left: 10px" class="ui-button-information"
+              icon="fa fa-sync-alt" (click)="reload('specification')" pTooltip="Обновить"></button>
+
+      <button pButton style="margin-left: 10px" class="ui-button-information"
+              icon="fas fa-cog" (click)="statPicker('specification')" pTooltip="Выбрать дату"></button>
+
+    </p-header>
+
+    <p-chart #specChart type="bar" [data]="specificationData" [options]="barOptions" [plugins]="plugins"></p-chart>
+  </p-panel>
+</div>
+
+<div class="ui-g-6 panel-container">
+  <p-panel [header]="getHeader('detail')">
+    <p-header class="ui-toolbar-group-right">
+
+      <button pButton style="margin-left: 10px" class="ui-button-information"
+              icon="fas fa-expand" (click)="showDialog('detail')"  pTooltip="Увеличить"></button>
+
+      <button pButton icon="fa fa-print" style="margin-left: 10px"
+              class="ui-button-information"
+              iconPos="left" pTooltip="Отчеты"
+              (click)="reportsMenu3.toggle($event)">
+      </button>
+
+      <p-menu #reportsMenu3 [popup]="true">
+        <p-menu-item
+          label="Excel"
+          icon="fa fa-file-excel"
+          (command)="getFile('detail', 'xlsx')"></p-menu-item>
+        <p-menu-item
+          label="Pdf"
+          icon="fa fa-file-pdf"
+          (command)="getFile('detail', 'pdf')"></p-menu-item>
+      </p-menu>
+
+      <button pButton style="margin-left: 10px" class="ui-button-information"
+              icon="fa fa-sync-alt" (click)="reload('detail')" pTooltip="Обновить"></button>
+
+      <button pButton style="margin-left: 10px" class="ui-button-information"
+              icon="fas fa-cog" (click)="statPicker('detail')" pTooltip="Выбрать дату"></button>
+
+    </p-header>
+
+    <p-chart #detChart type="bar" [data]="detailData" [options]="barOptions" [plugins]="plugins"></p-chart>
+  </p-panel>
+</div>
+
+<div class="ui-g-6 panel-container">
+  <p-panel [header]="getHeader('document')">
+    <p-header class="ui-toolbar-group-right">
+
+      <button pButton style="margin-left: 10px" class="ui-button-information"
+              icon="fas fa-expand" (click)="showDialog('document')" pTooltip="Увеличить"></button>
+
+      <button pButton icon="fa fa-print" style="margin-left: 10px"
+              class="ui-button-information"
+              iconPos="left" pTooltip="Отчеты"
+              (click)="reportsMenu4.toggle($event)">
+      </button>
+
+      <p-menu #reportsMenu4 [popup]="true">
+        <p-menu-item
+          label="Excel"
+          icon="fa fa-file-excel"
+          (command)="getFile('document', 'xlsx')"></p-menu-item>
+                <p-menu-item
+                  label="Pdf"
+                  icon="fa fa-file-pdf"
+                  (command)="getFile('document', 'pdf')"></p-menu-item>
+              </p-menu>
+
+        <button pButton style="margin-left: 10px" class="ui-button-information"
+                icon="fa fa-sync-alt" (click)="reload('document')" pTooltip="Обновить"></button>
+
+        <button pButton style="margin-left: 10px" class="ui-button-information"
+                icon="fas fa-cog" (click)="statPicker('document')" pTooltip="Выбрать дату"></button>
+
+    </p-header>
+
+    <p-chart #docChart type="bar" [data]="documentData" [options]="barOptions" [plugins]="plugins"></p-chart>
+  </p-panel>
+</div>
+
+<p-dialog #dialog [header]="getHeader(dialogChartKey)" [style]="{'width': '1400px', 'height': '1100px'}"
+          [(visible)]="visible" [modal]="true">
+
+  <p-chart #dialogChart type="bar" [options]="barOptions" [plugins]="plugins"></p-chart>
+
+</p-dialog>
+

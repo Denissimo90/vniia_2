@@ -1,0 +1,20 @@
+.login-form {
+  padding: 20px;
+  width: 500px;
+  height: 280px;
+  background: #6CACE4;
+  border-radius: 50px;
+  border: 1px #5796ce solid;
+}
+
+.login-form-line {
+  display: grid;
+  width: 100%;
+  margin-top: 20px;
+}
+
+button {
+  height: 40px;
+  width: 80px;
+  place-self: center;
+}

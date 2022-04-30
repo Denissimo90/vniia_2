@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.app-center {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-line {
+  display: grid;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.p-toolbar-group-left button {
+  margin-left: 5px;
+}
+
+.button-orange {
+  background: #F0A600;
+}
+
+.container {
+  background: transparent;
+}
+
+.navbar-brand {
+  background: #6CACE4;
+  text-decoration-color: #F0A600;
+  font-size: 20px;
+  font-family: Arial;
+  color: white;
+}
+
+.nav-link {
+  color: white;
+  font-size: 14px;
+  font-family: Arial;
+  background-color: transparent;
+  border-color: #F0A600;
+}
+
+.nav-item {
+  color: white;
+  font-size: 14px;
+  font-family: Arial;
+  border-color: #F0A600;
+  border-style: ridge;
+}

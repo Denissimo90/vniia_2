@@ -1,0 +1,8 @@
+:host >>> vertical-split-separator {
+  background: none !important;
+  border: none !important;
+}
+
+:host >>> .ui-toolbar .ui-selectbutton .ui-button {
+  border-radius: 0 !important;
+}

@@ -1,0 +1,121 @@
+<horizontal-split-pane primary-component-initialratio="0.5" primary-component-minsize="160"
+                       secondary-component-minsize="250" separator-thickness="5"
+                       local-storage-key="financialAidStatisticsHorizontalSplitter">
+  <div class="split-pane-content-primary v-flex">
+    <vertical-split-pane primary-component-initialratio="0.5" primary-component-minsize="400"
+                         secondary-component-minsize="800" separator-thickness="5"
+                         local-storage-key="financialAidStatisticsVerticalSplitter">
+      <div class="split-pane-content-primary" style="height: 100%">
+        <div style="display: flex; align-items: center; height: 40px">
+          <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-right: 5px">
+            <b>Статистика за период:</b>
+          </span>
+          <span style="min-width: max-content">
+            <p-calendar selectionMode="range" dateFormat="dd.mm.yy"
+                        [(ngModel)]="rangeDates" [readonlyInput]="true" appendTo="body">
+            </p-calendar>
+            <button pButton icon="fa fa-sync-alt" style="border-radius: 0 !important; margin-right: 10px"
+                    (click)="t.reload()" pTooltip="Обновить">
+            </button>
+          </span>
+        </div>
+
+        <hr>
+
+        <div style="height: calc(100% - 55px); overflow: auto">
+          <p>Кол-во заявок: <b>{{getStatisticValue('all')}}</b></p>
+          <p>Кол-во отклоненных заявок: <b>{{getStatisticValue('rejected')}}</b></p>
+          <p>Cтаж работы в ФГУП "ВНИИА" меньше 20 лет: <b>{{getStatisticValue('vniia20')}}</b></p>
+          <p>Cтаж работы в ФГУП "ВНИИА" больше 20 лет: <b>{{getStatisticValue('vniia20+')}}</b></p>
+          <p>Cтаж работы в отрасли меньше 25 лет: <b>{{getStatisticValue('industry25')}}</b></p>
+          <p>Cтаж работы в отрасли больше 25 лет: <b>{{getStatisticValue('industry25+')}}</b></p>
+          <p>Сумма выплат по выполненным заявкам (сред.): <b>{{getStatisticValue('sum')}}</b></p>
+          <p>Выполненных в соответствии с программой оказания помощи работникам ФГУП "ВНИИА":
+            <b>{{getStatisticValue('source_enterprise')}}</b></p>
+          <p>Выполненных в соответствии с программой оказания материальной помощи членам Профсоюза:
+            <b>{{getStatisticValue('source_labor_union')}}</b></p>
+        </div>
+      </div>
+
+      <div class="split-pane-content-secondary" style="height: 100%">
+        <p-tabView [(activeIndex)]="tabIndex" (activeIndexChange)="refreshCharts()" class="tabview-flex">
+          <p-tabPanel header="Общая статистика">
+            <p-toolbar>
+              <div class="ui-toolbar-group-right">
+                Тип графика:
+                <p-selectButton [options]="chartTypes" [(ngModel)]="chartType"
+                                (onChange)="refreshCharts()">
+                </p-selectButton>
+              </div>
+            </p-toolbar>
+            <div style="height: calc(100% - 70px)">
+              <p-chart [type]="chartType" height="100%" [data]="chartData" [options]="generalOptions"></p-chart>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel header="Заявки">
+            <p-chart type="doughnut" height="100%" [data]="chartData" [options]="pieOptions"></p-chart>
+          </p-tabPanel>
+          <p-tabPanel header="Подразделения">
+            <p-chart type="pie" height="100%" [data]="chartData" [options]="pieOptions"></p-chart>
+          </p-tabPanel>
+          <p-tabPanel header="Категории">
+            <p-chart type="polarArea" height="100%" [data]="chartData" [options]="pieOptions"></p-chart>
+          </p-tabPanel>
+          <p-tabPanel header="Программа оказания помощи">
+            <p-chart type="doughnut" height="100%" [data]="chartData" [options]="pieOptions"></p-chart>
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+    </vertical-split-pane>
+  </div>
+
+  <div class="split-pane-content-secondary v-flex">
+    <p-toolbar>
+      <div class="ui-toolbar-group-left">
+        <button pButton label="Список учтённых в статистике заявок"
+                class="caption" disabled
+                style="background: none">
+        </button>
+
+        <div class="splitter"></div>
+
+        <button pButton icon="fa fa-sync-alt"
+                (click)="t.reload()" pTooltip="Обновить таблицу">
+        </button>
+
+        <button pButton icon="fa fa-filter"
+                (click)="filter=!filter" pTooltip="Открыть панель фильтров">
+        </button>
+
+        <div class="splitter"></div>
+
+        <button pButton [icon]="t.exporting ? 'fa fa-spinner fa-spin' : 'fa fa-file-excel'"
+                class="ui-button-success" (click)="t.exportToExcel()"
+                pTooltip="Экспорт таблицы в Excel">
+        </button>
+      </div>
+    </p-toolbar>
+
+    <div class="v-flex-grow">
+      <app-table2 #t
+                  selectionMode="single"
+                  [filter]="filter"
+                  [lazy]="true"
+                  (onLazyLoad)="onLoad($event)"
+                  [defaultSortModel]="[{field: 'id', order: -1}]"
+                  settingsKey="financial-aid-claim-statistic-list">
+        <column field="id" header="№ заявки" [width]="140"></column>
+        <column field="registrationDate" header="Дата создания" type="date" [width]="140"></column>
+        <column field="status" header="Статус заявки" type='enum' [enum]="statusLocaleEnum"
+                (onGetColumnStyle)="onGetColumnStyle($event)"></column>
+        <column field="applicantFullName" header="Заявитель (кому справка)" [width]="250"></column>
+        <column field="applicant.personalNumber" header="Табельный №" [width]="140"></column>
+        <column field="applicant.department.code" header="Подразделение"></column>
+        <column field="source" header="Программа оказания помощи" type="enum" [enum]="sourceLocaleEnum"
+                [width]="250"></column>
+        <column field="sum" header="Сумма выплаты"></column>
+        <column field="category.name" header="Категория" [width]="250"></column>
+      </app-table2>
+    </div>
+  </div>
+</horizontal-split-pane>

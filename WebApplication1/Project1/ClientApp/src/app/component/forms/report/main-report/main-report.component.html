@@ -1,0 +1,183 @@
+<div class="card">
+  <p-tabView styleClass="tabview-custom">
+    <p-tabPanel>
+      <ng-template pTemplate="header">
+        <i class="pi pi-check-square"></i>
+        <span style="margin-left: 10px; width: 300px">Объем произведенной продукции</span>
+      </ng-template>
+      <div>
+        <span style="margin-right: 10px; margin-left: 10px">Дата начала периода</span>
+        <p-calendar [(ngModel)]="startYear" dateFormat="dd-mm-yy" inputId="dateformat"
+                    (ngModelChange)="onStartYearChange()"></p-calendar>
+        <span style="margin-right: 10px; margin-left: 10px">Дата окончания периода</span>
+        <p-calendar [(ngModel)]="endYear" dateFormat="dd-mm-yy" inputId="dateformat" disabled></p-calendar>
+      </div>
+      <p-tabView styleClass="tabview-custom">
+        <p-tabPanel>
+          <ng-template pTemplate="header">
+            <i class="pi pi-check-square"></i>
+            <span style="margin-left: 10px; width: 300px">Дивизион: по месяцам</span>
+          </ng-template>
+          <div class="split-pane-content-primary" style="height: 100%">
+            <div class="v-flex-grow">
+              <p-table [value]="yearReportEntities" [(selection)]="selectedYearReportEntity" selectionMode="single">
+                <ng-template pTemplate="header" style="color: #003274; font-size: 14px; font-family: Arial;">
+                  <tr>
+                    <th style="color: #003274; font-size: 14px; font-family: Arial;">Артикул</th>
+                    <th style="color: #003274; font-size: 14px; font-family: Arial;">Наименование</th>
+                    <th style="color: #003274; font-size: 14px; font-family: Arial;">Сумма</th>
+                    <th style="color: #003274; font-size: 14px; font-family: Arial;">Месяц</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rep>
+                  <tr [pSelectableRow]="rep">
+                    <td>{{rep.productArticul}}</td>
+                    <td>{{rep.productCaption}}</td>
+                    <td>{{rep.productPrice}}</td>
+                    <td>{{rep.period}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+          <div style="height: calc(100% - 70px)">
+            <p-chart type="bar" height="100%" [data]="yearChartData" [options]="barOptions"></p-chart>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel>
+          <ng-template pTemplate="header">
+            <i class="pi pi-check-square"></i>
+            <span style="margin-left: 10px; width: 300px">Дивизион: по предприятиям</span>
+          </ng-template>
+          <p></p>
+        </p-tabPanel>
+        <p-tabPanel>
+          <ng-template pTemplate="header">
+            <i class="pi pi-check-square"></i>
+            <span style="margin-left: 10px; width: 300px">Предприятие: по месяцам</span>
+          </ng-template>
+          <p></p>
+        </p-tabPanel>
+      </p-tabView>
+    </p-tabPanel>
+    <p-tabPanel header="header" style="width: 33%">
+      <ng-template pTemplate="header">
+        <i class="pi pi-cog"></i>
+        <span style="margin-left: 10px; width: 250px">Произведенная продукция</span>
+      </ng-template>
+      <div>
+        <span style="margin-right: 10px; margin-left: 10px">Дата начала периода</span>
+        <p-calendar [(ngModel)]="startDate" dateFormat="dd-mm-yy" inputId="dateformat"></p-calendar>
+        <span style="margin-right: 10px; margin-left: 10px">Дата окончания периода</span>
+        <p-calendar [(ngModel)]="endDate" dateFormat="dd-mm-yy" inputId="dateformat"></p-calendar>
+      </div>
+      <p-tabView styleClass="tabview-custom">
+        <p-tabPanel>
+          <ng-template pTemplate="header">
+            <i class="pi pi-check-square"></i>
+            <span style="margin-left: 10px; width: 300px">Дивизион: по месяцам</span>
+          </ng-template>
+          <div class="split-pane-content-primary" style="height: 100%">
+            <div class="v-flex-grow">
+              <p-table [value]="yearReportEntities" [(selection)]="selectedYearReportEntity" selectionMode="single">
+                <ng-template pTemplate="header" style="color: #003274; font-size: 14px; font-family: Arial;">
+                  <tr>
+                    <th style="color: #003274; font-size: 14px; font-family: Arial;">Артикул</th>
+                    <th style="color: #003274; font-size: 14px; font-family: Arial;">Наименование</th>
+                    <th style="color: #003274; font-size: 14px; font-family: Arial;">Сумма</th>
+                    <th style="color: #003274; font-size: 14px; font-family: Arial;">Месяц</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rep>
+                  <tr [pSelectableRow]="rep">
+                    <td>{{rep.productArticul}}</td>
+                    <td>{{rep.productCaption}}</td>
+                    <td>{{rep.productPrice}}</td>
+                    <td>{{rep.period}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+          <div style="height: calc(100% - 70px)">
+            <p-chart type="bar" height="100%" [data]="yearChartData" [options]="barOptions"></p-chart>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel>
+          <ng-template pTemplate="header">
+            <i class="pi pi-check-square"></i>
+            <span style="margin-left: 10px; width: 300px">Предприятие: по месяцам</span>
+          </ng-template>
+          <p></p>
+        </p-tabPanel>
+      </p-tabView>
+    </p-tabPanel>
+    <p-tabPanel header="header" style="width: 33%">
+      <ng-template pTemplate="header">
+        <i class="pi pi-chart-bar"></i>
+        <span style="margin-left: 10px; width: 380px">Сравнение показателей предыдущего периода</span>
+      </ng-template>
+      <div>
+        <span style="margin-right: 10px; margin-left: 10px">Дата начала текущего периода</span>
+        <p-calendar [(ngModel)]="startYear" dateFormat="dd-mm-yy" inputId="dateformat"
+                    (ngModelChange)="onStartYearChange()"></p-calendar>
+        <span style="margin-right: 10px; margin-left: 10px">Дата окончания текущего периода</span>
+        <p-calendar [(ngModel)]="endYear" dateFormat="dd-mm-yy" inputId="dateformat"></p-calendar>
+      </div>
+      <div>
+        <span style="margin-right: 10px; margin-left: 10px">Дата начала предыдущего периода</span>
+        <p-calendar [(ngModel)]="startYear" dateFormat="dd-mm-yy" inputId="dateformat"
+                    (ngModelChange)="onStartYearChange()"></p-calendar>
+        <span style="margin-right: 10px; margin-left: 10px">Дата окончания предыдущего периода</span>
+        <p-calendar [(ngModel)]="endYear" dateFormat="dd-mm-yy" inputId="dateformat" ></p-calendar>
+      </div>
+      <p-tabView styleClass="tabview-custom">
+        <p-tabPanel>
+          <ng-template pTemplate="header">
+            <i class="pi pi-check-square"></i>
+            <span style="margin-left: 10px; width: 300px">Дивизион: по месяцам</span>
+          </ng-template>
+          <div class="split-pane-content-primary" style="height: 100%">
+            <div class="v-flex-grow">
+              <p-table [value]="yearReportEntities" [(selection)]="selectedYearReportEntity" selectionMode="single">
+                <ng-template pTemplate="header" style="color: #003274; font-size: 14px; font-family: Arial;">
+                  <tr>
+                    <th style="color: #003274; font-size: 14px; font-family: Arial;">Артикул</th>
+                    <th style="color: #003274; font-size: 14px; font-family: Arial;">Наименование</th>
+                    <th style="color: #003274; font-size: 14px; font-family: Arial;">Сумма</th>
+                    <th style="color: #003274; font-size: 14px; font-family: Arial;">Месяц</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rep>
+                  <tr [pSelectableRow]="rep">
+                    <td>{{rep.productArticul}}</td>
+                    <td>{{rep.productCaption}}</td>
+                    <td>{{rep.productPrice}}</td>
+                    <td>{{rep.period}}</td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+          <div style="height: calc(100% - 70px)">
+            <p-chart type="bar" height="100%" [data]="yearChartData" [options]="barOptions"></p-chart>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel>
+          <ng-template pTemplate="header">
+            <i class="pi pi-check-square"></i>
+            <span style="margin-left: 10px; width: 300px">Дивизион: по предприятиям</span>
+          </ng-template>
+          <p></p>
+        </p-tabPanel>
+        <p-tabPanel>
+          <ng-template pTemplate="header">
+            <i class="pi pi-check-square"></i>
+            <span style="margin-left: 10px; width: 300px">Предприятие: по месяцам</span>
+          </ng-template>
+          <p></p>
+        </p-tabPanel>
+      </p-tabView>
+    </p-tabPanel>
+  </p-tabView>
+</div>
