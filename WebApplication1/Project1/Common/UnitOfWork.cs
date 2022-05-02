@@ -1,4 +1,4 @@
-﻿using ReportApp.Data;
+﻿using ReportApp.Entities;
 using ReportApp.Logic.Repositories.Interfacies;
 using System;
 using System.Collections.Generic;

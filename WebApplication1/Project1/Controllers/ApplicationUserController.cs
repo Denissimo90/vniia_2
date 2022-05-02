@@ -27,6 +27,7 @@ namespace ReportApp.Controllers
         {
             return _userService.GetUserById(id);
         }
+
         [HttpPost, Route("insert-or-update")]
         public void InsertOrUpdate([FromBody] ApplicationUser user)
         {
@@ -40,6 +41,7 @@ namespace ReportApp.Controllers
                 
             }
         }
+
         [HttpDelete("{id}")]
         public void DeleteUser([FromRoute] int id)
         {
@@ -53,9 +55,10 @@ namespace ReportApp.Controllers
             }
         }
 
-        [HttpPost, Route("all")]
+        [HttpGet, Route("all")]
         public List<ApplicationUser> GetUsers()
         {
+            var list =  _userService.GetUsers();
             return _userService.GetUsers();
         }
     }

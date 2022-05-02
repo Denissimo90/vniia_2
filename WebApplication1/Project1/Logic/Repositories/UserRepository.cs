@@ -1,12 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ReportApp.Common;
-using ReportApp.Data;
-using ReportApp.Logic.Repositories.Interfacies;
+﻿using ReportApp.Common;
 using ReportApp.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ReportApp.Logic.Repositories.Interfacies;
 
 namespace ReportApp.Logic.Repositories
 {

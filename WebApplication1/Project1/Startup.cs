@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ReportApp.Data;
 using ReportApp.Entities;
 using ReportApp.Logic;
 
@@ -31,7 +30,8 @@ namespace ReportApp
                 options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            Logic.Services.EndpointService.ConnectionString = Configuration.GetConnectionString("DefaultManufactureConnection");
+            Logic.Services.EndpointService.ConnectionString = 
+                Configuration.GetConnectionString("DefaultManufactureConnection");
 
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddCors();

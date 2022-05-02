@@ -1,13 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ReportApp.Logic.Services;
 using ReportApp.Logic.Services.Interfacies;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Http.Cors;
 
 namespace ReportApp.Controllers
 {
