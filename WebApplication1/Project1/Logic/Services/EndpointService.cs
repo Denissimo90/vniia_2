@@ -23,7 +23,7 @@ namespace ReportApp.Logic.Services
             HttpResponseMessage response = await client.GetAsync(address);
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadAsAsync<object>();
+                return await response.Content.ReadAsStringAsync();
             }
             return product;
         }

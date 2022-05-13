@@ -40,7 +40,7 @@ namespace ReportApp.Logic.Services
                     productQty = GetManufacturyDetail(item.Id, Convert.ToDateTime(dateTime).ToString("yyyy-MM-dd"));
                 else
                     productQty = GetManufacturyDetail(item.Id, null);
-                
+
                 foreach (var prod in product.Products)
                 {
                     prod.ManufactureId = item.Id;
@@ -56,9 +56,9 @@ namespace ReportApp.Logic.Services
                         qty.DateOfManufacture = dateTime == null ? new DateTime() : Convert.ToDateTime(dateTime);
                     }
                     _productService.Insert(prod.Qties);
-                    
+
                 }
-               
+
             }
         }
 
@@ -103,7 +103,8 @@ namespace ReportApp.Logic.Services
         {
             Manufacture value = new Manufacture();
 
-            string values = EndpointService.GetRequestFromEndpoint("factories", new List<string>() { manufacturyId + "", string.IsNullOrEmpty(date) ? null : date }.ToArray()).Result + "";
+            string values = EndpointService.GetRequestFromEndpoint("factories", new List<string>() {
+                manufacturyId + "", string.IsNullOrEmpty(date) ? null : date }.ToArray()).Result + "";
 
             if (!string.IsNullOrEmpty(values))
             {

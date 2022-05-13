@@ -7,7 +7,7 @@ namespace ReportApp.Entities
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
             //Database.EnsureDeleted();
-           // Database.EnsureCreated();
+           Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

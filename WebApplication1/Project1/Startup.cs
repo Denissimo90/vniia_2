@@ -30,20 +30,21 @@ namespace ReportApp
                 options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            Logic.Services.EndpointService.ConnectionString = 
+            Logic.Services.EndpointService.ConnectionString =
                 Configuration.GetConnectionString("DefaultManufactureConnection");
 
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddCors();
             services.AddRepository();
             services.AddService();
+            services.AddSwaggerGen();
             /*services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();*/
 
             /*services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();*/
 
-           /* services.AddAuthentication()
+            /* services.AddAuthentication()
                 .AddIdentityServerJwt();*/
             services.AddControllersWithViews();
             //services.AddRazorPages();
@@ -59,13 +60,15 @@ namespace ReportApp
         {
             //if (env.IsDevelopment())
             //{
-                app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
+            app.UseDeveloperExceptionPage();
+            app.UseMigrationsEndPoint();
+            app.UseSwagger();
+            app.UseSwaggerUI();
             //}
             //else
             //{
             //    app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             //    app.UseHsts();
             //}
 
@@ -75,7 +78,7 @@ namespace ReportApp
             //{
             //    app.UseSpaStaticFiles();
             //}
-            
+
             app.UseRouting();
 
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
