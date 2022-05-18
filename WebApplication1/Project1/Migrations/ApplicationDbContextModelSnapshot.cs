@@ -32,9 +32,6 @@ namespace ReportApp.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("LastName")
                         .HasColumnType("text");
 
@@ -53,6 +50,41 @@ namespace ReportApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "Vasya0Pupka@mail.ru",
+                            FirstName = "Vasya",
+                            LastName = "Pupkin",
+                            MiddleName = "Vitlievich",
+                            Password = "123456",
+                            PwdSalt = "sal",
+                            Username = "nagibator228"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "killer@gmail.com",
+                            FirstName = "Volodya",
+                            LastName = "Putin",
+                            MiddleName = "Vladimirivich",
+                            Password = "ukrainIsMine",
+                            PwdSalt = "gg",
+                            Username = "VZPutin"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Email = "killer@gmail.com",
+                            FirstName = "Vlad",
+                            LastName = "Vladov",
+                            MiddleName = "Vladimirivich",
+                            Password = "12345",
+                            PwdSalt = "hh",
+                            Username = "Killer"
+                        });
                 });
 
             modelBuilder.Entity("ReportApp.Entities.Manufacture", b =>

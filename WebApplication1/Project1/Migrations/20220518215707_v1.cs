@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ReportApp.Migrations
 {
-    public partial class InitialEntities : Migration
+    public partial class v1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,8 +20,7 @@ namespace ReportApp.Migrations
                     LastName = table.Column<string>(type: "text", nullable: true),
                     MiddleName = table.Column<string>(type: "text", nullable: true),
                     Username = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "text", nullable: true),
-                    IsAdmin = table.Column<bool>(type: "boolean", nullable: false)
+                    Email = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -85,6 +84,16 @@ namespace ReportApp.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "ApplicationUsers",
+                columns: new[] { "Id", "Email", "FirstName", "LastName", "MiddleName", "Password", "PwdSalt", "Username" },
+                values: new object[,]
+                {
+                    { 1, "Vasya0Pupka@mail.ru", "Vasya", "Pupkin", "Vitlievich", "123456", "sal", "nagibator228" },
+                    { 2, "killer@gmail.com", "Volodya", "Putin", "Vladimirivich", "ukrainIsMine", "gg", "VZPutin" },
+                    { 3, "killer@gmail.com", "Vlad", "Vladov", "Vladimirivich", "12345", "hh", "Killer" }
                 });
 
             migrationBuilder.CreateIndex(
