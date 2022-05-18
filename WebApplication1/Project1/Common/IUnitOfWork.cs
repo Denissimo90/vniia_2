@@ -11,7 +11,8 @@ namespace ReportApp.Common
         IManufactureRepository ManufactureRepository { get; }
         IProductQtyRepository ProductQtyRepository { get; }
         IProductRepository ProductRepository{ get; }
-        IUserRepository UserRepository { get; }
-        int Save();
+        IApplicationUserRepository UserRepository { get; }
+        Task SaveAsync();
+        //int Save();
     }
 }

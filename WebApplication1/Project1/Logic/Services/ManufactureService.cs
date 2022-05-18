@@ -30,7 +30,7 @@ namespace ReportApp.Logic.Services
                 uow.ProductRepository.Delete(product);
             }
             uow.ManufactureRepository.Delete(id);
-            uow.Save();
+            uow.SaveAsync();
         }
 
         public Manufacture GetFactoryById(int id)
@@ -40,13 +40,14 @@ namespace ReportApp.Logic.Services
 
         public List<Manufacture> GetFactyries()
         {
-            return uow.ManufactureRepository.GetEntities();
+            return null;
+            //return uow.ManufactureRepository.GetEntities();
         }
 
         public void Insert(Manufacture facture)
         {
             uow.ManufactureRepository.Add(facture);
-            uow.Save();
+            uow.SaveAsync();
         }
     }
 }

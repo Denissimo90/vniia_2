@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace ReportApp.Logic.Services.Interfacies
 {
-    public interface IUserService
+    public interface IApplicationUserService
     {
         void InsertOrUpdate(ApplicationUser user);
         void Delete(int id);
-        List<ApplicationUser> GetUsers();
+        Task<List<ApplicationUser>> GetUsers();
         ApplicationUser GetUserById(int id);
+        Task<ApplicationUser> GetUserByLogin(string login);
     }
 }

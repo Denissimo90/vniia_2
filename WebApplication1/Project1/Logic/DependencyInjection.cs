@@ -18,7 +18,7 @@ namespace ReportApp.Logic
             services.AddTransient<IManufactureRepository, ManufactureRepository>();
             services.AddTransient<IProductRepository, ProductRepository>();
             services.AddTransient<IProductQtyRepository, ProductQtyRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IApplicationUserRepository, ApplicationUserRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             //services.AddDbContext<BookStoreDbContext>(opt => opt
@@ -27,7 +27,7 @@ namespace ReportApp.Logic
         }
         public static IServiceCollection AddService(this IServiceCollection services)
         {
-            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IApplicationUserService, ApplicationUserService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IJsonService, JsonService>();
             services.AddTransient<IManufactureService, ManufactureService>();

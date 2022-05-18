@@ -20,12 +20,13 @@ namespace ReportApp.Logic.Services
         public void DeleteProduct(int id)
         {
             uow.ProductRepository.Delete(id);
-            uow.Save();
+            uow.SaveAsync();
         }
 
         public List<Product> GetProducts()
         {
-            return uow.ProductRepository.GetEntities();
+            return null;
+            //return uow.ProductRepository.GetEntities();
         }
 
         public Product GetProductsByFactoryId(int factoryId)
@@ -50,7 +51,7 @@ namespace ReportApp.Logic.Services
                 item.Qties = null;
                 uow.ProductRepository.Add(item);
             }
-            uow.Save();
+            uow.SaveAsync();
         }
 
         public void Insert(List<ProductQty> productQties)
@@ -60,7 +61,7 @@ namespace ReportApp.Logic.Services
                 item.Product = null;
                 uow.ProductQtyRepository.Add(item);
             }
-            uow.Save();
+            uow.SaveAsync();
         }
     }
 }

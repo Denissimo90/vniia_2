@@ -18,8 +18,7 @@ namespace ReportApp.Entities
         public string Username { get; set; }
         //[RegularExpression(@"/^(?!.*@.*@.*$)(?!.*@.*\-\-.*\..*$)(?!.*@.*\-\..*$)(?!.*@.*\-$)(.*@.+(\..{1,11})?)$/")]
         public string Email { get; set; }
-        [DefaultValue("false")]
-        public bool IsAdmin { get; set; }
+
 
 
     }

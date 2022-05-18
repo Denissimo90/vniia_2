@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ReportApp.Common;
 using ReportApp.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace ReportApp.Common
 {
@@ -16,20 +15,19 @@ namespace ReportApp.Common
         {
             _context = context;
         }
-
         public T GetEntity(int id)
         {
             return _context.Set<T>().Find(id);
         }
 
-        public List<T> GetEntities()
+        public IQueryable<T> GetEntities()
         {
-            return _context.Set<T>().ToList();
+            return _context.Set<T>().AsNoTracking();
         }
 
         public void Add(T entity)
         {
-             _context.Set<T>().Add(entity);
+            _context.Set<T>().Add(entity);
         }
 
         public void Delete(T entity)
@@ -55,6 +53,13 @@ namespace ReportApp.Common
         public void Delete(List<T> listEntity)
         {
             throw new NotImplementedException();
+        }
+
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
+        {
+            return _context.Set<T>()
+                    .Where(expression).AsNoTracking();
+
         }
 
         //ApplicationDbContext _context;

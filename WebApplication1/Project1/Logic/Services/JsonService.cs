@@ -65,7 +65,7 @@ namespace ReportApp.Logic.Services
         private void CheckForUpdate(List<Manufacture> jsonManufacturies)
         {
             var dbManufacturies = uow.ManufactureRepository.GetEntities();
-            if (dbManufacturies.Count == 0)
+            /*if (dbManufacturies.Count == 0)
                 foreach (var json in jsonManufacturies)
                 {
                     _manufactureService.Insert(json);
@@ -80,7 +80,7 @@ namespace ReportApp.Logic.Services
                         _manufactureService.Insert(json);
                     }
 
-                }
+                }*/
 
         }
 

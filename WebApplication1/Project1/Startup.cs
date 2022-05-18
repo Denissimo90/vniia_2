@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,21 +34,24 @@ namespace ReportApp
             Logic.Services.EndpointService.ConnectionString =
                 Configuration.GetConnectionString("DefaultManufactureConnection");
 
+            // установка конфигурации подключения
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    /*Это свойство устанавливает относительный путь, 
+                     по которому будет перенаправляться анонимный пользователь при доступе к ресурсам, 
+                    для которых нужна аутентификация.*/
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
+
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddCors();
             services.AddRepository();
             services.AddService();
             services.AddSwaggerGen();
-            /*services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();*/
-
-            /*services.AddIdentityServer()
-                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();*/
-
-            /* services.AddAuthentication()
-                .AddIdentityServerJwt();*/
+            
             services.AddControllersWithViews();
-            //services.AddRazorPages();
+           
             // In production, the Angular files will be served from this directory
             /*services.AddSpaStaticFiles(configuration =>
             {
@@ -64,6 +68,10 @@ namespace ReportApp
             app.UseMigrationsEndPoint();
             app.UseSwagger();
             app.UseSwaggerUI();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             //}
             //else
             //{

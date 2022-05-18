@@ -14,9 +14,9 @@ namespace ReportApp.Controllers
     {
 
         private readonly ILogger<ApplicationUserController> _logger;
-        private readonly IUserService _userService;
+        private readonly IApplicationUserService _userService;
 
-        public ApplicationUserController(ILogger<ApplicationUserController> logger, IUserService userService)
+        public ApplicationUserController(ILogger<ApplicationUserController> logger, IApplicationUserService userService)
         {
             _logger = logger;
             _userService = userService;
@@ -38,7 +38,6 @@ namespace ReportApp.Controllers
             catch(Exception ex)
             {
                 Console.WriteLine("Не удалось удалить пользователя.");
-                
             }
         }
 
@@ -48,18 +47,19 @@ namespace ReportApp.Controllers
             try
             {
                 _userService.Delete(id);
+                Console.WriteLine("User deleted");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Не удалось удалить пользователя.");
             }
+            
         }
 
         [HttpGet, Route("all")]
-        public List<ApplicationUser> GetUsers()
+        public async Task<List<ApplicationUser>> GetUsers()
         {
-            var list =  _userService.GetUsers();
-            return _userService.GetUsers();
+            return await  _userService.GetUsers();
         }
     }
 }

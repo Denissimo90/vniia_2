@@ -14,13 +14,13 @@ namespace ReportApp.Common
 
         public IProductRepository ProductRepository { get; }
 
-        public IUserRepository UserRepository { get; }
+        public IApplicationUserRepository UserRepository { get; }
 
         public IProductQtyRepository ProductQtyRepository { get; }
 
         public UnitOfWork(ApplicationDbContext dbContext,
             IManufactureRepository manufactureRepository,
-            IProductRepository productRepository, IUserRepository userRepository, IProductQtyRepository productQtyRepository)
+            IProductRepository productRepository, IApplicationUserRepository userRepository, IProductQtyRepository productQtyRepository)
         {
             this._context = dbContext;
             ProductQtyRepository = productQtyRepository;
@@ -28,10 +28,10 @@ namespace ReportApp.Common
             ProductRepository = productRepository;
             UserRepository = userRepository;
         }
-        public int Save()
+       /* public int Save()
         {
             return _context.SaveChanges();
-        }
+        }*/
         public void Dispose()
         {
             Dispose(true);
@@ -43,6 +43,11 @@ namespace ReportApp.Common
             {
                 _context.Dispose();
             }
+        }
+
+        public async Task SaveAsync()
+        {
+           await _context.SaveChangesAsync();
         }
 
         //private readonly ApplicationDbContext context;

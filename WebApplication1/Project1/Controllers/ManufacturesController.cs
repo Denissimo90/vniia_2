@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace ReportApp.Controllers
 {
-    [ApiController]
-    [Route("manufactures")]
+    /*[ApiController]
+    [Route("manufactures")]*/
     public class ManufacturesController : ControllerBase
     {
 
