@@ -85,6 +85,7 @@ namespace ReportApp.Entities
                     Username = "Killer"
                 },
                 });
+            base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Manufacture> Manufactures { get; set; }

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,8 +12,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using ReportApp.Entities;
 using ReportApp.Logic;
+using System.Text;
 
 namespace ReportApp
 {
@@ -34,24 +39,78 @@ namespace ReportApp
             Logic.Services.EndpointService.ConnectionString =
                 Configuration.GetConnectionString("DefaultManufactureConnection");
 
-            // установка конфигурации подключения
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            /*services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
                 {
-                    /*Это свойство устанавливает относительный путь, 
-                     по которому будет перенаправляться анонимный пользователь при доступе к ресурсам, 
-                    для которых нужна аутентификация.*/
+                    //Это свойство устанавливает относительный путь, 
+                     //по которому будет перенаправляться анонимный пользователь при доступе к ресурсам, 
+                    //для которых нужна аутентификация.
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-                });
+                });*/
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            // укзывает, будет ли валидироваться издатель при валидации токена
+                            ValidateIssuer = true,
+                            // строка, представляющая издателя
+                            ValidIssuer = AuthOptions.ISSUER,
 
+                            // будет ли валидироваться потребитель токена
+                            ValidateAudience = true,
+                            // установка потребителя токена
+                            ValidAudience = AuthOptions.AUDIENCE,
+                            // будет ли валидироваться время существования
+                            ValidateLifetime = true,
+
+                            // установка ключа безопасности
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            // валидация ключа безопасности
+                            ValidateIssuerSigningKey = true,
+                        };
+                    });
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                .RequireAuthenticatedUser()
+                .Build();
+            });
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddCors();
             services.AddRepository();
-            services.AddService();
-            services.AddSwaggerGen();
-            
+            services.AddService(); services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "My API",
+                    Version = "v1"
+                });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                   {
+                     new OpenApiSecurityScheme
+                     {
+                       Reference = new OpenApiReference
+                       {
+                         Type = ReferenceType.SecurityScheme,
+                         Id = "Bearer"
+                       }
+                      },
+                      new string[] { }
+                    }
+                  });
+            });
+
             services.AddControllersWithViews();
-           
+
             // In production, the Angular files will be served from this directory
             /*services.AddSpaStaticFiles(configuration =>
             {
@@ -69,9 +128,6 @@ namespace ReportApp
             app.UseSwagger();
             app.UseSwaggerUI();
 
-            app.UseAuthentication();
-            app.UseAuthorization();
-
             //}
             //else
             //{
@@ -81,6 +137,7 @@ namespace ReportApp
             //}
 
             app.UseHttpsRedirection();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             //if (!env.IsDevelopment())
             //{
@@ -91,6 +148,8 @@ namespace ReportApp
 
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
+            app.UseAuthentication();
+            app.UseAuthorization();
             /*app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();*/
@@ -116,5 +175,14 @@ namespace ReportApp
                 }
             });*/
         }
+    }
+    public class AuthOptions
+    {
+        public const string ISSUER = "dotNetCore"; // издатель токена
+        public const string AUDIENCE = "AngularClient"; // потребитель токена
+        const string KEY = "mysupersecret_secretkey!123";   // ключ для шифрации
+        public const int LIFETIME = 1; // время жизни токена - 1 минута
+        public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
     }
 }

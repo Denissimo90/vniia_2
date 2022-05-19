@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ReportApp.Entities;
 using ReportApp.Logic.Services.Interfacies;
@@ -56,10 +57,11 @@ namespace ReportApp.Controllers
             
         }
 
+        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet, Route("all")]
         public async Task<List<ApplicationUser>> GetUsers()
         {
-            return await  _userService.GetUsers();
+            return await _userService.GetUsers();
         }
     }
 }
