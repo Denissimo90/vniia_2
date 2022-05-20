@@ -1,0 +1,33 @@
+<p-dialog [header]="this.title">
+  <form #correctionForm="ngForm">
+    <div class="form-row">
+      <label [ngClass]="'required'">Описание:</label>
+      <input name="correctionTitle" placeholder="Описание причины"
+             class="input" type="text" maxlength="1000"
+             pInputText [(ngModel)]="correction.title">
+    </div>
+
+    <div class="form-row">
+      <label [ngClass]="'required'">Подразделение инициатора:</label>
+      <p-dropdown name="personCorrection" placeholder="Выберите подразделение инициатора"
+                  [style]="{width: '100%'}" [options]="personCorrection"
+                  [(ngModel)]="correction.person" [showClear]="true"
+                  appendTo="body">
+      </p-dropdown>
+    </div>
+
+    <div class="form-row">
+      <label>Примечание корректировки:</label>
+      <input name="correctionNote" placeholder="Примечание корректировки"
+             class="input" type="text"
+             pInputText [(ngModel)]="correction.note">
+    </div>
+
+  </form>
+
+  <p-footer>
+    <button pButton  (click)="correct()"
+            label="Печать" [disabled]="correctionForm.invalid">
+    </button>
+  </p-footer>
+</p-dialog>

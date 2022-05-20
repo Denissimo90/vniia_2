@@ -11,10 +11,12 @@ using ReportApp.Entities.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Cors;
 
 namespace ReportApp.Controllers
 {
     [ApiController]
+    [EnableCors()]
     [Route("account")]
     public class AccountController : Controller
     {

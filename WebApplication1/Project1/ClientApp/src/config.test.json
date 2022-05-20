@@ -1,0 +1,15 @@
+{
+  "condition": "vniia",
+  "auth": "http://35-docker-3.vniia.net:5555/auth/realms/prism",
+  "menuConfigUri": "/menu.config.dev.json",
+  "version": "0.1",
+  "clientId": "LauncherFront",
+  "logLevelDesc": "TRACE = 0,DEBUG = 1,INFO = 2,LOG = 3,WARN = 4,ERROR = 5,OFF = 6",
+  "logLevel": 0,
+  "serverLogLevel": 7,
+  "offlineMode": true,
+  "mainMenu":
+  [
+    {"url" :  "http://35-docker-5.vniia.net:1024/epa/", "title": "Личный Кабинет"}
+  ]
+}

@@ -1,66 +1,155 @@
-/* You can add global styles to this file, and also import other style files */
+/* global styles */
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+.view-card {
+  min-width: 500px;
+  font-size: 14px;
+  overflow: visible;
 }
 
-code {
-  color: #e01a76;
+.view-card-no-width {
+  font-size: 14px;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.app-center {
+.input {
   width: 100%;
-  height: 100vh;
+}
+
+.custom-dialog {
+  height: auto;
+}
+
+.disabledForm {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.enabledForm {
+  opacity: 1;
+  pointer-events: all;
+}
+
+body .ui-button-information{
+  color: #ffffff;
+  background-color: #41c19b;
+  border: 1px solid #41c19b;
+}
+
+/* hot fix for calendar with time*/
+body .ui-datepicker .ui-timepicker {
+  border: none;
+}
+
+.ui-treetable-scrollable {
+  transform: translate3d(0, 0, 0);
+}
+
+.p-grid{
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  margin-right: -0.5em;
+  margin-left: -0.5em;
+  margin-top: -0.5em;
 }
 
-.form-line {
-  display: grid;
+.p-dir-col{
+  flex-direction: column;
+}
+
+.p-col-4{
+  width: 33.3333%;
+  flex: 0 0 auto;
+  padding: 0.5em;
+}
+
+.p-col{
+  flex-grow: 0.2;
+  flex-basis: 0;
+  padding: 0.5em;
+}
+
+.p-col-fixed {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  padding: 0.5em;
+}
+
+.box{
+  padding-top: 10px;
+}
+
+/*icon's color for menu-item*/
+body .ui-menu .ui-menuitem-link .fa-file-pdf{
+  color: #f62704;
+}
+
+body .ui-menu .ui-menuitem-link .fa-file-word{
+  color: #2075a8;
+}
+
+body .ui-button.ui-button-text-only .ui-button-text{
+
+  font-family: "SF UI Display" !important;
+}
+
+/* autocomplete in multi mode*/
+
+.autocomplete-multi {
+  width: 100% !important;
+}
+
+.ui-autocomplete-multiple-container {
+  width: 100% !important;
+}
+
+/* forms */
+.form-row {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  padding: 0.5em;
+}
+
+.form-row > :nth-child(1) {
+  display: block;
+  width: 30%;
+  align-self: center;
+  text-align: left;
+}
+
+.form-row > :nth-child(1).required:after {
+  content: "*";
+  color: red;
+  padding-left: 0.3em;
+}
+
+.form-row > :nth-child(2) {
+  flex: 1;
+  min-width: 0;
+  align-self: center;
+}
+
+.form-row > p-dropdown > .ui-dropdown {
   width: 100%;
-  margin-top: 20px;
 }
 
-.p-toolbar-group-left button {
-  margin-left: 5px;
+.form-row > app-lookup > div {
+  width: 100% !important;
 }
 
-.button-orange {
-  background: #F0A600;
+.ui-dialog-footer {
+  text-align: center;
 }
 
-.container {
-  background: transparent;
+.rotate-animation {
+  animation: rotation 3s infinite linear;
 }
 
-.navbar-brand {
-  background: #6CACE4;
-  text-decoration-color: #F0A600;
-  font-size: 20px;
-  font-family: Arial;
-  color: white;
-}
-
-.nav-link {
-  color: white;
-  font-size: 14px;
-  font-family: Arial;
-  background-color: transparent;
-  border-color: #F0A600;
-}
-
-.nav-item {
-  color: white;
-  font-size: 14px;
-  font-family: Arial;
-  border-color: #F0A600;
-  border-style: ridge;
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }

@@ -1,14 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Система отчетности</title>
-    <base href="./"/>
+<head>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico"/>
-  </head>
-  <body>
-    <app-root></app-root>
-  </body>
+  <meta charset="utf-8">
+  <title>Система запуска</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #f4f4f4;
+      font-size: 12pt;
+      font-family: 'Tahoma';
+    }
+  </style>
+</head>
+<body>
+    <app-root>
+      <div style="width: 100%; height: 100%; color: #2d5a80; font-size: 20px; display: flex; align-items: center; justify-content: center;">
+        <div>
+          <img style="height: 80px; width: 80px;" src="assets/rosatom_loading.svg?v=1.1" class="rotate-animation">
+          <div>Загрузка...</div>
+        </div>
+      </div>
+    </app-root>
+</body>
 </html>

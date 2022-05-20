@@ -1,0 +1,73 @@
+pipeline {
+  agent any
+  tools {
+    maven 'default'
+  }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
+    ansiColor('xterm')
+  }
+  triggers {
+    pollSCM('')
+  }
+  stages {
+    stage('notify start') {
+      steps {
+        library 'utils'
+        rocketSend message: "Build started", emoji: ":tools:", webhookTokenCredentialId: "rocketchat_token",
+          attachments: [[$class: 'MessageAttachment', text: getChangeLogString(), title: 'Changes']]
+      }
+    }
+    
+    stage('webapp. build') {
+      steps {
+        dir('') {
+          sh '''
+            if [ "${ENVIRONMENT}" = "prod" ]; then prefix=""; else prefix="${ENVIRONMENT}"; fi
+            sed -i -e "s/\\"version\\":.*\\,/\\"version\\": \\"${prefix}_$(date '+%d.%m.%Y %H:%M')\\",/i" src/config.json
+            '''
+          sh 'mvn clean package'
+        }
+      }
+    }
+    
+    stage('webapp. build docker image') {
+      steps {
+        dir('') {
+          sh "mvn dockerfile:build -Ddocker.repository=${DOCKER_REGISTRY} -Denvironment=${ENVIRONMENT}"
+        }
+      }
+    }
+    
+    stage('webapp. push docker image') {
+      steps {
+        dir('') {
+          sh "mvn dockerfile:push -Ddocker.repository=${DOCKER_REGISTRY} -Denvironment=${ENVIRONMENT}"
+        }
+      }
+    }
+    
+    stage('deploy') {
+      when {
+        expression { env.ENVIRONMENT != 'prod' }
+      }
+      steps {
+        build job:"${DEPLOY_JOB}", wait: false
+      }
+    }
+  }
+  post {
+    success {
+      rocketSend message: "Build success", emoji: ":white_check_mark:", webhookTokenCredentialId: "rocketchat_token"
+    }
+    unstable {
+      rocketSend message: "Build unstable", emoji: ":warning:", webhookTokenCredentialId: "rocketchat_token"
+    }    
+    failure {
+      rocketSend message: "Build failure", emoji: ":sos:", webhookTokenCredentialId: "rocketchat_token"
+    }
+    aborted {
+      rocketSend message: "Build aborted", emoji: ":flag_white:", webhookTokenCredentialId: "rocketchat_token"
+    }
+  }
+}

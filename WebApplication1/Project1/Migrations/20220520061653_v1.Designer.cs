@@ -10,7 +10,7 @@ using ReportApp.Entities;
 namespace ReportApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220518215707_v1")]
+    [Migration("20220520061653_v1")]
     partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

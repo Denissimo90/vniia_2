@@ -1,16 +1,5 @@
-<div class="app-center" *ngIf="loading; else content">
-  <span>ЗАГРУЗКА...</span>
-</div>
-
-<ng-template #content>
-  <body #main *ngIf="user; else auth">
-    <app-nav-menu></app-nav-menu>
-    <div class="container">
-      <router-outlet></router-outlet>
-    </div>
-  </body>
-</ng-template>
-
-<ng-template #auth>
-  <app-login-page (setUser)="onSetUser($event)"></app-login-page>
-</ng-template>
+<app-common-root name="Тест тест">
+  <ng-template #content>
+    <router-outlet></router-outlet>
+  </ng-template>
+</app-common-root>

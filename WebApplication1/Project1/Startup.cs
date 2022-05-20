@@ -16,6 +16,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ReportApp.Entities;
 using ReportApp.Logic;
+using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace ReportApp
@@ -78,9 +80,19 @@ namespace ReportApp
                 .Build();
             });
             services.AddDatabaseDeveloperPageExceptionFilter();
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AnotherPolicy",
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:4200")
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                    });
+            });
             services.AddRepository();
-            services.AddService(); services.AddSwaggerGen(c =>
+            services.AddService();
+            services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
@@ -125,6 +137,7 @@ namespace ReportApp
             //{
             app.UseDeveloperExceptionPage();
             app.UseMigrationsEndPoint();
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200")/*.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()*/);
             app.UseSwagger();
             app.UseSwaggerUI();
 
@@ -137,22 +150,35 @@ namespace ReportApp
             //}
 
             app.UseHttpsRedirection();
-            app.UseDefaultFiles();
+
+
+            app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = new List<string> { "index.html" } });
             app.UseStaticFiles();
             //if (!env.IsDevelopment())
             //{
             //    app.UseSpaStaticFiles();
             //}
 
+            app.UseWhen(x => !x.Request.Path.Value.StartsWith("/Account") && !x.Request.Path.Value.StartsWith("/.well-known/openid-configuration"), builder =>
+            {
+                builder.Use(async (context, next) =>
+                {
+                    await next();
+                    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+                    {
+                        context.Request.Path = "/index.html";
+                        await next();
+                    }
+                });
+            });
             app.UseRouting();
-
-            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
             app.UseAuthorization();
             /*app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();*/
+
 
             app.UseEndpoints(endpoints =>
             {

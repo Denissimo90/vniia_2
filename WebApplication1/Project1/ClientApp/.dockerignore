@@ -1,0 +1,8 @@
+**
+node_modules
+src
+node
+!dist/**
+!dockerfile
+!nginx.conf
+!entrypoint.sh
