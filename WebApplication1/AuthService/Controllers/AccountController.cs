@@ -90,9 +90,9 @@ namespace AuthService.Controllers
                 // we only have one option for logging in and it's an external provider
                 return RedirectToAction("Challenge", "External", new { provider = vm.ExternalLoginScheme, returnUrl });
             }*/
-            vm.Username = "alice";
-            vm.Password = "alice";
-            return await LoginTest(vm, "login");
+            //vm.Username = "alice";
+            //vm.Password = "alice";
+            return View(vm); //await LoginTest(vm, "login");
         }
 
         private async Task<LoginViewModel> BuildLoginViewModelAsync(string returnUrl)
@@ -159,9 +159,9 @@ namespace AuthService.Controllers
         /// Handle postback from username/password login
         /// </summary>
         [HttpPost]
-        [EnableCors()]
-        [Route("LoginTest")]
-        public async Task<IActionResult> LoginTest(LoginViewModel model, string button)
+        [EnableCors("default")]
+        //[Route("Login")]
+        public async Task<IActionResult> Login(LoginViewModel model, string button)
         {
             // check if we are in the context of an authorization request
             var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
@@ -296,6 +296,8 @@ namespace AuthService.Controllers
             }
             return View(registerUser);
         }
+
+        [EnableCors("default")]
         [HttpPost("/token/{username}")]
         public IActionResult Token(string username)
         {

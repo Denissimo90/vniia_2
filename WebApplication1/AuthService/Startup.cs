@@ -212,6 +212,16 @@ namespace AuthService
             services.AddScoped<IManufactureRepository, ManufactureRepository>();
             services.AddScoped<IProductQtyRepository, ProductQtyRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddCors(options =>
+            {
+                // задаём политику CORS, чтобы наше клиентское приложение могло отправить запрос на сервер API
+                options.AddPolicy("default", policy =>
+                {
+                    policy.WithOrigins("http://localhost:5000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
