@@ -13,7 +13,7 @@ var config = {
     // Получить subject id пользователя, а также поля профиля в id_token, а также получить access_token для доступа к api1 (см. наcтройки IdentityServer)
     scope: "openid profile api1",
     // Страница, на которую нужно перенаправить пользователя в случае инициированного им логаута
-    post_logout_redirect_uri: "http://localhost:5000/index.html",
+    post_logout_redirect_uri: "http://localhost:4200/index.html",
     // следить за состоянием сессии на IdentityServer, по умолчанию true
     monitorSession: true,
     // интервал в миллисекундах, раз в который нужно проверять сессию пользователя, по умолчанию 2000

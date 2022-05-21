@@ -1,3 +1,9 @@
+using AuthService.Common;
+using AuthService.Entities;
+using AuthService.Logic.Repositories;
+using AuthService.Logic.Repositories.Interfacies;
+using AuthService.Logic.Services;
+using AuthService.Logic.Services.Interfacies;
 using IdentityServer4;
 using IdentityServer4.Configuration;
 using IdentityServer4.Models;
@@ -5,13 +11,17 @@ using IdentityServer4.Test;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AuthService
@@ -48,6 +58,17 @@ namespace AuthService
                     new[] {"name", "role" })
             };
         }
+        public static IEnumerable<ApiScope> GetApiScopes()
+        {
+            // claims этих scopes будут включены в access_token
+            return new List<ApiScope>
+            {
+                // определяем scope "api1" для IdentityServer
+                new ApiScope("api1", "API 1", 
+                    // эти claims войдут в scope api1
+                    new[] {"name", "role" })
+            };
+        }
         public static IEnumerable<Client> GetClients()
         {
             return new List<Client>
@@ -66,11 +87,11 @@ namespace AuthService
                     // перенаправить User Agent, важно для безопасности
                     RedirectUris = {
                         // адрес перенаправления после логина
-                        "http://localhost:4200/app/app.component.html",
+                        "http://localhost:4200/",
                         // адрес перенаправления при автоматическом обновлении access_token через iframe
-                        "http://localhost:4200/index.html"
+                        "http://localhost:4200/assets/silent-refresh.html"
                     },
-                    PostLogoutRedirectUris = { "http://localhost:4200/index.html" },
+                    PostLogoutRedirectUris = { "http://localhost:4200/" },
                     // адрес клиентского приложения, просим сервер возвращать нужные CORS-заголовки
                     AllowedCorsOrigins = { "http://localhost:4200" },
                     // список scopes, разрешённых именно для данного клиентского приложения
@@ -126,6 +147,13 @@ namespace AuthService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql(
+                    Configuration.GetConnectionString("DefaultConnection")));
+
+            Logic.Services.EndpointService.ConnectionString =
+                Configuration.GetConnectionString("DefaultManufactureConnection");
+
             services.AddMvc();
             services.AddIdentityServer(options =>
             {
@@ -166,16 +194,26 @@ namespace AuthService
                 .AddInMemoryIdentityResources(GetIdentityResources())
                 // что включать в access_token
                 .AddInMemoryApiResources(GetApiResources())
+                .AddInMemoryApiScopes(GetApiScopes())
                 // настройки клиентских приложений
                 .AddInMemoryClients(GetClients())
                 // тестовые пользователи
                 .AddTestUsers(GetUsers());
 
-
             services.AddControllersWithViews(mvcOtions =>
             {
                 mvcOtions.EnableEndpointRouting = false;
             });
+            services.AddMvc(option => option.EnableEndpointRouting = false);
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IApplicationUserService, ApplicationUserService>();
+            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            services.AddScoped<IManufactureRepository, ManufactureRepository>();
+            services.AddScoped<IProductQtyRepository, ProductQtyRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+                        .AddEntityFrameworkStores<ApplicationDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -189,7 +227,29 @@ namespace AuthService
 
             // эти 2 строчки нужны, чтобы нормально обрабатывались страницы логина
             app.UseStaticFiles();
-            app.UseMvcWithDefaultRoute();
+            app.UseRouting();
+            // добавление компонентов mvc и определение маршрута
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "index.html");
+            });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute("default", "index.html");
+            });
+            //app.UseMvcWithDefaultRoute();
+        }
+        public class AuthOptions
+        {
+            public const string ISSUER = "dotNetCore"; // издатель токена
+            public const string AUDIENCE = "AngularClient"; // потребитель токена
+            const string KEY = "mysupersecret_secretkey!123";   // ключ для шифрации
+            public const int LIFETIME = 1; // время жизни токена - 1 минута
+            public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
         }
     }
 }
