@@ -184,7 +184,7 @@ namespace AuthService.Controllers
                     {
                         // if the client is PKCE then we assume it's native, so this change in how to
                         // return the response is for better UX for the end user.
-                        return View("Redirect", new RedirectViewModel { RedirectUrl = model.ReturnUrl });
+                        return View("Redirect", new RedirectViewModel { RedirectUrl = model.ReturnUrl, Token = null });
                     }
 
                     return Redirect(model.ReturnUrl);
@@ -219,6 +219,7 @@ namespace AuthService.Controllers
                     // issue authentication cookie with subject ID and username
                     IdentityUser identityUser = new IdentityUser(user.Username);
                     //await _signInManager.SignInAsync(identityUser, props);
+                    string token = GetAccessToken(user.Username);
 
                     if (context != null)
                     {
@@ -226,7 +227,7 @@ namespace AuthService.Controllers
                         {
                             // if the client is PKCE then we assume it's native, so this change in how to
                             // return the response is for better UX for the end user.
-                            return View("Redirect", new RedirectViewModel { RedirectUrl = context.RedirectUri });
+                            return View("Redirect", new RedirectViewModel { RedirectUrl = context.RedirectUri, Token = token });
                         }
 
                         // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
@@ -309,6 +310,23 @@ namespace AuthService.Controllers
                 return BadRequest(new { errorText = "Invalid username or password." });
             }
 
+            var response = new
+            {
+                access_token = GetAccessToken(username),
+                username = identity.Name
+            };
+
+            return Json(response);
+        }
+
+        private string GetAccessToken(string userName)
+        {
+            var identity = GetIdentityClaims(userName);
+            if (identity == null)
+            {
+                return string.Empty;
+            }
+
             var now = DateTime.UtcNow;
             // создаем JWT-токен
             var jwt = new JwtSecurityToken(
@@ -318,15 +336,8 @@ namespace AuthService.Controllers
                     claims: identity.Claims,
                     expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            return new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            var response = new
-            {
-                access_token = encodedJwt,
-                username = identity.Name
-            };
-
-            return Json(response);
         }
 
         private ClaimsIdentity GetIdentityClaims(string userName)

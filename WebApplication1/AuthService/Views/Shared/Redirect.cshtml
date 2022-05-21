@@ -1,7 +1,10 @@
 @model RedirectViewModel
 
-<h1>You are now being returned to the application.</h1>
-<p>Once complete, you may close this tab</p>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<h1>Вы успешно залогинились.</h1>
+<p>Перенаправляем в программу</p>
 
 <meta http-equiv="refresh" content="0;url=@Model.RedirectUrl" data-url="@Model.RedirectUrl">
+<meta http-equiv="token" content="0;url=@Model.Token" data-token="@Model.Token">
 <script src="~/js/signin-redirect.js"></script>
