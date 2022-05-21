@@ -37,15 +37,13 @@ namespace AuthService.Controllers
         private readonly TestUserStore _users;
         private readonly IEventService _events;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
 
 
         //private ApplicationDbContext _dbContext;
 
         public AccountController(ILogger<AccountController> logger, IApplicationUserService userService
             , IIdentityServerInteractionService interaction, IClientStore clientStore,
-            IEventService events, IAuthenticationSchemeProvider schemeProvider,
-            SignInManager<IdentityUser> signInManager)
+            IEventService events, IAuthenticationSchemeProvider schemeProvider)
         {
             _logger = logger;
             _service = userService;
@@ -55,7 +53,6 @@ namespace AuthService.Controllers
             _events = events;
             //_dbContext = dbContext;
             _users = new TestUserStore(TestUsers.Users);
-            _signInManager = signInManager;
         }
 
         [HttpGet]
@@ -217,8 +214,6 @@ namespace AuthService.Controllers
                     };
 
                     // issue authentication cookie with subject ID and username
-                    IdentityUser identityUser = new IdentityUser(user.Username);
-                    //await _signInManager.SignInAsync(identityUser, props);
                     string token = GetAccessToken(user.Username);
 
                     if (context != null)

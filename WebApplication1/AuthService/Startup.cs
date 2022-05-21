@@ -212,8 +212,6 @@ namespace AuthService
             services.AddScoped<IManufactureRepository, ManufactureRepository>();
             services.AddScoped<IProductQtyRepository, ProductQtyRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
-                        .AddEntityFrameworkStores<ApplicationDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
