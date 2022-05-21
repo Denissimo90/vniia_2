@@ -66,7 +66,7 @@ namespace AuthService
                     // перенаправить User Agent, важно для безопасности
                     RedirectUris = {
                         // адрес перенаправления после логина
-                        "http://localhost:4200/index.html",
+                        "http://localhost:4200/app/app.component.html",
                         // адрес перенаправления при автоматическом обновлении access_token через iframe
                         "http://localhost:4200/index.html"
                     },
@@ -171,6 +171,11 @@ namespace AuthService
                 // тестовые пользователи
                 .AddTestUsers(GetUsers());
 
+
+            services.AddControllersWithViews(mvcOtions =>
+            {
+                mvcOtions.EnableEndpointRouting = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -184,7 +189,7 @@ namespace AuthService
 
             // эти 2 строчки нужны, чтобы нормально обрабатывались страницы логина
             app.UseStaticFiles();
-            //app.UseMvcWithDefaultRoute();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

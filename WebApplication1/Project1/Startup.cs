@@ -51,15 +51,6 @@ namespace ReportApp
             Logic.Services.EndpointService.ConnectionString =
                 Configuration.GetConnectionString("DefaultManufactureConnection");
 
-            services.AddAuthorization(options =>
-            // политики позволяют не работать с Roles magic strings, содержащими перечисления ролей через запятую
-                options.AddPolicy("AdminsOnly", policyUser =>
-                {
-                    policyUser.RequireClaim("role", "admin");
-                })
-            );
-            services.AddDatabaseDeveloperPageExceptionFilter();
-
             services.AddCors(options =>
             {
                 // задаём политику CORS, чтобы наше клиентское приложение могло отправить запрос на сервер API
@@ -70,6 +61,16 @@ namespace ReportApp
                         .AllowAnyMethod();
                 });
             });
+            services.AddMvcCore();
+            services.AddAuthorization(options =>
+            // политики позволяют не работать с Roles magic strings, содержащими перечисления ролей через запятую
+                options.AddPolicy("AdminsOnly", policyUser =>
+                {
+                    policyUser.RequireClaim("role", "admin");
+                })
+            );
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddRepository();
             services.AddService();
 
@@ -79,13 +80,17 @@ namespace ReportApp
                                            JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme =
                                            JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(o =>
+            }).AddOpenIdConnect(o =>
             {
                 o.Authority = "http://localhost:5000";
-                o.Audience = "api1";
+                o.ClientId = "anonymous";
                 o.RequireHttpsMetadata = false;
             });
 
+            services.AddControllersWithViews(mvcOtions =>
+            {
+                mvcOtions.EnableEndpointRouting = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,6 +103,7 @@ namespace ReportApp
             app.UseCors(def => def.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
+            app.UseMvc();
         }
     }
     public class AuthOptions
