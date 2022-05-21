@@ -19,6 +19,15 @@ using ReportApp.Logic;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Security.Claims;
+using IdentityServer4;
+using IdentityServer4.Configuration;
+using IdentityServer4.Models;
+using IdentityServer4.Test;
+using System;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using IdentityServer4.AccessTokenValidation;
 
 namespace ReportApp
 {
@@ -32,6 +41,7 @@ namespace ReportApp
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -41,93 +51,41 @@ namespace ReportApp
             Logic.Services.EndpointService.ConnectionString =
                 Configuration.GetConnectionString("DefaultManufactureConnection");
 
-            /*services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options => //CookieAuthenticationOptions
-                {
-                    //Это свойство устанавливает относительный путь, 
-                     //по которому будет перенаправляться анонимный пользователь при доступе к ресурсам, 
-                    //для которых нужна аутентификация.
-                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
-                });*/
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
-                    {
-                        options.RequireHttpsMetadata = false;
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            // укзывает, будет ли валидироваться издатель при валидации токена
-                            ValidateIssuer = true,
-                            // строка, представляющая издателя
-                            ValidIssuer = AuthOptions.ISSUER,
-
-                            // будет ли валидироваться потребитель токена
-                            ValidateAudience = true,
-                            // установка потребителя токена
-                            ValidAudience = AuthOptions.AUDIENCE,
-                            // будет ли валидироваться время существования
-                            ValidateLifetime = true,
-
-                            // установка ключа безопасности
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                            // валидация ключа безопасности
-                            ValidateIssuerSigningKey = true,
-                        };
-                    });
             services.AddAuthorization(options =>
-            {
-                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
-                .RequireAuthenticatedUser()
-                .Build();
-            });
+            // политики позволяют не работать с Roles magic strings, содержащими перечисления ролей через запятую
+                options.AddPolicy("AdminsOnly", policyUser =>
+                {
+                    policyUser.RequireClaim("role", "admin");
+                })
+            );
             services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddCors(options =>
             {
-                options.AddPolicy("AnotherPolicy",
-                    policy =>
-                    {
-                        policy.WithOrigins("http://localhost:4200")
-                                            .AllowAnyHeader()
-                                            .AllowAnyMethod();
-                    });
+                // задаём политику CORS, чтобы наше клиентское приложение могло отправить запрос на сервер API
+                options.AddPolicy("default", policy =>
+                {
+                    policy.WithOrigins("http://localhost:5000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
             });
             services.AddRepository();
             services.AddService();
-            services.AddSwaggerGen(c =>
+
+            services.AddAuthentication(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "My API",
-                    Version = "v1"
-                });
-                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    In = ParameterLocation.Header,
-                    Description = "Please insert JWT with Bearer into field",
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey
-                });
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-                   {
-                     new OpenApiSecurityScheme
-                     {
-                       Reference = new OpenApiReference
-                       {
-                         Type = ReferenceType.SecurityScheme,
-                         Id = "Bearer"
-                       }
-                      },
-                      new string[] { }
-                    }
-                  });
+                options.DefaultAuthenticateScheme =
+                                           JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme =
+                                           JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(o =>
+            {
+                o.Authority = "http://localhost:5000";
+                o.Audience = "api1";
+                o.RequireHttpsMetadata = false;
             });
 
-            services.AddControllersWithViews();
-
-            // In production, the Angular files will be served from this directory
-            /*services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -137,69 +95,9 @@ namespace ReportApp
             //{
             app.UseDeveloperExceptionPage();
             app.UseMigrationsEndPoint();
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200")/*.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()*/);
-            app.UseSwagger();
-            app.UseSwaggerUI();
-
-            //}
-            //else
-            //{
-            //    app.UseExceptionHandler("/Error");
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            //    app.UseHsts();
-            //}
-
-            app.UseHttpsRedirection();
-
-
-            app.UseDefaultFiles(new DefaultFilesOptions { DefaultFileNames = new List<string> { "index.html" } });
-            app.UseStaticFiles();
-            //if (!env.IsDevelopment())
-            //{
-            //    app.UseSpaStaticFiles();
-            //}
-
-            app.UseWhen(x => !x.Request.Path.Value.StartsWith("/Account") && !x.Request.Path.Value.StartsWith("/.well-known/openid-configuration"), builder =>
-            {
-                builder.Use(async (context, next) =>
-                {
-                    await next();
-                    if (context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
-                    {
-                        context.Request.Path = "/index.html";
-                        await next();
-                    }
-                });
-            });
-            app.UseRouting();
+            app.UseCors(def => def.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthentication();
-            app.UseAuthorization();
-            /*app.UseAuthentication();
-            app.UseIdentityServer();
-            app.UseAuthorization();*/
-
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
-                //endpoints.MapRazorPages();
-            });
-            /*
-            app.UseSpa(spa =>
-            {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
-                spa.Options.SourcePath = "ClientApp";
-
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });*/
         }
     }
     public class AuthOptions

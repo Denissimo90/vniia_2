@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project1", "Project1\ReportApp.csproj", "{AFAF6528-18B4-45CC-969B-3C119FC46241}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportApp", "Project1\ReportApp.csproj", "{AFAF6528-18B4-45CC-969B-3C119FC46241}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService", "AuthService\AuthService.csproj", "{D8624AD6-CCC8-419D-BA12-96CC3D2E2882}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{EB6D2AAE-17D9-4F4B-A1BB-55BC77E5A274}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{AFAF6528-18B4-45CC-969B-3C119FC46241}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFAF6528-18B4-45CC-969B-3C119FC46241}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFAF6528-18B4-45CC-969B-3C119FC46241}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8624AD6-CCC8-419D-BA12-96CC3D2E2882}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8624AD6-CCC8-419D-BA12-96CC3D2E2882}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8624AD6-CCC8-419D-BA12-96CC3D2E2882}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8624AD6-CCC8-419D-BA12-96CC3D2E2882}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB6D2AAE-17D9-4F4B-A1BB-55BC77E5A274}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB6D2AAE-17D9-4F4B-A1BB-55BC77E5A274}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB6D2AAE-17D9-4F4B-A1BB-55BC77E5A274}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB6D2AAE-17D9-4F4B-A1BB-55BC77E5A274}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

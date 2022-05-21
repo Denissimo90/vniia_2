@@ -1,0 +1,33 @@
+{
+  "api": "https://localhost:5001",
+  "auth":"http://localhost:5000",
+  "condition": "vniia",
+  "menuConfigUri": "/menu.config.dev.json",
+  "version": "0.1",
+  "logLevelDesc": "TRACE = 0,DEBUG = 1,INFO = 2,LOG = 3,WARN = 4,ERROR = 5,OFF = 6",
+  "logLevel": 6,
+  "serverLogLevel": 7,
+  "offlineMode": false,
+  "noLogo":true,
+  "noInformationMenu": true,
+  "noLogsMenu": true,
+  "clientId": "anonymous",
+  "mainMenu":
+  [
+    {"url" :  "http://35-docker-3.vniia.net:1024/epa/", "title": "Личный Кабинет", "color" : "3ea95e", "icon": "fa fa-user-tie", "group" : "Информационные системы"},
+    {"url" :  "http://www.vniia.net", "title": "Web-портал", "color" : "3ea95e", "icon": "fa fa-globe", "group" : "Информационные системы"},
+    {"url" :  "http://35-docker-3.vniia.net/techdocs", "title": "АИПС УДИ", "color" : "3d60a1", "icon": "fa fa-scroll", "group" : "Производственные системы"},
+    {"url" :  "http://35-docker-3.vniia.net/shopflow", "title": "Расцеховка", "color" : "3d60a1", "icon": "fa fa-file-signature", "group" : "Производственные системы"},
+    {"url" :  "http://35-docker-3.vniia.net/repairs", "title": "Ремонт Оборудования", "color" : "3d60a1", "icon": "fa fa-screwdriver", "group" : "Производственные системы", "role": "run_repairs"},
+    {"url" :  "http://35-docker-3.vniia.net/storehouse", "title": "Складской Учет", "color" : "3d60a1", "icon": "fa fa-cubes", "group" : "Производственные системы", "role": "run_storehouse"},
+    {"url" :  "http://35-docker-3.vniia.net/plantask", "title": "Плановые Задания", "color" : "3d60a1", "icon": "fa fa-chart-line", "group" : "Производственные системы", "role": "run_plantask"},
+    {"url" :  "http://35-docker-3.vniia.net/software-registry", "title": "БД учета ПО", "color" : "3d60a1", "icon": "fa fa-bars", "group" : "Производственные системы"},
+    {"url" :  "http://35-docker-3.vniia.net/admin", "title": "Администрирование", "color" : "f3c405", "icon": "fa fa-cogs", "group" : "Административные системы", "role": "admin"},
+    {"url" :  "http://35-docker-3.vniia.net:5555", "title": "Keycloak", "color" : "f3c405", "icon": "fa fa-user-cog", "group" : "Административные системы", "role": "admin"},
+    {"url" :  "http://35-docker-4.vniia.net:9000", "title": "Portainer", "color" : "f3c405", "icon": "fa fa-toolbox", "group" : "Административные системы", "role": "admin"},
+    {"url" :  "http://35-docker-4.vniia.net:10000", "title": "Zabbix", "color" : "f3c405", "icon": "fa fa-exclamation-triangle", "group" : "Административные системы", "role": "admin"},
+    {"url" :  "http://35-docker-4.vniia.net:9002", "title": "Kafka Connect", "color" : "f3c405", "icon": "fa fa-bezier-curve", "group" : "Административные системы", "role": "admin"},
+    {"url" :  "http://35-docker-4.vniia.net:9003", "title": "Kafka Manager", "color" : "f3c405", "icon": "fa fa-hockey-puck", "group" : "Административные системы", "role": "admin"},
+    {"url" :  "http://35-docker-4.vniia.net:9001", "title": "Kafka Webview", "color" : "f3c405", "icon": "fa fa-book-reader", "group" : "Административные системы", "role": "admin"}
+  ]
+}

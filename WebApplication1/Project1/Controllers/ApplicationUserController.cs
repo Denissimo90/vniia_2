@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ReportApp.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("users")]
     public class ApplicationUserController : ControllerBase
@@ -57,9 +58,14 @@ namespace ReportApp.Controllers
             
         }
 
-        [Authorize(AuthenticationSchemes = "Bearer")]
         [HttpGet, Route("all")]
         public async Task<List<ApplicationUser>> GetUsers()
+        {
+            return await _userService.GetUsers();
+        }
+
+        [HttpGet, Route("all2")]
+        public async Task<List<ApplicationUser>> GetUsers2()
         {
             return await _userService.GetUsers();
         }
