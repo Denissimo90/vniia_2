@@ -9,5 +9,7 @@ namespace IdentityServer4.Quickstart.UI
     {
         public string RedirectUrl { get; set; }
         public string Token { get; set; }
+
+        public string ReturnUrl { get; set; }
     }
 }

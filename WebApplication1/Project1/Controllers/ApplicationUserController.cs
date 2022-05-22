@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ReportApp.Entities;
@@ -9,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace ReportApp.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "OpenIdConnect")]
     [ApiController]
-    [Route("users")]
+    [Route("user")]
     public class ApplicationUserController : ControllerBase
     {
 
@@ -66,6 +67,13 @@ namespace ReportApp.Controllers
 
         [HttpGet, Route("all2")]
         public async Task<List<ApplicationUser>> GetUsers2()
+        {
+            return await _userService.GetUsers();
+        }
+
+        [EnableCors("default")]
+        [HttpGet, Route("employments")]
+        public async Task<List<ApplicationUser>> GetEmployments()
         {
             return await _userService.GetUsers();
         }

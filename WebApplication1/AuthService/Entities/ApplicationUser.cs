@@ -8,7 +8,7 @@ namespace AuthService.Entities
 {
     //[Index("Id", IsUnique = true, Name = "Так назвал")] Индекс
     //[Table("Users","atomdb")] //Назовёт таблицу не по имени калсса, а как указал
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser
     {
         //[Column("user_id")] Переименовали колонку
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)] // для добавляения и измения в БД.

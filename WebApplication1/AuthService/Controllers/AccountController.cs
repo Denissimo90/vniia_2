@@ -83,7 +83,7 @@ namespace AuthService.Controllers
         public async Task<IActionResult> Login(string returnUrl)
         {
             // build a model so we know what to show on the login page
-            var vm = await BuildLoginViewModelAsync(returnUrl);
+            var vm = await BuildFirstLoginViewModelAsync(returnUrl);
 
             /*if (vm.IsExternalLoginOnly)
             {
@@ -93,6 +93,20 @@ namespace AuthService.Controllers
             //vm.Username = "alice";
             //vm.Password = "alice";
             return View(vm); //await LoginTest(vm, "login");
+        }
+        private async Task<LoginViewModel> BuildFirstLoginViewModelAsync(string returnUrl)
+        {
+            var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
+            
+            return new LoginViewModel()
+            {
+                RedirectUrl = "http://localhost:5000/index.html",
+                ReturnUrl = context.RedirectUri + "index.html" 
+                + "#session_state=" + context.Parameters["state"]
+                + "&state=" + context.Parameters["state"]
+                + "&scope=" + context.Parameters["scope"],
+                Token = string.Empty
+            };
         }
 
         private async Task<LoginViewModel> BuildLoginViewModelAsync(string returnUrl)
