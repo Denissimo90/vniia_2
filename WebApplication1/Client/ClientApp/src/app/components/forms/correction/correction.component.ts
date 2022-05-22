@@ -32,8 +32,8 @@ export class CorrectionComponent extends DialogComponent {
     try {
       this.loading = true;
       await this.getPersonCorrectionFromApi();
-      this.json = this.testService.getTestConfig();
-      this.correction.title = JSON.stringify(this.json);
+      //this.json = this.testService.getTestConfig();
+      //this.correction.title = JSON.stringify(this.json);
     } catch (e) {
       this.messageService.add({severity: 'error', summary: 'Ошибка', detail: e.error?.message || 'Ошибка запроса'});
     } finally {

@@ -45,9 +45,9 @@ export class MenusquareComponent implements OnInit {
       this.showMessage('Не найден файл конфигурации меню!');
     }
 
-    const config = await this.testService.getTestConfig();
-    console.log(config);
-
+    //const config = await this.testService.getTestConfig();
+    //console.log(config);
+ 
    await this.newDialog();
 
   }

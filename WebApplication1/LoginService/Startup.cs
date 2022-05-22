@@ -130,13 +130,13 @@ namespace LoginService
         public static IEnumerable<Client> GetClients() =>
         new List<Client>
         {
-           new Client
+           /*new Client
            {
                 ClientId = "company-employee",
                 ClientSecrets = new [] { new Secret("codemazesecret".Sha512()) },
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
                 AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId, "companyApi" }
-            },
+            },*/
            new Client
 {
     ClientName = "Angular-Client",
