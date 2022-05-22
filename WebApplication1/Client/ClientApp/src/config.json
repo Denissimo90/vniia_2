@@ -1,6 +1,6 @@
 {
   "api": "https://localhost:5001",
-  "auth":"http://localhost:5000",
+  "auth":"http://localhost:5006",
   "condition": "vniia",
   "menuConfigUri": "/menu.config.dev.json",
   "version": "0.1",
@@ -11,7 +11,7 @@
   "noLogo":true,
   "noInformationMenu": true,
   "noLogsMenu": true,
-  "clientId": "anonymous",
+  "clientId": "angular-client",
   "mainMenu":
   [
     {"url" :  "http://35-docker-3.vniia.net:1024/epa/", "title": "Личный Кабинет", "color" : "3ea95e", "icon": "fa fa-user-tie", "group" : "Информационные системы"},

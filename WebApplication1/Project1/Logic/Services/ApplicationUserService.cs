@@ -36,9 +36,9 @@ namespace ReportApp.Logic.Services
             return await uow.UserRepository.GetApplicationUserByLoginAsync(login);
         }
 
-        public async Task<List<ApplicationUser>> GetUsers()
+        public List<ApplicationUser> GetUsers()
         {
-            return await uow.UserRepository.GetEntities().ToListAsync();
+            return uow.UserRepository.GetEntities().ToList();
         }
 
         public void InsertOrUpdate(ApplicationUser user)

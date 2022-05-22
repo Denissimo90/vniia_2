@@ -10,7 +10,7 @@ namespace ReportApp.Logic.Services.Interfacies
     {
         void InsertOrUpdate(ApplicationUser user);
         void Delete(int id);
-        Task<List<ApplicationUser>> GetUsers();
+        List<ApplicationUser> GetUsers();
         ApplicationUser GetUserById(int id);
         Task<ApplicationUser> GetUserByLogin(string login);
     }

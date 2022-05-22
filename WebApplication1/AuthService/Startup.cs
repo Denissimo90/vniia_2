@@ -78,7 +78,7 @@ namespace AuthService
                     // обязательный параметр, при помощи client_id сервер различает клиентские приложения 
                     ClientId = "anonymous",
                     ClientName = "JavaScript Client",
-                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
                     AllowAccessTokensViaBrowser = true,
                     // от этой настройки зависит размер токена, 
                     // при false можно получить недостающую информацию через UserInfo endpoint

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ReportApp.Controllers
 {
-    [Authorize(AuthenticationSchemes = "OpenIdConnect")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("user")]
     public class ApplicationUserController : ControllerBase
@@ -60,22 +61,22 @@ namespace ReportApp.Controllers
         }
 
         [HttpGet, Route("all")]
-        public async Task<List<ApplicationUser>> GetUsers()
+        public List<ApplicationUser> GetUsers()
         {
-            return await _userService.GetUsers();
+            return  _userService.GetUsers();
         }
 
         [HttpGet, Route("all2")]
-        public async Task<List<ApplicationUser>> GetUsers2()
+        public List<ApplicationUser> GetUsers2()
         {
-            return await _userService.GetUsers();
+            return _userService.GetUsers();
         }
 
-        [EnableCors("default")]
         [HttpGet, Route("employments")]
-        public async Task<List<ApplicationUser>> GetEmployments()
+        public List<ApplicationUser> GetEmployments()
         {
-            return await _userService.GetUsers();
+            return new List<ApplicationUser>(); //_userService.GetUsers();
         }
+
     }
 }

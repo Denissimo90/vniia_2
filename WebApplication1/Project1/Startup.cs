@@ -56,7 +56,7 @@ namespace ReportApp
                 // задаём политику CORS, чтобы наше клиентское приложение могло отправить запрос на сервер API
                 options.AddPolicy("default", policy =>
                 {
-                    policy.WithOrigins("http://localhost:5000")
+                    policy.WithOrigins("https://localhost:5001")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -76,13 +76,24 @@ namespace ReportApp
 
             services.AddAuthentication(options =>
             {
-                options.DefaultAuthenticateScheme = "OpenIdConnect";
-                options.DefaultChallengeScheme = "OpenIdConnect";
-            }).AddOpenIdConnect(o =>
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(o =>
             {
-                o.Authority = "http://localhost:5000";
-                o.ClientId = "anonymous";
+                o.Authority = "http://localhost:5006";
                 o.RequireHttpsMetadata = false;
+                o.SaveToken = true;
+                o.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = "dotNetCore",
+                    ValidAudience = "angular-client",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("mysupersecret_secretkey!123")),
+                    ClockSkew = TimeSpan.Zero
+                };
             });
 
             services.AddControllersWithViews(mvcOtions =>
