@@ -61,13 +61,29 @@ import {MenusquareComponent} from './components/menu/menusquare/menusquare.compo
 import {ChartModule} from 'primeng';
 import {AppRoutingModule} from './routing';
 import {CorrectionComponent} from './components/forms/correction/correction.component';
+import { UserRegistrationComponent } from './component/forms/registration/user-registration/user-registration.component';
+import { LoginPageComponent } from './component/authorization/login-page/login-page.component';
+import { ManufactureRegistrationComponent } from './component/forms/registration/manufacture-registration/manufacture-registration.component';
+import { ManufactureListComponent } from './component/tabledata/manufacture-list/manufacture-list.component';
+import { MainReportComponent } from './component/forms/report/main-report/main-report.component';
+import { UserListComponent } from './component/tabledata/user-list/user-list.component';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MenusquareComponent,
-    CorrectionComponent
+    CorrectionComponent,
+    UserRegistrationComponent,
+    LoginPageComponent,
+    ManufactureRegistrationComponent,
+    ManufactureListComponent,
+    MainReportComponent,
+    UserListComponent,
+    NavMenuComponent,
+    PdfViewerComponent
   ],
   imports: [
     CommonModule.forRoot(),
