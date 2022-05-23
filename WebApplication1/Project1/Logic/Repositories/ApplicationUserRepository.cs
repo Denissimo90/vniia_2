@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReportApp.Common;
-using ReportApp.Entities;
+using App.Entities;
 using ReportApp.Logic.Repositories.Interfacies;
 using System.Collections.Generic;
 using System.Linq;

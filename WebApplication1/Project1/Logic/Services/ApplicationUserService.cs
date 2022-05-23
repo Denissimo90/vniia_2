@@ -1,6 +1,6 @@
 ﻿using ReportApp.Common;
 using ReportApp.Logic.Repositories;
-using ReportApp.Entities;
+using App.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

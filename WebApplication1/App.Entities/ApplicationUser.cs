@@ -3,7 +3,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ReportApp.Entities
+namespace App.Entities
 {
     //[Index("Id", IsUnique = true, Name = "Так назвал")] Индекс
     //[Table("Users","atomdb")] //Назовёт таблицу не по имени калсса, а как указал

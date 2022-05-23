@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using App.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ReportApp.Entities;
 using ReportApp.Logic.Services.Interfacies;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ReportApp.Controllers
 {

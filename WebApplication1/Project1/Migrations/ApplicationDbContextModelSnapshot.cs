@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using ReportApp.Entities;
+using App.Entities;
 
 namespace ReportApp.Migrations
 {
@@ -19,7 +19,7 @@ namespace ReportApp.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("ReportApp.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("App.Entities.ApplicationUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,7 +87,7 @@ namespace ReportApp.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ReportApp.Entities.Manufacture", b =>
+            modelBuilder.Entity("App.Entities.Manufacture", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -108,7 +108,7 @@ namespace ReportApp.Migrations
                     b.ToTable("Manufactures");
                 });
 
-            modelBuilder.Entity("ReportApp.Entities.Product", b =>
+            modelBuilder.Entity("App.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -137,7 +137,7 @@ namespace ReportApp.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("ReportApp.Entities.ProductQty", b =>
+            modelBuilder.Entity("App.Entities.ProductQty", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -160,9 +160,9 @@ namespace ReportApp.Migrations
                     b.ToTable("ProductQties");
                 });
 
-            modelBuilder.Entity("ReportApp.Entities.Product", b =>
+            modelBuilder.Entity("App.Entities.Product", b =>
                 {
-                    b.HasOne("ReportApp.Entities.Manufacture", "Manufacture")
+                    b.HasOne("App.Entities.Manufacture", "Manufacture")
                         .WithMany("Products")
                         .HasForeignKey("ManufactureId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -171,9 +171,9 @@ namespace ReportApp.Migrations
                     b.Navigation("Manufacture");
                 });
 
-            modelBuilder.Entity("ReportApp.Entities.ProductQty", b =>
+            modelBuilder.Entity("App.Entities.ProductQty", b =>
                 {
-                    b.HasOne("ReportApp.Entities.Product", "Product")
+                    b.HasOne("App.Entities.Product", "Product")
                         .WithMany("Qties")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -182,12 +182,12 @@ namespace ReportApp.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ReportApp.Entities.Manufacture", b =>
+            modelBuilder.Entity("App.Entities.Manufacture", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("ReportApp.Entities.Product", b =>
+            modelBuilder.Entity("App.Entities.Product", b =>
                 {
                     b.Navigation("Qties");
                 });

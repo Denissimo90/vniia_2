@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace ReportApp.Entities
+namespace App.Entities
 {
     [Serializable]
     public class Manufacture

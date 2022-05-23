@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace ReportApp.Entities
+namespace App.Entities
 {
     public class ApplicationDbContext : DbContext
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ReportApp.Entities.Models
+namespace App.Entities.Models
 {
     public class LoginUser
     {
