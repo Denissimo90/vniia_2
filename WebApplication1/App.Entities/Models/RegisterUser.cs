@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReportApp.Entities.Models
+namespace App.Entities.Models
 {
     public class RegisterUser
     {

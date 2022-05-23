@@ -1,0 +1,15 @@
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\bin\Debug\net5.0\App.Entities.deps.json
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\bin\Debug\net5.0\App.Entities.runtimeconfig.json
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\bin\Debug\net5.0\App.Entities.runtimeconfig.dev.json
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\bin\Debug\net5.0\App.Entities.dll
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\bin\Debug\net5.0\ref\App.Entities.dll
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\bin\Debug\net5.0\App.Entities.pdb
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\App.Entities.GeneratedMSBuildEditorConfig.editorconfig
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\App.Entities.AssemblyInfoInputs.cache
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\App.Entities.AssemblyInfo.cs
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\App.Entities.csproj.CoreCompileInputs.cache
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\App.Entities.dll
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\ref\App.Entities.dll
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\App.Entities.pdb
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\App.Entities.genruntimeconfig.cache
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\App.Entities.csproj.AssemblyReference.cache

@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace ReportApp.Migrations
+namespace App.Entities.Migrations
 {
-    public partial class v1 : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,13 +14,37 @@ namespace ReportApp.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PwdSalt = table.Column<string>(type: "text", nullable: true),
-                    Password = table.Column<string>(type: "text", nullable: true),
+                    PersonId = table.Column<int>(type: "integer", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
                     MiddleName = table.Column<string>(type: "text", nullable: true),
-                    Username = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "text", nullable: true)
+                    BirthDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    PersonalNumber = table.Column<string>(type: "text", nullable: true),
+                    PositionCode = table.Column<string>(type: "text", nullable: true),
+                    PositionName = table.Column<string>(type: "text", nullable: true),
+                    DepartmentId = table.Column<int>(type: "integer", nullable: false),
+                    DepartmentCode = table.Column<string>(type: "text", nullable: true),
+                    DepartmentName = table.Column<string>(type: "text", nullable: true),
+                    PlaceId = table.Column<int>(type: "integer", nullable: false),
+                    PlaceCode = table.Column<string>(type: "text", nullable: true),
+                    PlaceName = table.Column<string>(type: "text", nullable: true),
+                    BeginDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    PwdSalt = table.Column<string>(type: "text", nullable: true),
+                    UserName = table.Column<string>(type: "text", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "text", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,12 +112,12 @@ namespace ReportApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "ApplicationUsers",
-                columns: new[] { "Id", "Email", "FirstName", "LastName", "MiddleName", "Password", "PwdSalt", "Username" },
+                columns: new[] { "Id", "AccessFailedCount", "BeginDate", "BirthDate", "ConcurrencyStamp", "DepartmentCode", "DepartmentId", "DepartmentName", "Email", "EmailConfirmed", "EndDate", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "MiddleName", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PersonId", "PersonalNumber", "PhoneNumber", "PhoneNumberConfirmed", "PlaceCode", "PlaceId", "PlaceName", "PositionCode", "PositionName", "PwdSalt", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "Vasya0Pupka@mail.ru", "Vasya", "Pupkin", "Vitlievich", "123456", "sal", "nagibator228" },
-                    { 2, "killer@gmail.com", "Volodya", "Putin", "Vladimirivich", "ukrainIsMine", "gg", "VZPutin" },
-                    { 3, "killer@gmail.com", "Vlad", "Vladov", "Vladimirivich", "12345", "hh", "Killer" }
+                    { 1, 0, new DateTime(2020, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1970, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "f69acad0-b97c-4b75-a343-a67deb0393c3", "0035", 4, null, "Vasya0Pupka@mail.ru", false, new DateTime(2022, 5, 23, 15, 40, 48, 279, DateTimeKind.Local).AddTicks(5502), "Vasya", "Pupkin", false, null, "Vitlievich", null, null, "123456", 1, "664363", null, false, null, 1, null, null, null, "sal", "93669b1f-9379-4ba0-a261-b2ee0038d67d", false, "nagibator228" },
+                    { 2, 0, new DateTime(2012, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1960, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "47cd1e19-ad67-45f9-b4e9-33f677e0af91", null, 0, null, "killer@gmail.com", false, new DateTime(2022, 5, 23, 15, 40, 48, 280, DateTimeKind.Local).AddTicks(6909), "Volodya", "Putin", false, null, "Vladimirivich", null, null, "ukrainIsMine", 2, "44325", null, false, null, 0, null, null, null, "gg", "06075495-6d98-412a-9b4f-dd83aa833c35", false, "VZPutin" },
+                    { 3, 0, new DateTime(2017, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1980, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "140d176f-8235-451b-9257-5cf3e0d7f1e8", null, 0, null, "killer@gmail.com", false, new DateTime(2022, 5, 23, 15, 40, 48, 280, DateTimeKind.Local).AddTicks(6940), "Vlad", "Vladov", false, null, "Vladimirivich", null, null, "12345", 3, "1999", null, false, null, 0, null, null, null, "hh", "f3e5729e-2484-4f99-917b-933dac24e211", false, "Killer" }
                 });
 
             migrationBuilder.CreateIndex(
