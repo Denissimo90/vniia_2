@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +8,7 @@ namespace App.Entities
 {
     //[Index("Id", IsUnique = true, Name = "Так назвал")] Индекс
     //[Table("Users","atomdb")] //Назовёт таблицу не по имени калсса, а как указал
-    public class ApplicationUser
+    public class ApplicationUser : IdentityUser
     {
         //[Column("user_id")] Переименовали колонку
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)] // для добавляения и измения в БД.

@@ -6,9 +6,9 @@ namespace App.Entities
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
-            Database.EnsureDeleted();
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
-            
+
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,11 +44,9 @@ namespace App.Entities
                 .Property(u => u.FullName)
                 .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");*/
             #endregion
-
-            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ApplicationUser>().HasData(
-                new ApplicationUser[]
-                {
+    new ApplicationUser[]
+    {
                 new ApplicationUser
                 {
                     Id=1,
@@ -84,7 +82,7 @@ namespace App.Entities
                     PwdSalt = "hh",
                     Username = "Killer"
                 },
-                });
+    });
             base.OnModelCreating(modelBuilder);
         }
 

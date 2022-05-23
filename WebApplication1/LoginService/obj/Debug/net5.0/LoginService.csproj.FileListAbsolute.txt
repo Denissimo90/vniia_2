@@ -152,3 +152,5 @@ F:\AtomSkills\AS_2022\App\WebApplication1\LoginService\obj\Debug\net5.0\LoginSer
 F:\AtomSkills\AS_2022\App\WebApplication1\LoginService\obj\Debug\net5.0\ref\LoginService.dll
 F:\AtomSkills\AS_2022\App\WebApplication1\LoginService\obj\Debug\net5.0\LoginService.pdb
 F:\AtomSkills\AS_2022\App\WebApplication1\LoginService\obj\Debug\net5.0\LoginService.genruntimeconfig.cache
+F:\AtomSkills\AS_2022\App\WebApplication1\LoginService\bin\Debug\net5.0\Npgsql.dll
+F:\AtomSkills\AS_2022\App\WebApplication1\LoginService\bin\Debug\net5.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

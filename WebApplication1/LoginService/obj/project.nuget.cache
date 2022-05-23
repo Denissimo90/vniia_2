@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "F+Ppq37QNMQmo6H9zpH60UaG4VFndqVuV3XrLLamyPpKP+Qym0fUGoxlozCsqxXS3hBne3IqZGq2asJQncOo7g==",
+  "dgSpecHash": "gIDvSJrjv4Huft9i6/IUfklGLrO7PDIhBcqnJqYGz2E+nZ5cdi6J+sV5Lg9DxeWmEJVjSgdhyhQRVjVrWthRWQ==",
   "success": true,
   "projectFilePath": "F:\\AtomSkills\\AS_2022\\App\\WebApplication1\\LoginService\\LoginService.csproj",
   "expectedPackageFiles": [
@@ -34,10 +34,13 @@
     "C:\\Users\\fantom\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.7.1\\microsoft.identitymodel.protocols.openidconnect.6.7.1.nupkg.sha512",
     "C:\\Users\\fantom\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.7.1\\microsoft.identitymodel.tokens.6.7.1.nupkg.sha512",
     "C:\\Users\\fantom\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\fantom\\.nuget\\packages\\npgsql\\5.0.2\\npgsql.5.0.2.nupkg.sha512",
+    "C:\\Users\\fantom\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\5.0.2\\npgsql.entityframeworkcore.postgresql.5.0.2.nupkg.sha512",
     "C:\\Users\\fantom\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
     "C:\\Users\\fantom\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "C:\\Users\\fantom\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
     "C:\\Users\\fantom\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.7.1\\system.identitymodel.tokens.jwt.6.7.1.nupkg.sha512",
+    "C:\\Users\\fantom\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512",
     "C:\\Users\\fantom\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512",
     "C:\\Users\\fantom\\.nuget\\packages\\system.text.encodings.web\\4.7.0\\system.text.encodings.web.4.7.0.nupkg.sha512"
   ],

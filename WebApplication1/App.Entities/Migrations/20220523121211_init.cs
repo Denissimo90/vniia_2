@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace ReportApp.Migrations
+namespace App.Entities.Migrations
 {
-    public partial class v1 : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,7 +20,20 @@ namespace ReportApp.Migrations
                     LastName = table.Column<string>(type: "text", nullable: true),
                     MiddleName = table.Column<string>(type: "text", nullable: true),
                     Username = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "text", nullable: true)
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    UserName = table.Column<string>(type: "text", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "text", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "text", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -88,12 +101,12 @@ namespace ReportApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "ApplicationUsers",
-                columns: new[] { "Id", "Email", "FirstName", "LastName", "MiddleName", "Password", "PwdSalt", "Username" },
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "MiddleName", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PwdSalt", "SecurityStamp", "TwoFactorEnabled", "UserName", "Username" },
                 values: new object[,]
                 {
-                    { 1, "Vasya0Pupka@mail.ru", "Vasya", "Pupkin", "Vitlievich", "123456", "sal", "nagibator228" },
-                    { 2, "killer@gmail.com", "Volodya", "Putin", "Vladimirivich", "ukrainIsMine", "gg", "VZPutin" },
-                    { 3, "killer@gmail.com", "Vlad", "Vladov", "Vladimirivich", "12345", "hh", "Killer" }
+                    { 1, 0, "c041f163-7221-4fad-9603-872b7d4afb2e", "Vasya0Pupka@mail.ru", false, "Vasya", "Pupkin", false, null, "Vitlievich", null, null, "123456", null, null, false, "sal", "1ff941ec-e88f-4f07-9687-e45af9299e8f", false, null, "nagibator228" },
+                    { 2, 0, "4cb11e5a-61c1-4958-8971-59beb90a7bf0", "killer@gmail.com", false, "Volodya", "Putin", false, null, "Vladimirivich", null, null, "ukrainIsMine", null, null, false, "gg", "eb448074-c19d-44d1-bf66-35f4801b9462", false, null, "VZPutin" },
+                    { 3, 0, "26c69e9b-6912-494a-b89d-670bb00ea05c", "killer@gmail.com", false, "Vlad", "Vladov", false, null, "Vladimirivich", null, null, "12345", null, null, false, "hh", "29299e6a-57e2-4714-87b9-3f831c7e8ed7", false, null, "Killer" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -12,3 +12,4 @@ F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\App.Enti
 F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\ref\App.Entities.dll
 F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\App.Entities.pdb
 F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\App.Entities.genruntimeconfig.cache
+F:\AtomSkills\AS_2022\App\WebApplication1\App.Entities\obj\Debug\net5.0\App.Entities.csproj.AssemblyReference.cache

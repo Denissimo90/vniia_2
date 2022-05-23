@@ -1,6 +1,5 @@
 ﻿using App.Entities;
 using Microsoft.EntityFrameworkCore;
-using App.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
