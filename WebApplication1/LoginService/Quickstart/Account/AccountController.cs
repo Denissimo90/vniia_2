@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using App.Entities;
 using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Events;
@@ -11,11 +12,15 @@ using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using IdentityServer4.Test;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace IdentityServerHost.Quickstart.UI
@@ -29,7 +34,8 @@ namespace IdentityServerHost.Quickstart.UI
     [AllowAnonymous]
     public class AccountController : Controller
     {
-        private readonly TestUserStore _users;
+        private UserManager<ApplicationUser> _userManager;
+        private SignInManager<ApplicationUser> _signInManager;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
@@ -40,11 +46,13 @@ namespace IdentityServerHost.Quickstart.UI
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
-            TestUserStore users = null)
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
-            _users = users ?? new TestUserStore(TestUsers.Users);
+            _userManager = userManager;
+            _signInManager = signInManager;
 
             _interaction = interaction;
             _clientStore = clientStore;
@@ -106,10 +114,10 @@ namespace IdentityServerHost.Quickstart.UI
                     return Redirect("~/");
                 }
             }
-
             if (ModelState.IsValid)
             {
-                // validate username/password against in-memory store
+                /*
+                 // validate username/password against in-memory store
                 if (_users.ValidateCredentials(model.Username, model.Password))
                 {
                     var user = _users.FindByUsername(model.Username);
@@ -147,6 +155,7 @@ namespace IdentityServerHost.Quickstart.UI
                         // we can trust model.ReturnUrl since GetAuthorizationContextAsync returned non-null
                         return Redirect(model.ReturnUrl);
                     }
+                ApplicationUser user = await _userManager.FindByNameAsync(model.Username);
 
                     // request for a local page
                     if (Url.IsLocalUrl(model.ReturnUrl))
@@ -162,10 +171,56 @@ namespace IdentityServerHost.Quickstart.UI
                         // user might have clicked on a malicious link - should be logged
                         throw new Exception("invalid return URL");
                     }
-                }
+                 * */
 
-                await _events.RaiseAsync(new UserLoginFailureEvent(model.Username, "invalid credentials", clientId:context?.Client.ClientId));
-                ModelState.AddModelError(string.Empty, AccountOptions.InvalidCredentialsErrorMessage);
+                ApplicationUser user = _userManager.Users.FirstOrDefault(p=> p.UserName == model.Username);
+
+                if (user != null)
+                {
+                    var result = _userManager.Users.Any(p => p.PasswordHash == model.Password
+                    && p.UserName == model.Username);
+                    if (result)
+                    {
+                        await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, 
+                            user.Id, 
+                            user.UserName, 
+                            clientId: context?.Client.ClientId));
+
+                        // only set explicit expiration here if user chooses "remember me". 
+                        // otherwise we rely upon expiration configured in cookie middleware.
+                        AuthenticationProperties props = null;
+                        if (AccountOptions.AllowRememberLogin && model.RememberLogin)
+                        {
+                            props = new AuthenticationProperties
+                            {
+                                IsPersistent = true,
+                                ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration)
+                            };
+                        };
+
+                        // issue authentication cookie with subject ID and username
+                        var isuser = new IdentityServerUser(user.Id)
+                        {
+                            DisplayName = user.UserName
+                        };
+
+                        await HttpContext.SignInAsync(new IdentityServerUser(user.Id)
+                        {
+                            DisplayName = user.UserName + "999999",
+                            AdditionalClaims = new List<Claim>() { { new Claim("test", "value") } },
+                            AuthenticationTime = DateTime.Now
+                        }, props);
+                        return Redirect(model.ReturnUrl);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Неправильный логин или пароль");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                }
             }
 
             // something went wrong, show form with error
@@ -173,7 +228,7 @@ namespace IdentityServerHost.Quickstart.UI
             return View(vm);
         }
 
-        
+
         /// <summary>
         /// Show logout page
         /// </summary>
@@ -340,6 +395,17 @@ namespace IdentityServerHost.Quickstart.UI
                 SignOutIframeUrl = logout?.SignOutIFrameUrl,
                 LogoutId = logoutId
             };
+
+
+            var prop = new AuthenticationProperties()
+            {
+                RedirectUri = logout?.PostLogoutRedirectUri
+            };
+            // after signout this will redirect to your provided target
+            foreach (string item in HttpContext.Request.Cookies.Keys)
+            {
+                HttpContext.Response.Cookies.Delete(item);
+            }
 
             if (User?.Identity.IsAuthenticated == true)
             {

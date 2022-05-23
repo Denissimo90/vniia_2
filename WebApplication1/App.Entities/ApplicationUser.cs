@@ -13,7 +13,6 @@ namespace App.Entities
         //[Column("user_id")] Переименовали колонку
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)] // для добавляения и измения в БД.
         //[Required] NOT NULL IsRequired
-        public int Id { get; set; }
         public int PersonId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

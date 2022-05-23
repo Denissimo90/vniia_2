@@ -28,6 +28,8 @@ using System;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using IdentityServer4.AccessTokenValidation;
+using IdentityServer4.Validation;
+using System.Threading.Tasks;
 
 namespace ReportApp
 {

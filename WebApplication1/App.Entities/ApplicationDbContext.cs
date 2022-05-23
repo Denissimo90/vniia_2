@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 namespace App.Entities
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
@@ -50,7 +51,6 @@ namespace App.Entities
     {
                 new ApplicationUser
                 {
-                    Id=1,
                     Email = "Vasya0Pupka@mail.ru",
                     FirstName = "Vasya",
                     LastName = "Pupkin",
@@ -70,7 +70,6 @@ namespace App.Entities
 
                 new ApplicationUser
                 {
-                    Id=2,
                     Email = "killer@gmail.com",
                     FirstName = "Volodya",
                     LastName = "Putin",
@@ -87,7 +86,6 @@ namespace App.Entities
 
                 new ApplicationUser
                 {
-                    Id=3,
                     Email = "killer@gmail.com",
                     FirstName = "Vlad",
                     LastName = "Vladov",

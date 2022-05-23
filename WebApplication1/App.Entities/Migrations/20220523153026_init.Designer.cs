@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace App.Entities.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220523124101_init")]
+    [Migration("20220523153026_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,10 +23,8 @@ namespace App.Entities.Migrations
 
             modelBuilder.Entity("App.Entities.ApplicationUser", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
@@ -38,6 +36,7 @@ namespace App.Entities.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("text");
 
                     b.Property<string>("DepartmentCode")
@@ -50,7 +49,8 @@ namespace App.Entities.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .HasColumnType("text");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
@@ -74,10 +74,12 @@ namespace App.Entities.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("text");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("text");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -119,25 +121,33 @@ namespace App.Entities.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("text");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("ApplicationUsers");
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = "d094cada-1c6a-4996-b1b7-1beb871ec1a9",
                             AccessFailedCount = 0,
                             BeginDate = new DateTime(2020, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthDate = new DateTime(1970, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "f69acad0-b97c-4b75-a343-a67deb0393c3",
+                            ConcurrencyStamp = "d3cca662-f42e-442b-8cd4-c1a642d67048",
                             DepartmentCode = "0035",
                             DepartmentId = 4,
                             Email = "Vasya0Pupka@mail.ru",
                             EmailConfirmed = false,
-                            EndDate = new DateTime(2022, 5, 23, 15, 40, 48, 279, DateTimeKind.Local).AddTicks(5502),
+                            EndDate = new DateTime(2022, 5, 23, 20, 30, 24, 882, DateTimeKind.Local).AddTicks(3120),
                             FirstName = "Vasya",
                             LastName = "Pupkin",
                             LockoutEnabled = false,
@@ -148,21 +158,21 @@ namespace App.Entities.Migrations
                             PhoneNumberConfirmed = false,
                             PlaceId = 1,
                             PwdSalt = "sal",
-                            SecurityStamp = "93669b1f-9379-4ba0-a261-b2ee0038d67d",
+                            SecurityStamp = "4b21eb47-fad0-4c90-91fb-ed2eb30a27a2",
                             TwoFactorEnabled = false,
                             UserName = "nagibator228"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = "be4a1ac5-b6f5-45fb-bf22-84aef01781c4",
                             AccessFailedCount = 0,
                             BeginDate = new DateTime(2012, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthDate = new DateTime(1960, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "47cd1e19-ad67-45f9-b4e9-33f677e0af91",
+                            ConcurrencyStamp = "e718353b-3444-45a9-b28b-90e0d75e2bb0",
                             DepartmentId = 0,
                             Email = "killer@gmail.com",
                             EmailConfirmed = false,
-                            EndDate = new DateTime(2022, 5, 23, 15, 40, 48, 280, DateTimeKind.Local).AddTicks(6909),
+                            EndDate = new DateTime(2022, 5, 23, 20, 30, 24, 883, DateTimeKind.Local).AddTicks(8814),
                             FirstName = "Volodya",
                             LastName = "Putin",
                             LockoutEnabled = false,
@@ -173,21 +183,21 @@ namespace App.Entities.Migrations
                             PhoneNumberConfirmed = false,
                             PlaceId = 0,
                             PwdSalt = "gg",
-                            SecurityStamp = "06075495-6d98-412a-9b4f-dd83aa833c35",
+                            SecurityStamp = "7559bade-969e-4c22-8d4b-c93479bf7f57",
                             TwoFactorEnabled = false,
                             UserName = "VZPutin"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = "f1c22bfb-8ae4-4738-ab6e-10f6aaf6e57d",
                             AccessFailedCount = 0,
                             BeginDate = new DateTime(2017, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthDate = new DateTime(1980, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "140d176f-8235-451b-9257-5cf3e0d7f1e8",
+                            ConcurrencyStamp = "3c6befc2-e781-4179-947f-e43ab6aa2c4b",
                             DepartmentId = 0,
                             Email = "killer@gmail.com",
                             EmailConfirmed = false,
-                            EndDate = new DateTime(2022, 5, 23, 15, 40, 48, 280, DateTimeKind.Local).AddTicks(6940),
+                            EndDate = new DateTime(2022, 5, 23, 20, 30, 24, 883, DateTimeKind.Local).AddTicks(8939),
                             FirstName = "Vlad",
                             LastName = "Vladov",
                             LockoutEnabled = false,
@@ -198,7 +208,7 @@ namespace App.Entities.Migrations
                             PhoneNumberConfirmed = false,
                             PlaceId = 0,
                             PwdSalt = "hh",
-                            SecurityStamp = "f3e5729e-2484-4f99-917b-933dac24e211",
+                            SecurityStamp = "6a599ccc-a65a-478b-9fa9-aed7037c3834",
                             TwoFactorEnabled = false,
                             UserName = "Killer"
                         });
@@ -277,6 +287,136 @@ namespace App.Entities.Migrations
                     b.ToTable("ProductQties");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens");
+                });
+
             modelBuilder.Entity("App.Entities.Product", b =>
                 {
                     b.HasOne("App.Entities.Manufacture", "Manufacture")
@@ -297,6 +437,57 @@ namespace App.Entities.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("App.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("App.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("App.Entities.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("App.Entities.Manufacture", b =>
