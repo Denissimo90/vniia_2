@@ -44,6 +44,7 @@ namespace App.Entities
                 .Property(u => u.FullName)
                 .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");*/
             #endregion
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ApplicationUser>().HasData(
     new ApplicationUser[]
     {
