@@ -1,0 +1,23 @@
+{
+  "condition": "vniia",
+  "auth": "http://35-docker-2.vniia.net:5555/auth/realms/prism",
+  "menuConfigUri": "/menu.config.dev.json",
+  "version": "0.1",
+  "clientId": "LauncherFront",
+  "logLevelDesc": "TRACE = 0,DEBUG = 1,INFO = 2,LOG = 3,WARN = 4,ERROR = 5,OFF = 6",
+  "logLevel": 0,
+  "serverLogLevel": 7,
+  "offlineMode": true,
+  "mainMenu":
+  [
+    {"url" :  "http://35-docker-3.vniia.net:1024/epa/", "title": "Личный Кабинет"},
+    {"url" :  "http://35-docker-3.vniia.net/techdocs", "title": "АИПС УДИ"},
+    {"url" :  "http://35-docker-3.vniia.net/shopflow", "title": "Расцеховка", "role": "run_shopflow"},
+    {"url" :  "http://35-docker-3.vniia.net/launcher", "title": "Ремонт Оборудования", "role": "run_repairs"},
+    {"url" :  "http://35-docker-3.vniia.net/storehouse", "title": "Складской Учет", "role": "run_storehouse"},
+    {"url" :  "http://35-docker-3.vniia.net/plantask", "title": "Плановые Задания", "role": "run_plantask"},
+    {"url" :  "http://35-docker-3:5555/", "title": "Keycloack", "role": "admin"},
+    {"url" :  "http://35-docker-3:9000/", "title": "Portainer", "role": "admin"},
+    {"url" :  "http://35-docker-4:10000/", "title": "Zabbix", "role": "admin"}
+  ]
+}
