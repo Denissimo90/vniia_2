@@ -14,15 +14,26 @@ namespace App.Entities.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PwdSalt = table.Column<string>(type: "text", nullable: true),
-                    Password = table.Column<string>(type: "text", nullable: true),
+                    PersonId = table.Column<int>(type: "integer", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: true),
                     LastName = table.Column<string>(type: "text", nullable: true),
                     MiddleName = table.Column<string>(type: "text", nullable: true),
-                    Username = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "text", nullable: true),
+                    BirthDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    PersonalNumber = table.Column<string>(type: "text", nullable: true),
+                    PositionCode = table.Column<string>(type: "text", nullable: true),
+                    PositionName = table.Column<string>(type: "text", nullable: true),
+                    DepartmentId = table.Column<int>(type: "integer", nullable: false),
+                    DepartmentCode = table.Column<string>(type: "text", nullable: true),
+                    DepartmentName = table.Column<string>(type: "text", nullable: true),
+                    PlaceId = table.Column<int>(type: "integer", nullable: false),
+                    PlaceCode = table.Column<string>(type: "text", nullable: true),
+                    PlaceName = table.Column<string>(type: "text", nullable: true),
+                    BeginDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    PwdSalt = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "text", nullable: true),
                     NormalizedUserName = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
                     NormalizedEmail = table.Column<string>(type: "text", nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
                     PasswordHash = table.Column<string>(type: "text", nullable: true),
@@ -101,12 +112,12 @@ namespace App.Entities.Migrations
 
             migrationBuilder.InsertData(
                 table: "ApplicationUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "MiddleName", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PwdSalt", "SecurityStamp", "TwoFactorEnabled", "UserName", "Username" },
+                columns: new[] { "Id", "AccessFailedCount", "BeginDate", "BirthDate", "ConcurrencyStamp", "DepartmentCode", "DepartmentId", "DepartmentName", "Email", "EmailConfirmed", "EndDate", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "MiddleName", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PersonId", "PersonalNumber", "PhoneNumber", "PhoneNumberConfirmed", "PlaceCode", "PlaceId", "PlaceName", "PositionCode", "PositionName", "PwdSalt", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, "c041f163-7221-4fad-9603-872b7d4afb2e", "Vasya0Pupka@mail.ru", false, "Vasya", "Pupkin", false, null, "Vitlievich", null, null, "123456", null, null, false, "sal", "1ff941ec-e88f-4f07-9687-e45af9299e8f", false, null, "nagibator228" },
-                    { 2, 0, "4cb11e5a-61c1-4958-8971-59beb90a7bf0", "killer@gmail.com", false, "Volodya", "Putin", false, null, "Vladimirivich", null, null, "ukrainIsMine", null, null, false, "gg", "eb448074-c19d-44d1-bf66-35f4801b9462", false, null, "VZPutin" },
-                    { 3, 0, "26c69e9b-6912-494a-b89d-670bb00ea05c", "killer@gmail.com", false, "Vlad", "Vladov", false, null, "Vladimirivich", null, null, "12345", null, null, false, "hh", "29299e6a-57e2-4714-87b9-3f831c7e8ed7", false, null, "Killer" }
+                    { 1, 0, new DateTime(2020, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1970, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "f69acad0-b97c-4b75-a343-a67deb0393c3", "0035", 4, null, "Vasya0Pupka@mail.ru", false, new DateTime(2022, 5, 23, 15, 40, 48, 279, DateTimeKind.Local).AddTicks(5502), "Vasya", "Pupkin", false, null, "Vitlievich", null, null, "123456", 1, "664363", null, false, null, 1, null, null, null, "sal", "93669b1f-9379-4ba0-a261-b2ee0038d67d", false, "nagibator228" },
+                    { 2, 0, new DateTime(2012, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1960, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "47cd1e19-ad67-45f9-b4e9-33f677e0af91", null, 0, null, "killer@gmail.com", false, new DateTime(2022, 5, 23, 15, 40, 48, 280, DateTimeKind.Local).AddTicks(6909), "Volodya", "Putin", false, null, "Vladimirivich", null, null, "ukrainIsMine", 2, "44325", null, false, null, 0, null, null, null, "gg", "06075495-6d98-412a-9b4f-dd83aa833c35", false, "VZPutin" },
+                    { 3, 0, new DateTime(2017, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1980, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "140d176f-8235-451b-9257-5cf3e0d7f1e8", null, 0, null, "killer@gmail.com", false, new DateTime(2022, 5, 23, 15, 40, 48, 280, DateTimeKind.Local).AddTicks(6940), "Vlad", "Vladov", false, null, "Vladimirivich", null, null, "12345", 3, "1999", null, false, null, 0, null, null, null, "hh", "f3e5729e-2484-4f99-917b-933dac24e211", false, "Killer" }
                 });
 
             migrationBuilder.CreateIndex(

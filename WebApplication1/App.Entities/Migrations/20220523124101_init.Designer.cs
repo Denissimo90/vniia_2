@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace App.Entities.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220523121211_init")]
+    [Migration("20220523124101_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,22 @@ namespace App.Entities.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("BeginDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("text");
+
+                    b.Property<string>("DepartmentCode")
+                        .HasColumnType("text");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("DepartmentName")
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
@@ -39,6 +54,9 @@ namespace App.Entities.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
@@ -61,10 +79,13 @@ namespace App.Entities.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasColumnType("text");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .HasColumnType("text");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<int>("PersonId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("PersonalNumber")
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
@@ -72,6 +93,21 @@ namespace App.Entities.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("PlaceCode")
+                        .HasColumnType("text");
+
+                    b.Property<int>("PlaceId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("PlaceName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PositionCode")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PositionName")
+                        .HasColumnType("text");
 
                     b.Property<string>("PwdSalt")
                         .HasColumnType("text");
@@ -85,9 +121,6 @@ namespace App.Entities.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("text");
 
-                    b.Property<string>("Username")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.ToTable("ApplicationUsers");
@@ -97,55 +130,77 @@ namespace App.Entities.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c041f163-7221-4fad-9603-872b7d4afb2e",
+                            BeginDate = new DateTime(2020, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthDate = new DateTime(1970, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "f69acad0-b97c-4b75-a343-a67deb0393c3",
+                            DepartmentCode = "0035",
+                            DepartmentId = 4,
                             Email = "Vasya0Pupka@mail.ru",
                             EmailConfirmed = false,
+                            EndDate = new DateTime(2022, 5, 23, 15, 40, 48, 279, DateTimeKind.Local).AddTicks(5502),
                             FirstName = "Vasya",
                             LastName = "Pupkin",
                             LockoutEnabled = false,
                             MiddleName = "Vitlievich",
-                            Password = "123456",
+                            PasswordHash = "123456",
+                            PersonId = 1,
+                            PersonalNumber = "664363",
                             PhoneNumberConfirmed = false,
+                            PlaceId = 1,
                             PwdSalt = "sal",
-                            SecurityStamp = "1ff941ec-e88f-4f07-9687-e45af9299e8f",
+                            SecurityStamp = "93669b1f-9379-4ba0-a261-b2ee0038d67d",
                             TwoFactorEnabled = false,
-                            Username = "nagibator228"
+                            UserName = "nagibator228"
                         },
                         new
                         {
                             Id = 2,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4cb11e5a-61c1-4958-8971-59beb90a7bf0",
+                            BeginDate = new DateTime(2012, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthDate = new DateTime(1960, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "47cd1e19-ad67-45f9-b4e9-33f677e0af91",
+                            DepartmentId = 0,
                             Email = "killer@gmail.com",
                             EmailConfirmed = false,
+                            EndDate = new DateTime(2022, 5, 23, 15, 40, 48, 280, DateTimeKind.Local).AddTicks(6909),
                             FirstName = "Volodya",
                             LastName = "Putin",
                             LockoutEnabled = false,
                             MiddleName = "Vladimirivich",
-                            Password = "ukrainIsMine",
+                            PasswordHash = "ukrainIsMine",
+                            PersonId = 2,
+                            PersonalNumber = "44325",
                             PhoneNumberConfirmed = false,
+                            PlaceId = 0,
                             PwdSalt = "gg",
-                            SecurityStamp = "eb448074-c19d-44d1-bf66-35f4801b9462",
+                            SecurityStamp = "06075495-6d98-412a-9b4f-dd83aa833c35",
                             TwoFactorEnabled = false,
-                            Username = "VZPutin"
+                            UserName = "VZPutin"
                         },
                         new
                         {
                             Id = 3,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "26c69e9b-6912-494a-b89d-670bb00ea05c",
+                            BeginDate = new DateTime(2017, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthDate = new DateTime(1980, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "140d176f-8235-451b-9257-5cf3e0d7f1e8",
+                            DepartmentId = 0,
                             Email = "killer@gmail.com",
                             EmailConfirmed = false,
+                            EndDate = new DateTime(2022, 5, 23, 15, 40, 48, 280, DateTimeKind.Local).AddTicks(6940),
                             FirstName = "Vlad",
                             LastName = "Vladov",
                             LockoutEnabled = false,
                             MiddleName = "Vladimirivich",
-                            Password = "12345",
+                            PasswordHash = "12345",
+                            PersonId = 3,
+                            PersonalNumber = "1999",
                             PhoneNumberConfirmed = false,
+                            PlaceId = 0,
                             PwdSalt = "hh",
-                            SecurityStamp = "29299e6a-57e2-4714-87b9-3f831c7e8ed7",
+                            SecurityStamp = "f3e5729e-2484-4f99-917b-933dac24e211",
                             TwoFactorEnabled = false,
-                            Username = "Killer"
+                            UserName = "Killer"
                         });
                 });
 

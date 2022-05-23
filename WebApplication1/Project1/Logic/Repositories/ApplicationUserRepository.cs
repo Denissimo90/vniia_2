@@ -26,7 +26,7 @@ namespace ReportApp.Logic.Repositories
         }
         public async Task<ApplicationUser> GetApplicationUserByLoginAsync(string login)
         {
-            return await FindByCondition(user => user.Username.Equals(login)).FirstOrDefaultAsync();
+            return await FindByCondition(user => user.UserName.Equals(login)).FirstOrDefaultAsync();
         }
     }
 }

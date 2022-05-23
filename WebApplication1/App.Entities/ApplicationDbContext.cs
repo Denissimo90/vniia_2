@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
+using System;
 namespace App.Entities
 {
     public class ApplicationDbContext : DbContext
@@ -54,9 +54,17 @@ namespace App.Entities
                     FirstName = "Vasya",
                     LastName = "Pupkin",
                     MiddleName = "Vitlievich",
-                    Password = "123456",
+                    PasswordHash = "123456",
                     PwdSalt = "sal",
-                    Username = "nagibator228"
+                    UserName = "nagibator228",
+                    BirthDate = new DateTime(1970,10,1),
+                    EndDate = DateTime.Now,
+                    BeginDate = new DateTime(DateTime.Now.Year - 2, DateTime.Now.Month, DateTime.Now.Day),
+                    PersonId= 1,
+                    PersonalNumber = "664363",
+                    PlaceId = 1,
+                    DepartmentCode="0035",
+                    DepartmentId = 4,
                 },
 
                 new ApplicationUser
@@ -66,9 +74,14 @@ namespace App.Entities
                     FirstName = "Volodya",
                     LastName = "Putin",
                     MiddleName = "Vladimirivich",
-                    Password = "ukrainIsMine",
+                    PasswordHash = "ukrainIsMine",
                     PwdSalt = "gg",
-                    Username = "VZPutin"
+                    UserName = "VZPutin",
+                    BirthDate = new DateTime(1960,10,1),
+                    EndDate = DateTime.Now,
+                    BeginDate = new DateTime(DateTime.Now.Year - 10, DateTime.Now.Month, DateTime.Now.Day),
+                    PersonId= 2,
+                    PersonalNumber = "44325",
                 },
 
                 new ApplicationUser
@@ -78,9 +91,14 @@ namespace App.Entities
                     FirstName = "Vlad",
                     LastName = "Vladov",
                     MiddleName = "Vladimirivich",
-                    Password = "12345",
+                    PasswordHash = "12345",
                     PwdSalt = "hh",
-                    Username = "Killer"
+                    UserName = "Killer",
+                    BirthDate = new DateTime(1980,10,1),
+                    EndDate = DateTime.Now,
+                    BeginDate = new DateTime(DateTime.Now.Year - 5, DateTime.Now.Month, DateTime.Now.Day),
+                    PersonId= 3,
+                    PersonalNumber = "1999",
                 },
     });
             base.OnModelCreating(modelBuilder);
