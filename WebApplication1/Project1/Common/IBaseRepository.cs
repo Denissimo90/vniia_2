@@ -17,6 +17,7 @@ namespace ReportApp.Common
         void Update(T entity);
 
         void Attach(T entity);
+        IQueryable<T> AllIncluding(Expression<Func<T, bool>> expression);
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
         //void Create(T item);
         //T FindById(int id);

@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using App.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using ReportApp.Common;
 using ReportApp.Logic.Repositories;
 using ReportApp.Logic.Repositories.Interfacies;
@@ -15,6 +18,7 @@ namespace ReportApp.Logic
     {
         public static IServiceCollection AddRepository(this IServiceCollection services)
         {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IManufactureRepository, ManufactureRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductQtyRepository, ProductQtyRepository>();
@@ -23,14 +27,13 @@ namespace ReportApp.Logic
             services.AddScoped<IParticipantDtoRepository, ParticipantDtoRepository>();
             services.AddScoped<IRoleDtoRepository, RoleDtoRepository>();
             services.AddScoped<ITeamDtoRepository, TeamDtoRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IActionDtoRepository, ActionDtoRepository>();
 
-            //services.AddDbContext<BookStoreDbContext>(opt => opt
-            //    .UseSqlServer("Server=localhost,1433; Database=BooksDB;User Id=sa; Password=password_01;"));
             return services;
         }
         public static IServiceCollection AddService(this IServiceCollection services)
         {
+            services.AddScoped<IExternalDataService, ExternalDataService>();
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IJsonService, JsonService>();

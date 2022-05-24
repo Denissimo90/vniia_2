@@ -28,7 +28,7 @@ namespace ReportApp.Common
             }
             else
             {
-                ForceUpdate(entity);
+                _context.Entry(entity).State = EntityState.Modified;
             }
         }
         public void ForceUpdate(T entity)
@@ -57,7 +57,9 @@ namespace ReportApp.Common
 
         public void Update(T entity)
         {
-            _context.Set<T>().Update(entity);
+
+            _context.Entry(entity).State = EntityState.Modified;
+            //_context.Set<T>().Update(entity);
         }
 
         public void Delete(int entityId)
@@ -80,6 +82,11 @@ namespace ReportApp.Common
             return _context.Set<T>()
                     .Where(expression);
 
+        }
+
+        public IQueryable<T> AllIncluding(Expression<Func<T, bool>> expression)
+        {
+            return _context.Set<T>().Include(expression);
         }
 
         //ApplicationDbContext _context;

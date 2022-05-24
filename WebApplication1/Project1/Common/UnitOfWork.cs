@@ -23,13 +23,14 @@ namespace ReportApp.Common
         public IRoleDtoRepository RoleDtoRepository { get; }
 
         public ITeamDtoRepository TeamDtoRepository { get; }
+        public IActionDtoRepository ActionDtoRepository { get; }
 
         public UnitOfWork(ApplicationDbContext dbContext,
             IManufactureRepository manufactureRepository,
             IProductRepository productRepository, IApplicationUserRepository userRepository,
             IProductQtyRepository productQtyRepository , ICompetentionDtoRepository competentionDtoRepository,
             IParticipantDtoRepository participantDtoRepository,
-            IRoleDtoRepository roleDtoRepository, ITeamDtoRepository teamDtoRepository)
+            IRoleDtoRepository roleDtoRepository, ITeamDtoRepository teamDtoRepository, IActionDtoRepository actionDtoRepository)
         {
             this._context = dbContext;
             ProductQtyRepository = productQtyRepository;
@@ -40,11 +41,12 @@ namespace ReportApp.Common
             TeamDtoRepository = teamDtoRepository;
             ParticipantDtoRepository = participantDtoRepository;
             CompetentionDtoRepository = competentionDtoRepository;
+            ActionDtoRepository = actionDtoRepository;
         }
-       /* public int Save()
-        {
-            return _context.SaveChanges();
-        }*/
+        /* public int Save()
+         {
+             return _context.SaveChanges();
+         }*/
         public void Dispose()
         {
             Dispose(true);

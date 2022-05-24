@@ -16,6 +16,7 @@ namespace ReportApp.Common
         IParticipantDtoRepository ParticipantDtoRepository { get; }
         IRoleDtoRepository RoleDtoRepository { get; }
         ITeamDtoRepository TeamDtoRepository { get; }
+        IActionDtoRepository ActionDtoRepository { get; }
         //Task Save();
         int Save();
     }
