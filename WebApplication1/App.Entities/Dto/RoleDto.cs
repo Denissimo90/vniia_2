@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace App.Entities.Dto
@@ -12,6 +13,8 @@ namespace App.Entities.Dto
         public string Name { get; set; }
         [JsonPropertyName("organizer")]
         public bool Organizer { get; set; }
+
+        public List<ParticipantDto> ParticipantDtos { get; set; }
 
     }
 }

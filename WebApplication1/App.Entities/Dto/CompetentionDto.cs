@@ -19,5 +19,8 @@ namespace App.Entities.Dto
 
         [JsonPropertyName("shortTitle")]
         public string ShortTitle { get; set; }
+
+        public List<ParticipantDto> ParticipantDtos { get; set; }
+        public List<TeamDto> TeamDtos { get; set; }
     }
 }
