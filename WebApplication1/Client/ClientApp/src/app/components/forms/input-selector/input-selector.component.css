@@ -1,0 +1,12 @@
+.center {
+  width: 20em;
+  height: 4em;
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+}
+
+:host ::ng-deep .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon {
+  display: none;
+}

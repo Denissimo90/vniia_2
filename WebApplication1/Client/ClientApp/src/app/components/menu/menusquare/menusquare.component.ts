@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfigurationService, DialogService, MessageServiceKey, UserService} from '@prism/common';
+import {AuthService, ConfigurationService, DialogService, MessageServiceKey, UserService} from '@prism/common';
 import {MessageService} from 'primeng/api';
 import {HttpClient} from '@angular/common/http';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -10,6 +10,7 @@ import {LauncherMenuList} from '../../../domain/LauncherMenuList';
 import * as Color from 'color';
 import {TestService} from '../../../services/test.service';
 import {CorrectionComponent} from '../../forms/correction/correction.component';
+import { InputSelectorComponent } from '../../forms/input-selector/input-selector.component';
 
 @Component({
   selector: 'app-menusquare',
@@ -28,7 +29,7 @@ export class MenusquareComponent implements OnInit {
     private httpClient: HttpClient,
     private location: Location,
     private sanitizer: DomSanitizer,
-    private testService: TestService
+    private auth: AuthService
   ) {
   }
 
@@ -43,6 +44,17 @@ export class MenusquareComponent implements OnInit {
       this.updateMenuFromFile(this.configurationService.config['menuConfigUri']);
     } else {
       this.showMessage('Не найден файл конфигурации меню!');
+    }
+
+    if (!this.user?.user?.changePassword) {
+      const dialog = this.dialogService.createDialog(InputSelectorComponent);
+      dialog.init('Смена пароля', 'Пароль', 'Сменить', 'Ваш пароль устарел, требуется обновление',
+      null, true, false, null, null, null, null, null, false);
+      dialog.result.subscribe(() => {
+        console.log('await change password');
+        this.auth.logout();
+      });
+
     }
 
     //const config = await this.testService.getTestConfig();

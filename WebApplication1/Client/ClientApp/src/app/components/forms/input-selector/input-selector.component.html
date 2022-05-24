@@ -1,0 +1,41 @@
+<p-dialog [header]="this.title" [draggable]="true" [maximizable]="false" [resizable]="false" [closeable]="false"
+          [style]="{'width': '640px', 'height': '260px'}">
+
+  <form #lineForm="ngForm">
+    <div class="view-card-no-width">
+
+      <div *ngIf="!!description" class="v-flex-grow">
+        <label></label>
+        <pre>{{description}}</pre>
+      </div>
+      <div *ngIf="!!description" [style]="{height: '10px'}" >
+      </div>
+
+      <div class="form-row">
+        <label class="required">{{inputTitle}}</label>
+        <input *ngIf="!isInputNumber" name="lineName"
+               placeholder="" class="input"
+               type="text" pInputText [disabled]="!enabled" type="password"
+               [(ngModel)]="value" required/>
+        <p-inputNumber *ngIf="isInputNumber" [style]="{width: '100%'}"
+                       name="baselineNormRatio"
+                       [(ngModel)]="value" [mode]="'decimal'"
+                       [maxFractionDigits]="maxFractionDigits" [minFractionDigits]="minFractionDigits"
+                       [showButtons]="showButtons" [step]="step" [min]="min" [max]="max" [disabled]="!enabled"
+                       required></p-inputNumber>
+      </div>
+
+    </div>
+  </form>
+
+  <p-footer>
+    <div align="center">
+      <button pButton (click)="saveAndClose()"
+              [label]="okTitle"
+              [disabled]="lineForm.invalid" req
+      >
+      </button>
+    </div>
+  </p-footer>
+
+</p-dialog>
