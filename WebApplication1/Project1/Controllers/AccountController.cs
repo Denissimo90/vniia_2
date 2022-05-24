@@ -41,11 +41,11 @@ namespace ReportApp.Controllers
         [HttpPost]
         [Route("login")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginUser loginUser)
+        public IActionResult Login(LoginUser loginUser)
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = await _service.GetUserByLogin(loginUser.Login);
+                ApplicationUser user =  _service.GetUserByLogin(loginUser.Login);
                 if (user is null) return NotFound();
 
                 return Token(user.UserName);
@@ -61,11 +61,11 @@ namespace ReportApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterUser registerUser)
+        public IActionResult Register(RegisterUser registerUser)
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser existedUser = await _service.GetUserByLogin(registerUser.Email);
+                ApplicationUser existedUser =  _service.GetUserByLogin(registerUser.Email);
                 if (existedUser == null)
                 {
                     // добавляем пользователя в бд
@@ -117,7 +117,7 @@ namespace ReportApp.Controllers
         
         private ClaimsIdentity GetIdentityClaims(string userName)
         {
-            ApplicationUser user = _service.GetUserByLogin(userName).Result;
+            ApplicationUser user = _service.GetUserByLogin(userName);
             if (user is null) return null;
             var claims = new List<Claim> 
             {

@@ -16,15 +16,30 @@ namespace ReportApp.Common
 
         public IProductQtyRepository ProductQtyRepository { get; }
 
+        public ICompetentionDtoRepository CompetentionDtoRepository { get; }
+
+        public IParticipantDtoRepository ParticipantDtoRepository { get; }
+
+        public IRoleDtoRepository RoleDtoRepository { get; }
+
+        public ITeamDtoRepository TeamDtoRepository { get; }
+
         public UnitOfWork(ApplicationDbContext dbContext,
             IManufactureRepository manufactureRepository,
-            IProductRepository productRepository, IApplicationUserRepository userRepository, IProductQtyRepository productQtyRepository)
+            IProductRepository productRepository, IApplicationUserRepository userRepository,
+            IProductQtyRepository productQtyRepository , ICompetentionDtoRepository competentionDtoRepository,
+            IParticipantDtoRepository participantDtoRepository,
+            IRoleDtoRepository roleDtoRepository, ITeamDtoRepository teamDtoRepository)
         {
             this._context = dbContext;
             ProductQtyRepository = productQtyRepository;
             ManufactureRepository = manufactureRepository;
             ProductRepository = productRepository;
             UserRepository = userRepository;
+            RoleDtoRepository = roleDtoRepository;
+            TeamDtoRepository = teamDtoRepository;
+            ParticipantDtoRepository = participantDtoRepository;
+            CompetentionDtoRepository = competentionDtoRepository;
         }
        /* public int Save()
         {
@@ -43,10 +58,10 @@ namespace ReportApp.Common
             }
         }
 
-        public async Task SaveAsync()
+        /*public async Task Save()
         {
            await _context.SaveChangesAsync();
-        }
+        }*/
 
         //private readonly ApplicationDbContext context;
         //private bool disposed;
@@ -67,10 +82,10 @@ namespace ReportApp.Common
         //    GC.SuppressFinalize(this);
         //}
 
-        //public void Save()
-        //{
-        //    context.SaveChanges();
-        //}
+        public int Save()
+        {
+           return _context.SaveChanges();
+        }
 
         //public virtual void Dispose(bool disposing)
         //{

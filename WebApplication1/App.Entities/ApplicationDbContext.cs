@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using App.Entities.Dto;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 namespace App.Entities
@@ -47,7 +48,7 @@ namespace App.Entities
             #endregion
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ApplicationUser>().HasData(
-    new ApplicationUser[]
+            new ApplicationUser[]
     {
                 new ApplicationUser
                 {
@@ -107,5 +108,10 @@ namespace App.Entities
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductQty> ProductQties { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<TeamDto> Teams { get; set; }
+        public DbSet<ParticipantDto> Participants { get; set; }
+        public DbSet<RoleDto> RolesDto { get; set; }
+        public DbSet<CompetentionDto> Competents { get; set; }
+
     }
 }

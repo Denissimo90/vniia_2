@@ -9,9 +9,9 @@ namespace ReportApp.Logic.Repositories.Interfacies
 {
     public interface IApplicationUserRepository : IBaseRepository<ApplicationUser>
     {
-        Task<ApplicationUser> GetApplicationUserByLoginAsync(string login);
-        Task<ApplicationUser> GetApplicationUserByIdAsync(int id);
-        Task<IEnumerable<ApplicationUser>> GetAllApplicationUsersAsync();
+        ApplicationUser GetApplicationUserByLogin(string login);
+        ApplicationUser GetApplicationUserById(int id);
+        IEnumerable<ApplicationUser> GetAllApplicationUsers();
     }
    
 }
