@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -18,6 +19,8 @@ namespace App.Entities.Dto
         public int ActionId { get; set; }
         [ForeignKey("ActionId")]
         public ActionDto Action { get; set; }
+        public List<ParticipantDto> Participants{ get; set; }
+
 
     }
 }
