@@ -31,5 +31,9 @@ namespace App.Entities.Dto
         public int ActionId { get; set; }
         [ForeignKey("ActionId")]
         public ActionDto Action { get; set; }
+        public int TeamId { get; set; }
+        [ForeignKey("TeamId")]
+        public TeamDto Team { get; set; }
+
     }
 }

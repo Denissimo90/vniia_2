@@ -12,7 +12,7 @@ namespace App.Entities.Dto
         [JsonPropertyName("name")]
         public string Name { get; set; }
         [JsonPropertyName("organizer")]
-        public bool Organizer { get; set; }
+        public bool IsOrganizer { get; set; }
 
         public List<ParticipantDto> ParticipantDtos { get; set; }
 
