@@ -53,7 +53,7 @@ namespace LoginService
                 .AddInMemoryApiScopes(InMemoryConfig.GetApiScopes())
                 .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
                 .AddInMemoryIdentityResources(InMemoryConfig.GetIdentityResources())
-                .AddInMemoryClients(InMemoryConfig.GetClients())
+                .AddInMemoryClients(InMemoryConfig.GetClients(Configuration))
                 .AddDeveloperSigningCredential()
                 .AddCustomTokenRequestValidator<InMemoryConfig.CustomTokenRequestValidator>()
                     .AddProfileService<IdentityAuthority.Configs.IdentityProfileService>();
@@ -71,7 +71,7 @@ namespace LoginService
                 options.AddPolicy("default", policy =>
                 {
                     policy
-                    .WithOrigins("https://localhost:5006")
+                    .WithOrigins(Configuration.GetValue<string>("LoginServiceUrl:Host"))
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -145,7 +145,7 @@ namespace LoginService
                   }
               }
           };
-        public static IEnumerable<Client> GetClients() =>
+        public static IEnumerable<Client> GetClients(IConfiguration configuration) =>
         new List<Client>
         {
            new Client
@@ -153,7 +153,7 @@ namespace LoginService
     ClientName = "Angular-Client",
     ClientId = "angular-client",
     AllowedGrantTypes = GrantTypes.Implicit,
-    RedirectUris = new List<string>{ "http://localhost:4200/", "http://localhost:4200/assets/silent-refresh.html" },
+    RedirectUris = new List<string>{ configuration.GetValue<string>("ClientUrl:Host") + @"/", configuration.GetValue<string>("ClientUrl:Host") + "/assets/silent-refresh.html" },
     RequirePkce = true,
     AllowAccessTokensViaBrowser = true,
                 ClientSecrets = new [] { new Secret("codemazesecret".Sha512()) },
@@ -163,8 +163,8 @@ namespace LoginService
         IdentityServerConstants.StandardScopes.Profile,
         "companyApi"
     },
-    PostLogoutRedirectUris = new List<string> { "http://localhost:4200/" },
-    AllowedCorsOrigins = { "http://localhost:4200" },
+    PostLogoutRedirectUris = new List<string> { configuration.GetValue<string>("ClientUrl:Host") + @"/" },
+    AllowedCorsOrigins = { configuration.GetValue<string>("ClientUrl:Host") },
     RequireClientSecret = false,
     RequireConsent = false,
     AccessTokenLifetime = 600

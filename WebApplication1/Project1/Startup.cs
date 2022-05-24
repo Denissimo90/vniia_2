@@ -66,7 +66,7 @@ namespace ReportApp
                 // задаём политику CORS, чтобы наше клиентское приложение могло отправить запрос на сервер API
                 options.AddPolicy("default", policy =>
                 {
-                    policy.WithOrigins("https://localhost:5001")
+                    policy.WithOrigins(Configuration.GetValue<string>("AppServiceUrl:Host") + @"/")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -86,7 +86,7 @@ namespace ReportApp
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddIdentityServerAuthentication(JwtBearerDefaults.AuthenticationScheme, options =>
             {
-                options.Authority = "https://localhost:5006";
+                options.Authority = Configuration.GetValue<string>("LoginServiceUrl:Host");
                 options.RequireHttpsMetadata = true;
                 options.ApiSecret = "Q&tGrEQMypEk.XxPU:%bWDZMdpZeJiyMwpLv4F7d**w9x:7KuJ#fy,E8KPHpKz++";
                 options.ApiName = "companyApi";
