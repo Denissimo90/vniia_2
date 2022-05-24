@@ -84,11 +84,6 @@ namespace ReportApp
             services.AddRepository();
             services.AddService();
 
-            IList<string> validissuers = new List<string>()
-            {
-                "https://localhost:5006",
-            };
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddIdentityServerAuthentication(JwtBearerDefaults.AuthenticationScheme, options =>
             {
                 options.Authority = "https://localhost:5006";

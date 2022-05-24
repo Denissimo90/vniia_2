@@ -49,30 +49,20 @@ namespace LoginService
                     LoginUrl = "/account/login",
                     LoginReturnUrlParameter = "returnUrl"
                 };
-                options.IssuerUri = "https://localhost:5006";
             })
                 .AddInMemoryApiScopes(InMemoryConfig.GetApiScopes())
                 .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
                 .AddInMemoryIdentityResources(InMemoryConfig.GetIdentityResources())
-                //.AddTestUsers(InMemoryConfig.GetUsers())
                 .AddInMemoryClients(InMemoryConfig.GetClients())
                 .AddDeveloperSigningCredential()
                 .AddCustomTokenRequestValidator<InMemoryConfig.CustomTokenRequestValidator>()
                     .AddProfileService<IdentityAuthority.Configs.IdentityProfileService>();
-            //services.AddAuthentication("Bearer")
-            //   .AddJwtBearer("Bearer", opt =>
-            //   {
-            //       opt.RequireHttpsMetadata = false;
-            //       opt.Authority = "https://localhost:5005";
-            //       opt.Audience = "companyApi";
-            //   });
-            //services.AddRazorPages();
+
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = false;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            //.AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
             services.AddCors(options =>
@@ -158,30 +148,6 @@ namespace LoginService
         public static IEnumerable<Client> GetClients() =>
         new List<Client>
         {
-           new Client
-           {
-               ClientId = "U2EQlBHfcbuxUo",
-               ClientSecrets = new [] { new Secret("TbXuRy7SSF5wzH".Sha256()) },
-               ClientName = "WebUI",
-               AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
-               RequireConsent = false,
-               RequireClientSecret = false,
-               RequirePkce = false,
-               RequireRequestObject = false,
-               AllowOfflineAccess = true,
-               AlwaysSendClientClaims = true,
-               AlwaysIncludeUserClaimsInIdToken = true,
-                AllowedScopes =
-                {
-                    IdentityServerConstants.StandardScopes.OpenId,
-                    IdentityServerConstants.StandardScopes.Profile,
-                    "companyApi",
-
-                },
-                           ClientUri = "https://localhost:5001",
-                RedirectUris = new List<string>{ "https://localhost:5001/" },
-                           PostLogoutRedirectUris = new List<string> { "https://localhost:5001/" },
-            },
            new Client
 {
     ClientName = "Angular-Client",
