@@ -45,10 +45,11 @@ namespace ReportApp.Logic.Services
         {
             //    var pwdHash = PasswordCrypt.HashPassword(user.Password);
             //    var verify = PasswordCrypt.VerifyHashedPassword(pwdHash, user.Password);
-            /*if (user.Id == 0)
+            var existingUser = uow.UserRepository.FindByCondition(u => u.UserName == user.UserName && u.PasswordHash == user.PasswordHash).FirstOrDefault();
+            if (existingUser == null)
                 uow.UserRepository.Add(user);
             else
-                uow.UserRepository.Update(user);*/
+                uow.UserRepository.Update(user);
             uow.Save();
         }
 

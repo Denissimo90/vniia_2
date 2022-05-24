@@ -19,7 +19,7 @@ namespace App.Entities.Dto
         public int ActionId { get; set; }
         [ForeignKey("ActionId")]
         public ActionDto Action { get; set; }
-        public List<ParticipantDto> Participants{ get; set; }
+        public List<ParticipantDto> Participants { get; set; }
 
 
     }

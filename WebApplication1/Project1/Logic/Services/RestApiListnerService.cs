@@ -39,24 +39,26 @@ namespace ReportApp.Logic.Services
             var competentionDto = GetApiCompetentions();
             var teamDto = GetApiTeams(competentionId);
             var participantDto = GetApiParticipants(competentionId);
-
-            foreach (var roleDto in rolesDto)
+            using (uow)
             {
-                uow.RoleDtoRepository.InsertOrUpdate(roleDto, roleDto.Id);
+                foreach (var roleDto in rolesDto)
+                {
+                    uow.RoleDtoRepository.InsertOrUpdate(roleDto, roleDto.Id);
+                }
+                foreach (var item in competentionDto)
+                {
+                    uow.CompetentionDtoRepository.InsertOrUpdate(item, item.Id);
+                }
+                foreach (var item in teamDto)
+                {
+                    uow.TeamDtoRepository.InsertOrUpdate(item, item.Id);
+                }
+                foreach (var item in participantDto)
+                {
+                    uow.ParticipantDtoRepository.InsertOrUpdate(item, item.Id);
+                }
+                uow.Save();
             }
-            foreach (var item in competentionDto)
-            {
-                uow.CompetentionDtoRepository.InsertOrUpdate(item, item.Id);
-            }
-            foreach (var item in teamDto)
-            {
-                uow.TeamDtoRepository.InsertOrUpdate(item, item.Id);
-            }
-            foreach (var item in participantDto)
-            {
-                uow.ParticipantDtoRepository.InsertOrUpdate(item, item.Id);
-            }
-            uow.Save();
             return true;
         }
 
