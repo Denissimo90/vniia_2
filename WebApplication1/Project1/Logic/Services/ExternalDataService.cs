@@ -97,7 +97,7 @@ namespace ReportApp.Logic.Services
             action.ParticipantDtos = null;
             action.TeamDtos = null;
 
-            var existingAction = uow.ActionDtoRepository.GetEntity(Convert.ToInt32(action.ActionId));
+            var existingAction = uow.ActionDtoRepository.GetEntity(action.Id);
             if(existingAction != null)
             {
                 uow.ActionDtoRepository.Update(action);

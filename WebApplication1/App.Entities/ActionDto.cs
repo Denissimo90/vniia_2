@@ -9,7 +9,7 @@ namespace App.Entities
 {
     public class ActionDto
     {
-        public string ActionId { get; set; }
+        public int Id { get; set; }
         public string ActionName { get; set; }
         public List<ParticipantDto> ParticipantDtos { get; set; }
         public List<TeamDto> TeamDtos { get; set; }
