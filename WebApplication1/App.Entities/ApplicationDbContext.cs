@@ -112,6 +112,7 @@ namespace App.Entities
         public DbSet<ParticipantDto> Participants { get; set; }
         public DbSet<RoleDto> RolesDto { get; set; }
         public DbSet<CompetentionDto> Competents { get; set; }
+        public DbSet<ActionDto> Actions { get; set; }
 
     }
 }
