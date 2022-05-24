@@ -41,7 +41,7 @@ namespace ReportApp.Logic.Services
             if (id == null)
                 return new ParticipantDto()
                 {
-                    Action = new ActionDto(),
+                    //Action = new ActionDto(),
                     Competention = new CompetentionDto(),
                     Role = new RoleDto()
                 };
@@ -94,9 +94,9 @@ namespace ReportApp.Logic.Services
 
         public void InsertOrUpdateAction(ActionDto action)
         {
-            action.ParticipantDtos = null;
+            /*action.ParticipantDtos = null;
             action.TeamDtos = null;
-
+            */
             var existingAction = uow.ActionDtoRepository.GetEntity(action.Id);
             if(existingAction != null)
             {
@@ -156,8 +156,8 @@ namespace ReportApp.Logic.Services
 
         public void RemoveAction(ActionDto action)
         {
-            action.ParticipantDtos = null;
-            action.TeamDtos = null;
+           /* action.ParticipantDtos = null;
+            action.TeamDtos = null;*/
             uow.ActionDtoRepository.Delete(action);
             uow.Save();
         }

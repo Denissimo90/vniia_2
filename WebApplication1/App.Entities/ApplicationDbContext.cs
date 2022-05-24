@@ -47,6 +47,17 @@ namespace App.Entities
                 .HasComputedColumnSql("[FirstName] + ' ' + [LastName]");*/
             #endregion
             base.OnModelCreating(modelBuilder);
+            /*modelBuilder.HasSequence<int>("ApplicationUser");
+            modelBuilder.Entity<ApplicationUser>()
+                    .Property(o => o.Id)
+                    .HasDefaultValueSql("NEXT VALUE FOR ApplicationUser");*/
+
+            modelBuilder.Entity<ApplicationUser>()
+            .HasOne(b => b.ParticipantDto)
+            .WithOne(i => i.ApplicationUser)
+            .HasForeignKey<ParticipantDto>(b => b.ApplicationUserForeignKey);
+
+
             modelBuilder.Entity<ApplicationUser>().HasData(
             new ApplicationUser[]
     {

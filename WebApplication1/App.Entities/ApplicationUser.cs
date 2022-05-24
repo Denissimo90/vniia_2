@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using App.Entities.Dto;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +15,7 @@ namespace App.Entities
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)] // для добавляения и измения в БД.
         //[Required] NOT NULL IsRequired
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public override string Id { get => base.Id; set => base.Id = value; }
+        public override string Id { get; set; }
         public int PersonId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -48,5 +49,6 @@ namespace App.Entities
         //[NotMapped] Эта ассоциация не создать столбца в таблице.
         public string PwdSalt { get; set; }
         //[RegularExpression(@"/^(?!.*@.*@.*$)(?!.*@.*\-\-.*\..*$)(?!.*@.*\-\..*$)(?!.*@.*\-$)(.*@.+(\..{1,11})?)$/")]
+        public ParticipantDto ParticipantDto { get; set; }
     }
 }
