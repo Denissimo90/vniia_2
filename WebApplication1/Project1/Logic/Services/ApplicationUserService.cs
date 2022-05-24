@@ -1,6 +1,6 @@
 ﻿using ReportApp.Common;
 using ReportApp.Logic.Repositories;
-using ReportApp.Entities;
+using App.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,10 +45,10 @@ namespace ReportApp.Logic.Services
         {
             //    var pwdHash = PasswordCrypt.HashPassword(user.Password);
             //    var verify = PasswordCrypt.VerifyHashedPassword(pwdHash, user.Password);
-            if (user.Id == 0)
+            /*if (user.Id == 0)
                 uow.UserRepository.Add(user);
             else
-                uow.UserRepository.Update(user);
+                uow.UserRepository.Update(user);*/
             uow.SaveAsync();
         }
 

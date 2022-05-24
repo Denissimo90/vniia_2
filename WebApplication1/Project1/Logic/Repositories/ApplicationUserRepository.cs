@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReportApp.Common;
-using ReportApp.Entities;
+using App.Entities;
 using ReportApp.Logic.Repositories.Interfacies;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace ReportApp.Logic.Repositories
         }
         public async Task<ApplicationUser> GetApplicationUserByLoginAsync(string login)
         {
-            return await FindByCondition(user => user.Username.Equals(login)).FirstOrDefaultAsync();
+            return await FindByCondition(user => user.UserName.Equals(login)).FirstOrDefaultAsync();
         }
     }
 }

@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ReportApp.Entities;
+using App.Entities;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ReportApp.Logic.Services.Interfacies;
-using ReportApp.Entities.Models;
+using App.Entities.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System;
 using Microsoft.IdentityModel.Tokens;
@@ -48,7 +48,7 @@ namespace ReportApp.Controllers
                 ApplicationUser user = await _service.GetUserByLogin(loginUser.Login);
                 if (user is null) return NotFound();
 
-                return Token(user.Username);
+                return Token(user.UserName);
             }
             return View(loginUser);
         }
@@ -73,10 +73,10 @@ namespace ReportApp.Controllers
                     {
                         FirstName = registerUser.FirstName,
                         Email = registerUser.Email,
-                        Password = registerUser.Password,
+                        PasswordHash = registerUser.Password,
                         LastName = registerUser.LastName,
                         MiddleName = registerUser.MiddleName,
-                        Username = registerUser.Username
+                        UserName = registerUser.Username
                     });
 
                     return Token(registerUser.Username); // аутентификация

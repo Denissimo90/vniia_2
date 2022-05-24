@@ -14,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ReportApp.Entities;
+using App.Entities;
 using ReportApp.Logic;
 using System.Collections.Generic;
 using System.IO;
@@ -28,6 +28,8 @@ using System;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using IdentityServer4.AccessTokenValidation;
+using IdentityServer4.Validation;
+using System.Threading.Tasks;
 
 namespace ReportApp
 {
@@ -46,7 +48,9 @@ namespace ReportApp
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    x => x.MigrationsAssembly("App.Entities")
+                    ));
 
             Logic.Services.EndpointService.ConnectionString =
                 Configuration.GetConnectionString("DefaultManufactureConnection");

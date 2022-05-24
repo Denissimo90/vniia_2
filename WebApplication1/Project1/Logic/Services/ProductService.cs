@@ -1,5 +1,5 @@
 ﻿using ReportApp.Common;
-using ReportApp.Entities;
+using App.Entities;
 using ReportApp.Logic.Services.Interfacies;
 using System;
 using System.Collections.Generic;

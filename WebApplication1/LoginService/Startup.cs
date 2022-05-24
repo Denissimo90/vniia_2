@@ -1,10 +1,15 @@
+using App.Entities;
 using IdentityServer4;
 using IdentityServer4.Configuration;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
+using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace LoginService
@@ -28,6 +34,12 @@ namespace LoginService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql(
+                    Configuration.GetConnectionString("DefaultConnection"),
+                    x => x.MigrationsAssembly("App.Entities")
+                    ));
+
             services.AddIdentityServer(options =>
             {
                 options.UserInteraction = new UserInteractionOptions()
@@ -40,9 +52,11 @@ namespace LoginService
                 .AddInMemoryApiScopes(InMemoryConfig.GetApiScopes())
                 .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
                 .AddInMemoryIdentityResources(InMemoryConfig.GetIdentityResources())
-                .AddTestUsers(InMemoryConfig.GetUsers())
+                //.AddTestUsers(InMemoryConfig.GetUsers())
                 .AddInMemoryClients(InMemoryConfig.GetClients())
-                .AddDeveloperSigningCredential();
+                .AddDeveloperSigningCredential()
+                .AddCustomTokenRequestValidator<InMemoryConfig.CustomTokenRequestValidator>()
+                    .AddProfileService<IdentityAuthority.Configs.IdentityProfileService>();
             //services.AddAuthentication("Bearer")
             //   .AddJwtBearer("Bearer", opt =>
             //   {
@@ -51,6 +65,13 @@ namespace LoginService
             //       opt.Audience = "companyApi";
             //   });
             //services.AddRazorPages();
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.User.RequireUniqueEmail = false;
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+                //.AddDefaultTokenProviders();
+
             services.AddControllersWithViews();
             services.AddCors(options =>
             {
@@ -85,6 +106,7 @@ namespace LoginService
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict });
 
             app.UseEndpoints(endpoints =>
             {
@@ -168,5 +190,21 @@ namespace LoginService
             Scopes = { "companyApi" }
         }
     };
+
+        public class CustomTokenRequestValidator : ICustomTokenRequestValidator
+        {
+            public Task ValidateAsync(CustomTokenRequestValidationContext context)
+            {
+                context.Result.CustomResponse =
+                  new Dictionary<string, object> { { "preferred_username", "bob" },
+                      {"name", "alice" },
+                      {"employee_id", "" },
+                      {"person_id", 1 },
+                      {"department", "100" },
+                      {"description", "" } };
+
+                return Task.CompletedTask;
+            }
+        }
     }
 }

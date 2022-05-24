@@ -1,5 +1,5 @@
 ﻿@model LoggedOutViewModel
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 @{ 
     // set this so the layout rendering sees an anonymous user
     ViewData["signed-out"] = true;
@@ -7,15 +7,15 @@
 
 <div class="logged-out-page">
     <h1>
-        Logout
-        <small>You are now logged out</small>
+        Выход
+        <small>Вы вышли</small>
     </h1>
 
     @if (Model.PostLogoutRedirectUri != null)
     {
         <div>
-            Click <a class="PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">here</a> to return to the
-            <span>@Model.ClientName</span> application.
+            Click <a class="PostLogoutRedirectUri" href="@Model.PostLogoutRedirectUri">Возврат</a> к
+            <span>@Model.ClientName</span> стартовой странице.
         </div>
     }
 
