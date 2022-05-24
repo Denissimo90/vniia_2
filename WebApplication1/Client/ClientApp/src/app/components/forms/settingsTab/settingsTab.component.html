@@ -1,0 +1,24 @@
+  <div class="v-flex">
+<p-tabView [(activeIndex)]="tabIndex" (activeIndexChange)="refreshTabs()" class="tabview-flex">
+  <p-tabPanel header="Участники">
+      <div class="flex-form-page">
+        <app-participant-list></app-participant-list>
+      </div>
+  </p-tabPanel>
+  <p-tabPanel header="Компетенции">
+    <div class="flex-form-page">
+      <app-competent-list></app-competent-list>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Комманды">
+    <div class="flex-form-page">
+      <app-team-list></app-team-list>
+    </div>    
+  </p-tabPanel>
+  <p-tabPanel header="Роли">
+    <div class="flex-form-page">
+      <app-role-list></app-role-list>
+    </div>    
+  </p-tabPanel>
+</p-tabView>
+</div>

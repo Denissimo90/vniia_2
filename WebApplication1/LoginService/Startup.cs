@@ -75,6 +75,14 @@ namespace LoginService
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
+                // задаём политику CORS, чтобы наше клиентское приложение могло отправить запрос на сервер API
+                options.AddPolicy("all", policy =>
+                {
+                    policy
+                    .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
             });
         }
 
@@ -91,6 +99,8 @@ namespace LoginService
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseCors("all");
 
             app.UseIdentityServer();
             app.UseHttpsRedirection();
@@ -164,7 +174,7 @@ namespace LoginService
         "companyApi"
     },
     PostLogoutRedirectUris = new List<string> { configuration.GetValue<string>("ClientUrl:Host") + @"/" },
-    AllowedCorsOrigins = { configuration.GetValue<string>("ClientUrl:Host") },
+    AllowedCorsOrigins = { configuration.GetValue<string>("ClientUrl:Host") + "/**" },
     RequireClientSecret = false,
     RequireConsent = false,
     AccessTokenLifetime = 600

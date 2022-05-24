@@ -61,14 +61,16 @@ import {MenusquareComponent} from './components/menu/menusquare/menusquare.compo
 import {ChartModule} from 'primeng';
 import {AppRoutingModule} from './routing';
 import {CorrectionComponent} from './components/forms/correction/correction.component';
-import { MainReportComponent } from './component/forms/report/main-report/main-report.component';
-import { ManufactureListComponent } from './component/tabledata/manufacture-list/manufacture-list.component';
+import {SettingsTabComponent} from './components/forms/settingsTab/settingsTab.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { UserListComponent } from './component/tabledata/user-list/user-list.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
-import { UserRegistrationComponent } from './component/forms/registration/user-registration/user-registration.component';
-import { ManufactureRegistrationComponent } from './component/forms/registration/manufacture-registration/manufacture-registration.component';
-import { LoginPageComponent } from './component/authorization/login-page/login-page.component';
+import { ParticipantListComponent } from './components/tabledata/participant-list/participant-list.component';
+import { RoleListComponent } from './components/tabledata/role-list/role-list.component';
+import { TeamListComponent } from './components/tabledata/team-list/team-list.component';
+import { CompetentListComponent } from './components/tabledata/competent-list/competent-list.component';
+import { CompetentRegistrationComponent } from './components/forms/registration/competent-registration/competent-registration.component';
+import { TeamRegistrationComponent } from './components/forms/registration/team-registration/team-registration.component';
+import { ParticipantRegistrationComponent } from './components/forms/registration/participant-registration/participant-registration.component';
 
 
 @NgModule({
@@ -76,14 +78,16 @@ import { LoginPageComponent } from './component/authorization/login-page/login-p
     AppComponent,
     MenusquareComponent,
     CorrectionComponent,
-    MainReportComponent,
-    ManufactureListComponent,
+    SettingsTabComponent,
     NavMenuComponent,
-    UserListComponent,
     PdfViewerComponent,
-    UserRegistrationComponent,
-    ManufactureRegistrationComponent,
-    LoginPageComponent
+    ParticipantListComponent,
+    RoleListComponent,
+    TeamListComponent,
+    CompetentListComponent,
+    CompetentRegistrationComponent,
+    TeamRegistrationComponent,
+    ParticipantRegistrationComponent
   ],
   imports: [
     CommonModule.forRoot(),

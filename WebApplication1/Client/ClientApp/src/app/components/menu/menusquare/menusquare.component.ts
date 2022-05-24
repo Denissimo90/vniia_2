@@ -48,7 +48,7 @@ export class MenusquareComponent implements OnInit {
     //const config = await this.testService.getTestConfig();
     //console.log(config);
  
-   await this.newDialog();
+   //await this.newDialog();
 
   }
 
