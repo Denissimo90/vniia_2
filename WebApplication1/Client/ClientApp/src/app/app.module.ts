@@ -72,6 +72,7 @@ import { CompetentRegistrationComponent } from './components/forms/registration/
 import { TeamRegistrationComponent } from './components/forms/registration/team-registration/team-registration.component';
 import { ParticipantRegistrationComponent } from './components/forms/registration/participant-registration/participant-registration.component';
 import { CompetentParticipantListComponent } from './components/tabledata/competent-list/competent-participant-list/competent-participant-list.component';
+import { InputSelectorComponent } from './components/forms/input-selector/input-selector.component';
 
 
 @NgModule({
@@ -89,6 +90,7 @@ import { CompetentParticipantListComponent } from './components/tabledata/compet
     CompetentRegistrationComponent,
     TeamRegistrationComponent,
     ParticipantRegistrationComponent,
+    InputSelectorComponent,
     CompetentParticipantListComponent
   ],
   imports: [
