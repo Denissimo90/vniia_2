@@ -20,7 +20,7 @@ namespace ReportApp.Logic.Services
         public void DeleteProduct(int id)
         {
             uow.ProductRepository.Delete(id);
-            uow.SaveAsync();
+            uow.Save();
         }
 
         public List<Product> GetProducts()
@@ -51,7 +51,7 @@ namespace ReportApp.Logic.Services
                 item.Qties = null;
                 uow.ProductRepository.Add(item);
             }
-            uow.SaveAsync();
+            uow.Save();
         }
 
         public void Insert(List<ProductQty> productQties)
@@ -61,7 +61,7 @@ namespace ReportApp.Logic.Services
                 item.Product = null;
                 uow.ProductQtyRepository.Add(item);
             }
-            uow.SaveAsync();
+            uow.Save();
         }
     }
 }

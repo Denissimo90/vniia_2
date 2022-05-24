@@ -12,7 +12,7 @@ namespace ReportApp.Common
         IProductQtyRepository ProductQtyRepository { get; }
         IProductRepository ProductRepository{ get; }
         IApplicationUserRepository UserRepository { get; }
-        Task SaveAsync();
-        //int Save();
+        //Task Save();
+        int Save();
     }
 }

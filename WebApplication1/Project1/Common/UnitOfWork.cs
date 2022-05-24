@@ -43,10 +43,10 @@ namespace ReportApp.Common
             }
         }
 
-        public async Task SaveAsync()
+        /*public async Task Save()
         {
            await _context.SaveChangesAsync();
-        }
+        }*/
 
         //private readonly ApplicationDbContext context;
         //private bool disposed;
@@ -67,10 +67,10 @@ namespace ReportApp.Common
         //    GC.SuppressFinalize(this);
         //}
 
-        //public void Save()
-        //{
-        //    context.SaveChanges();
-        //}
+        public int Save()
+        {
+           return _context.SaveChanges();
+        }
 
         //public virtual void Dispose(bool disposing)
         //{

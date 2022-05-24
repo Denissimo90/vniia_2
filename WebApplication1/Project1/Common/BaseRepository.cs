@@ -22,7 +22,7 @@ namespace ReportApp.Common
 
         public IQueryable<T> GetEntities()
         {
-            return _context.Set<T>().AsNoTracking();
+            return _context.Set<T>();
         }
 
         public void Add(T entity)
@@ -58,7 +58,7 @@ namespace ReportApp.Common
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
             return _context.Set<T>()
-                    .Where(expression).AsNoTracking();
+                    .Where(expression);
 
         }
 

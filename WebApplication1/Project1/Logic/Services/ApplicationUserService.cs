@@ -22,7 +22,7 @@ namespace ReportApp.Logic.Services
         public void Delete(int id)
         {
             uow.UserRepository.Delete(id);
-            uow.SaveAsync();
+            uow.Save();
         }
 
         public ApplicationUser GetUserById(int id)
@@ -31,9 +31,9 @@ namespace ReportApp.Logic.Services
 
         }
 
-        public async Task<ApplicationUser> GetUserByLogin(string login)
+        public ApplicationUser GetUserByLogin(string login)
         {
-            return await uow.UserRepository.GetApplicationUserByLoginAsync(login);
+            return uow.UserRepository.GetApplicationUserByLogin(login);
         }
 
         public List<ApplicationUser> GetUsers()
@@ -49,7 +49,7 @@ namespace ReportApp.Logic.Services
                 uow.UserRepository.Add(user);
             else
                 uow.UserRepository.Update(user);*/
-            uow.SaveAsync();
+            uow.Save();
         }
 
     }
