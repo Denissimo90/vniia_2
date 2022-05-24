@@ -1,4 +1,5 @@
-﻿using App.Entities.Dto;
+﻿using App.Entities;
+using App.Entities.Dto;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -38,7 +39,7 @@ namespace ReportApp.Controllers
 
         [HttpGet]
         [Route("roles")]
-        public List<RoleDto> Roles()
+        public List<RoleApiDto> Roles()
         {
             var roles = _externalDataService.GetRoles();
 
@@ -48,49 +49,49 @@ namespace ReportApp.Controllers
 
         [HttpGet]
         [Route("team")]
-        public List<TeamDto> Teams()
+        public List<Team> Teams()
         {
             return _externalDataService.GetTeams();
         }
 
         [HttpGet]
         [Route("competentions")]
-        public List<CompetentionDto> Competentions()
+        public List<Competention> Competentions()
         {
             return _externalDataService.GetCompitetions();
         }
 
         [HttpGet]
         [Route("participants")]
-        public List<ParticipantDto> Participants()
+        public List<ApplicationUser> Participants()
         {
             return _externalDataService.GetParticipants();
         }
 
         [HttpGet]
         [Route("new-role")]
-        public RoleDto Role()
+        public RoleApiDto Role()
         {
             return _externalDataService.GetRole(null);
         }
 
         [HttpGet]
         [Route("new-team")]
-        public TeamDto Team()
+        public Team Team()
         {
             return _externalDataService.GetTeam(null);
         }
 
         [HttpGet]
         [Route("new-competention")]
-        public CompetentionDto Competention()
+        public Competention Competention()
         {
             return _externalDataService.GetCompitetion(null);
         }
 
         [HttpGet]
-        [Route("new-participant")]
-        public ParticipantDto Participant()
+        [Route("new-application-user")]
+        public ApplicationUser ApplicationUser()
         {
             return _externalDataService.GetParticipant(null);
         }

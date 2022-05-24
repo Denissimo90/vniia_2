@@ -7,7 +7,7 @@ namespace ReportApp.Logic.Services.Interfacies
     public interface IRestApiListnerService
     {
         bool UpsertDataFromApi(int competentionId);
-        List<RoleDto> GetApiRoles();
+        List<RoleApiDto> GetApiRoles();
 
         List<ParticipantDto> GetApiParticipants(int competentionId);
         List<TeamDto> GetApiTeams(int competentionId);

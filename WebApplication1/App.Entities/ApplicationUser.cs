@@ -32,6 +32,7 @@ namespace App.Entities
         public string PlaceName { get; set; }
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
+        //[NotMapped]
         public string ShortName
         {
             get
@@ -39,6 +40,7 @@ namespace App.Entities
                 return LastName + " " + FirstName.Substring(0, 1) + " " + MiddleName.Substring(0, 1);
             }
         }
+        //[NotMapped]
         public string FullName
         {
             get
@@ -46,9 +48,22 @@ namespace App.Entities
                 return LastName + " " + FirstName + " " + MiddleName;
             }
         }
+
         //[NotMapped] Эта ассоциация не создать столбца в таблице.
         public string PwdSalt { get; set; }
         //[RegularExpression(@"/^(?!.*@.*@.*$)(?!.*@.*\-\-.*\..*$)(?!.*@.*\-\..*$)(?!.*@.*\-$)(.*@.+(\..{1,11})?)$/")]
+
+        public int? ParticipantDtoId { get; set; }
+        [NotMapped]
         public ParticipantDto ParticipantDto { get; set; }
+        public int? RoleDtoId { get; set; }
+        [NotMapped]
+        public RoleApiDto RoleDto { get; set; }
+        public int? CompetentionId { get; set; }
+        [NotMapped]
+        public Competention Competention { get; set; }
+        public int? TeamId { get; set; }
+        [NotMapped]
+        public Team Team { get; set; }
     }
 }

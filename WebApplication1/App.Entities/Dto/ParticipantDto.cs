@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace App.Entities.Dto
 {
-    [Serializable]
+    [Serializable] 
+    [Table("ParticipantDto")]
     public class ParticipantDto
     {
 
@@ -23,19 +24,11 @@ namespace App.Entities.Dto
         [JsonPropertyName("roleId")]
         public int RoleId { get; set; }
         [ForeignKey("RoleId")]
-        public RoleDto Role { get; set; }
+        public RoleApiDto RoleDto { get; set; }
         [JsonPropertyName("competentionId")]
-        public int CompetentionId { get; set; }
-        [ForeignKey("CompetentionId")]
-        public CompetentionDto Competention { get; set; }
-        public int ActionId { get; set; }
-        public ActionDto Action { get; set; }
-        public int TeamId { get; set; }
-        [ForeignKey("TeamId")]
-        public TeamDto Team { get; set; }
+        public int? CompetentionId { get; set; }
+        public CompetentionDto CompetentionDto { get; set; }
 
-        public string ApplicationUserForeignKey { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-
+        public List<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

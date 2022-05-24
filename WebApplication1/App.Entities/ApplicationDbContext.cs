@@ -52,24 +52,42 @@ namespace App.Entities
                     .Property(o => o.Id)
                     .HasDefaultValueSql("NEXT VALUE FOR ApplicationUser");*/
 
-            modelBuilder.Entity<ApplicationUser>()
+            /*modelBuilder.Entity<ApplicationUser>()
             .HasOne(b => b.ParticipantDto)
             .WithOne(i => i.ApplicationUser)
-            .HasForeignKey<ParticipantDto>(b => b.ApplicationUserForeignKey);
+            .HasForeignKey<ParticipantDto>(b => b.ApplicationUserForeignKey);*/
 
-
+            /*modelBuilder.Entity<Participant>()
+                .HasKey(c => new { c.ApplicationUser, c.ParticipantDto });*/
+            /*modelBuilder.Entity<Competention>().HasData(
+            new Competention[]
+            {
+                new Competention
+                {
+                    Id = -1,
+                    Title = ""
+                }
+            });
+            modelBuilder.Entity<ParticipantDto>().HasData(
+            new ParticipantDto[]
+            {
+                new ParticipantDto
+                {
+                    Id = -1,
+                }
+            });*/
             modelBuilder.Entity<ApplicationUser>().HasData(
             new ApplicationUser[]
     {
                 new ApplicationUser
                 {
-                    Email = "Vasya0Pupka@mail.ru",
+                    Email = "admin@mail.ru",
                     FirstName = "Vasya",
-                    LastName = "Pupkin",
+                    LastName = "Vasya",
                     MiddleName = "Vitlievich",
-                    PasswordHash = "123456",
+                    PasswordHash = "admin",
                     PwdSalt = "sal",
-                    UserName = "nagibator228",
+                    UserName = "admin",
                     BirthDate = new DateTime(1970,10,1),
                     EndDate = DateTime.Now,
                     BeginDate = new DateTime(DateTime.Now.Year - 2, DateTime.Now.Month, DateTime.Now.Day),
@@ -77,39 +95,11 @@ namespace App.Entities
                     PersonalNumber = "664363",
                     PlaceId = 1,
                     DepartmentCode="0035",
-                    DepartmentId = 4,
-                },
-
-                new ApplicationUser
-                {
-                    Email = "killer@gmail.com",
-                    FirstName = "Volodya",
-                    LastName = "Putin",
-                    MiddleName = "Vladimirivich",
-                    PasswordHash = "ukrainIsMine",
-                    PwdSalt = "gg",
-                    UserName = "VZPutin",
-                    BirthDate = new DateTime(1960,10,1),
-                    EndDate = DateTime.Now,
-                    BeginDate = new DateTime(DateTime.Now.Year - 10, DateTime.Now.Month, DateTime.Now.Day),
-                    PersonId= 2,
-                    PersonalNumber = "44325",
-                },
-
-                new ApplicationUser
-                {
-                    Email = "killer@gmail.com",
-                    FirstName = "Vlad",
-                    LastName = "Vladov",
-                    MiddleName = "Vladimirivich",
-                    PasswordHash = "12345",
-                    PwdSalt = "hh",
-                    UserName = "Killer",
-                    BirthDate = new DateTime(1980,10,1),
-                    EndDate = DateTime.Now,
-                    BeginDate = new DateTime(DateTime.Now.Year - 5, DateTime.Now.Month, DateTime.Now.Day),
-                    PersonId= 3,
-                    PersonalNumber = "1999",
+                    DepartmentId = 4/*,
+                    CompetentionId = -1,
+                    ParticipantDtoId = -1,
+                    RoleDtoId = -1,
+                    TeamId = -1*/
                 },
     });
             base.OnModelCreating(modelBuilder);
@@ -119,10 +109,17 @@ namespace App.Entities
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductQty> ProductQties { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-        public DbSet<TeamDto> Teams { get; set; }
-        public DbSet<ParticipantDto> Participants { get; set; }
-        public DbSet<RoleDto> RolesDto { get; set; }
-        public DbSet<CompetentionDto> Competents { get; set; }
+
+
+        public DbSet<Competention> Compitentions { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Participant> Participants { get; set; }
+
+
+        public DbSet<TeamDto> TeamsDto { get; set; }
+        public DbSet<ParticipantDto> ParticipantsDto { get; set; }
+        public DbSet<RoleApiDto> RolesDto { get; set; }
+        public DbSet<CompetentionDto> CompetentsDto { get; set; }
 
     }
 }

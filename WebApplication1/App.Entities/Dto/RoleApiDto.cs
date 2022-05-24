@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace App.Entities.Dto
 {
     [Serializable]
-    public class RoleDto
+    [Table("RoleDto")]
+    public class RoleApiDto
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
@@ -14,7 +16,7 @@ namespace App.Entities.Dto
         [JsonPropertyName("organizer")]
         public bool IsOrganizer { get; set; }
 
-        public List<ParticipantDto> ParticipantDtos { get; set; }
+        public List<ApplicationUser> ApplicationUsers { get; set; }
 
     }
 }

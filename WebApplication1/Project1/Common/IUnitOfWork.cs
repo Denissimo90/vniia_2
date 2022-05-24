@@ -12,11 +12,13 @@ namespace ReportApp.Common
         IProductQtyRepository ProductQtyRepository { get; }
         IProductRepository ProductRepository{ get; }
         IApplicationUserRepository UserRepository { get; }
+        ICompetentionRepository CompetentionRepository { get; }
+        IParticipantRepository ParticipantRepository { get; }
         ICompetentionDtoRepository CompetentionDtoRepository { get; }
         IParticipantDtoRepository ParticipantDtoRepository { get; }
         IRoleDtoRepository RoleDtoRepository { get; }
+        ITeamRepository TeamRepository { get; }
         ITeamDtoRepository TeamDtoRepository { get; }
-        IActionDtoRepository ActionDtoRepository { get; }
         //Task Save();
         int Save();
     }
