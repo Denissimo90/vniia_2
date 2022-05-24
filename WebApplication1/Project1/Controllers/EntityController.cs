@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ReportApp.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("entities")]
     public class EntityController : ControllerBase

@@ -30,6 +30,12 @@ using Newtonsoft.Json;
 using IdentityServer4.AccessTokenValidation;
 using IdentityServer4.Validation;
 using System.Threading.Tasks;
+using Microsoft.IdentityModel.Logging;
+using System.Net.Http;
+using System.Security.Authentication;
+using Microsoft.IdentityModel.Protocols;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using System.Linq;
 
 namespace ReportApp
 {
@@ -66,6 +72,32 @@ namespace ReportApp
                 });
             });
             services.AddMvcCore();
+            /*services.AddAuthorization(options =>
+            // политики позволяют не работать с Roles magic strings, содержащими перечисления ролей через запятую
+                options.AddPolicy("AdminsOnly", policyUser =>
+                {
+                    policyUser.RequireClaim("role", "admin");
+                })
+            );*/
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddRepository();
+            services.AddService();
+
+            IList<string> validissuers = new List<string>()
+            {
+                "https://localhost:5006",
+            };
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddIdentityServerAuthentication(JwtBearerDefaults.AuthenticationScheme, options =>
+            {
+                options.Authority = "https://localhost:5006";
+                options.RequireHttpsMetadata = true;
+                options.ApiSecret = "Q&tGrEQMypEk.XxPU:%bWDZMdpZeJiyMwpLv4F7d**w9x:7KuJ#fy,E8KPHpKz++";
+                options.ApiName = "companyApi";
+                options.JwtBackChannelHandler = GetHandler();
+            });
+
             services.AddAuthorization(options =>
             // политики позволяют не работать с Roles magic strings, содержащими перечисления ролей через запятую
                 options.AddPolicy("AdminsOnly", policyUser =>
@@ -73,32 +105,8 @@ namespace ReportApp
                     policyUser.RequireClaim("role", "admin");
                 })
             );
-            services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddRepository();
-            services.AddService();
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(o =>
-            {
-                o.Authority = "http://localhost:5006";
-                o.RequireHttpsMetadata = false;
-                o.SaveToken = true;
-                o.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = "dotNetCore",
-                    ValidAudience = "angular-client",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("mysupersecret_secretkey!123")),
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
+            IdentityModelEventSource.ShowPII = true;
 
             services.AddControllersWithViews(mvcOtions =>
             {
@@ -115,8 +123,19 @@ namespace ReportApp
             app.UseMigrationsEndPoint();
             app.UseCors(def => def.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-            app.UseAuthentication();
+            app.UseRouting();
+            app.Use((context, next) => { context.Request.Scheme = "https"; return next(); });
+
+            app.UseAuthorization();
             app.UseMvc();
+        }
+        private static HttpClientHandler GetHandler()
+        {
+            var handler = new HttpClientHandler();
+            handler.ClientCertificateOptions = ClientCertificateOption.Automatic;
+            handler.SslProtocols = SslProtocols.Tls12;
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+            return handler;
         }
     }
     public class AuthOptions
@@ -128,4 +147,5 @@ namespace ReportApp
         public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
             new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
     }
+
 }

@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +49,7 @@ namespace LoginService
                     LoginUrl = "/account/login",
                     LoginReturnUrlParameter = "returnUrl"
                 };
+                options.IssuerUri = "https://localhost:5006";
             })
                 .AddInMemoryApiScopes(InMemoryConfig.GetApiScopes())
                 .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
@@ -70,7 +72,7 @@ namespace LoginService
                 options.User.RequireUniqueEmail = false;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-                //.AddDefaultTokenProviders();
+            //.AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
             services.AddCors(options =>
@@ -78,7 +80,8 @@ namespace LoginService
                 // задаём политику CORS, чтобы наше клиентское приложение могло отправить запрос на сервер API
                 options.AddPolicy("default", policy =>
                 {
-                    policy.WithOrigins("http://localhost:5006")
+                    policy
+                    .WithOrigins("https://localhost:5006")
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -100,13 +103,16 @@ namespace LoginService
             }
 
             app.UseIdentityServer();
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.Use((context, next) => { context.Request.Scheme = "https"; return next(); });
 
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict });
+
+            IdentityModelEventSource.ShowPII = true;
 
             app.UseEndpoints(endpoints =>
             {
@@ -152,13 +158,30 @@ namespace LoginService
         public static IEnumerable<Client> GetClients() =>
         new List<Client>
         {
-           /*new Client
+           new Client
            {
-                ClientId = "company-employee",
-                ClientSecrets = new [] { new Secret("codemazesecret".Sha512()) },
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
-                AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId, "companyApi" }
-            },*/
+               ClientId = "U2EQlBHfcbuxUo",
+               ClientSecrets = new [] { new Secret("TbXuRy7SSF5wzH".Sha256()) },
+               ClientName = "WebUI",
+               AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
+               RequireConsent = false,
+               RequireClientSecret = false,
+               RequirePkce = false,
+               RequireRequestObject = false,
+               AllowOfflineAccess = true,
+               AlwaysSendClientClaims = true,
+               AlwaysIncludeUserClaimsInIdToken = true,
+                AllowedScopes =
+                {
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile,
+                    "companyApi",
+
+                },
+                           ClientUri = "https://localhost:5001",
+                RedirectUris = new List<string>{ "https://localhost:5001/" },
+                           PostLogoutRedirectUris = new List<string> { "https://localhost:5001/" },
+            },
            new Client
 {
     ClientName = "Angular-Client",
@@ -167,6 +190,7 @@ namespace LoginService
     RedirectUris = new List<string>{ "http://localhost:4200/", "http://localhost:4200/assets/silent-refresh.html" },
     RequirePkce = true,
     AllowAccessTokensViaBrowser = true,
+                ClientSecrets = new [] { new Secret("codemazesecret".Sha512()) },
     AllowedScopes =
     {
         IdentityServerConstants.StandardScopes.OpenId,

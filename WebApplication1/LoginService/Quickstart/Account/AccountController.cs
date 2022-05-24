@@ -206,7 +206,7 @@ namespace IdentityServerHost.Quickstart.UI
 
                         await HttpContext.SignInAsync(new IdentityServerUser(user.Id)
                         {
-                            DisplayName = user.UserName + "999999",
+                            DisplayName = user.UserName,
                             AdditionalClaims = new List<Claim>() { { new Claim("test", "value") } },
                             AuthenticationTime = DateTime.Now
                         }, props);
