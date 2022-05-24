@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ReportApp.Logic.Services.Interfacies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ReportApp.Logic.Services

@@ -53,7 +53,7 @@ namespace ReportApp
                     ));
 
             Logic.Services.EndpointService.ConnectionString =
-                Configuration.GetConnectionString("DefaultManufactureConnection");
+                Configuration.GetConnectionString("DefaultRestApiConnection");
 
             services.AddCors(options =>
             {
