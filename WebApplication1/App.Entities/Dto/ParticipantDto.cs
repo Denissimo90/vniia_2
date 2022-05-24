@@ -29,7 +29,6 @@ namespace App.Entities.Dto
         [ForeignKey("CompetentionId")]
         public CompetentionDto Competention { get; set; }
         public int ActionId { get; set; }
-        [ForeignKey("ActionId")]
         public ActionDto Action { get; set; }
         public int TeamId { get; set; }
         [ForeignKey("TeamId")]

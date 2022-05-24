@@ -174,7 +174,7 @@ namespace LoginService
         "companyApi"
     },
     PostLogoutRedirectUris = new List<string> { configuration.GetValue<string>("ClientUrl:Host") + @"/" },
-    AllowedCorsOrigins = { configuration.GetValue<string>("ClientUrl:Host") + "/**" },
+    AllowedCorsOrigins = { configuration.GetValue<string>("ClientUrl:Host") },
     RequireClientSecret = false,
     RequireConsent = false,
     AccessTokenLifetime = 600
