@@ -15,11 +15,15 @@ namespace ReportApp.Logic
     {
         public static IServiceCollection AddRepository(this IServiceCollection services)
         {
-            services.AddTransient<IManufactureRepository, ManufactureRepository>();
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<IProductQtyRepository, ProductQtyRepository>();
-            services.AddTransient<IApplicationUserRepository, ApplicationUserRepository>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IManufactureRepository, ManufactureRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductQtyRepository, ProductQtyRepository>();
+            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            services.AddScoped<ICompetentionDtoRepository, CompetentionDtoRepository>();
+            services.AddScoped<IParticipantDtoRepository, ParticipantDtoRepository>();
+            services.AddScoped<IRoleDtoRepository, RoleDtoRepository>();
+            services.AddScoped<ITeamDtoRepository, TeamDtoRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //services.AddDbContext<BookStoreDbContext>(opt => opt
             //    .UseSqlServer("Server=localhost,1433; Database=BooksDB;User Id=sa; Password=password_01;"));
@@ -27,10 +31,11 @@ namespace ReportApp.Logic
         }
         public static IServiceCollection AddService(this IServiceCollection services)
         {
-            services.AddTransient<IApplicationUserService, ApplicationUserService>();
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<IJsonService, JsonService>();
-            services.AddTransient<IManufactureService, ManufactureService>();
+            services.AddScoped<IApplicationUserService, ApplicationUserService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IJsonService, JsonService>();
+            services.AddScoped<IManufactureService, ManufactureService>();
+            services.AddScoped<IRestApiListnerService, RestApiListnerService>();
             return services;
         }
     }

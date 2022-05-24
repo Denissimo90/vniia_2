@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace ReportApp.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     [Route("user")]
     public class ApplicationUserController : ControllerBase

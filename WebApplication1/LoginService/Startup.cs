@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,25 +53,16 @@ namespace LoginService
                 .AddInMemoryApiScopes(InMemoryConfig.GetApiScopes())
                 .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
                 .AddInMemoryIdentityResources(InMemoryConfig.GetIdentityResources())
-                //.AddTestUsers(InMemoryConfig.GetUsers())
-                .AddInMemoryClients(InMemoryConfig.GetClients())
+                .AddInMemoryClients(InMemoryConfig.GetClients(Configuration))
                 .AddDeveloperSigningCredential()
                 .AddCustomTokenRequestValidator<InMemoryConfig.CustomTokenRequestValidator>()
                     .AddProfileService<IdentityAuthority.Configs.IdentityProfileService>();
-            //services.AddAuthentication("Bearer")
-            //   .AddJwtBearer("Bearer", opt =>
-            //   {
-            //       opt.RequireHttpsMetadata = false;
-            //       opt.Authority = "https://localhost:5005";
-            //       opt.Audience = "companyApi";
-            //   });
-            //services.AddRazorPages();
+
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.User.RequireUniqueEmail = false;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-                //.AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
             services.AddCors(options =>
@@ -78,7 +70,8 @@ namespace LoginService
                 // задаём политику CORS, чтобы наше клиентское приложение могло отправить запрос на сервер API
                 options.AddPolicy("default", policy =>
                 {
-                    policy.WithOrigins("http://localhost:5006")
+                    policy
+                    .WithOrigins(Configuration.GetValue<string>("LoginServiceUrl:Host"))
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -100,13 +93,16 @@ namespace LoginService
             }
 
             app.UseIdentityServer();
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+            app.Use((context, next) => { context.Request.Scheme = "https"; return next(); });
 
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict });
+
+            IdentityModelEventSource.ShowPII = true;
 
             app.UseEndpoints(endpoints =>
             {
@@ -149,32 +145,26 @@ namespace LoginService
                   }
               }
           };
-        public static IEnumerable<Client> GetClients() =>
+        public static IEnumerable<Client> GetClients(IConfiguration configuration) =>
         new List<Client>
         {
-           /*new Client
-           {
-                ClientId = "company-employee",
-                ClientSecrets = new [] { new Secret("codemazesecret".Sha512()) },
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
-                AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId, "companyApi" }
-            },*/
            new Client
 {
     ClientName = "Angular-Client",
     ClientId = "angular-client",
     AllowedGrantTypes = GrantTypes.Implicit,
-    RedirectUris = new List<string>{ "http://localhost:4200/", "http://localhost:4200/assets/silent-refresh.html" },
+    RedirectUris = new List<string>{ configuration.GetValue<string>("ClientUrl:Host") + @"/", configuration.GetValue<string>("ClientUrl:Host") + "/assets/silent-refresh.html" },
     RequirePkce = true,
     AllowAccessTokensViaBrowser = true,
+                ClientSecrets = new [] { new Secret("codemazesecret".Sha512()) },
     AllowedScopes =
     {
         IdentityServerConstants.StandardScopes.OpenId,
         IdentityServerConstants.StandardScopes.Profile,
         "companyApi"
     },
-    PostLogoutRedirectUris = new List<string> { "http://localhost:4200/" },
-    AllowedCorsOrigins = { "http://localhost:4200" },
+    PostLogoutRedirectUris = new List<string> { configuration.GetValue<string>("ClientUrl:Host") + @"/" },
+    AllowedCorsOrigins = { configuration.GetValue<string>("ClientUrl:Host") },
     RequireClientSecret = false,
     RequireConsent = false,
     AccessTokenLifetime = 600

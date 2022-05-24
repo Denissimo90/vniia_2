@@ -11,6 +11,7 @@ namespace ReportApp.Common
         T GetEntity(int id);
         IQueryable<T> GetEntities();
         void Add(T entity);
+        void InsertOrUpdate(T entity, int id);
         void Delete(int entityId);
         void Delete(T entity);
         void Update(T entity);

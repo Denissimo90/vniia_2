@@ -15,18 +15,18 @@ namespace ReportApp.Logic.Repositories
 
         }
 
-        public async Task<IEnumerable<ApplicationUser>> GetAllApplicationUsersAsync()
+        public IEnumerable<ApplicationUser> GetAllApplicationUsers()
         {
-            return await GetEntities().ToListAsync();
+            return GetEntities().ToList();
         }
 
-        public async Task<ApplicationUser> GetApplicationUserByIdAsync(int id)
+        public ApplicationUser GetApplicationUserById(int id)
         {
-            return await FindByCondition(user => user.Id.Equals(id)).FirstOrDefaultAsync();
+            return FindByCondition(user => user.Id.Equals(id)).FirstOrDefault();
         }
-        public async Task<ApplicationUser> GetApplicationUserByLoginAsync(string login)
+        public ApplicationUser GetApplicationUserByLogin(string login)
         {
-            return await FindByCondition(user => user.UserName.Equals(login)).FirstOrDefaultAsync();
+            return FindByCondition(user => user.UserName.Equals(login)).FirstOrDefault();
         }
     }
 }

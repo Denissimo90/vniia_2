@@ -1,6 +1,6 @@
 {
     "api": "https://localhost:5001",
-    "auth": "http://localhost:5006",
+    "auth": "https://localhost:5006",
     "condition": "vniia",
     "menuConfigUri": "/menu.config.dev.json",
     "version": "0.1",

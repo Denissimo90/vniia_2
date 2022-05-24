@@ -136,16 +136,16 @@ namespace App.Entities.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d094cada-1c6a-4996-b1b7-1beb871ec1a9",
+                            Id = "5d4d765a-ef54-47e8-a99f-9ab8843fd615",
                             AccessFailedCount = 0,
-                            BeginDate = new DateTime(2020, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BeginDate = new DateTime(2020, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthDate = new DateTime(1970, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "d3cca662-f42e-442b-8cd4-c1a642d67048",
+                            ConcurrencyStamp = "b5e513a6-0fdb-4313-ae4a-768e7bcc65ea",
                             DepartmentCode = "0035",
                             DepartmentId = 4,
                             Email = "Vasya0Pupka@mail.ru",
                             EmailConfirmed = false,
-                            EndDate = new DateTime(2022, 5, 23, 20, 30, 24, 882, DateTimeKind.Local).AddTicks(3120),
+                            EndDate = new DateTime(2022, 5, 24, 10, 45, 37, 892, DateTimeKind.Local).AddTicks(365),
                             FirstName = "Vasya",
                             LastName = "Pupkin",
                             LockoutEnabled = false,
@@ -156,21 +156,21 @@ namespace App.Entities.Migrations
                             PhoneNumberConfirmed = false,
                             PlaceId = 1,
                             PwdSalt = "sal",
-                            SecurityStamp = "4b21eb47-fad0-4c90-91fb-ed2eb30a27a2",
+                            SecurityStamp = "aa1d07db-b5c1-4809-8c76-68f9f4aa84f5",
                             TwoFactorEnabled = false,
                             UserName = "nagibator228"
                         },
                         new
                         {
-                            Id = "be4a1ac5-b6f5-45fb-bf22-84aef01781c4",
+                            Id = "ac542394-ea1a-434f-a2de-7a2c584ecb59",
                             AccessFailedCount = 0,
-                            BeginDate = new DateTime(2012, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BeginDate = new DateTime(2012, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthDate = new DateTime(1960, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "e718353b-3444-45a9-b28b-90e0d75e2bb0",
+                            ConcurrencyStamp = "b5cc3223-4a44-4cb3-b45d-62b92c17d126",
                             DepartmentId = 0,
                             Email = "killer@gmail.com",
                             EmailConfirmed = false,
-                            EndDate = new DateTime(2022, 5, 23, 20, 30, 24, 883, DateTimeKind.Local).AddTicks(8814),
+                            EndDate = new DateTime(2022, 5, 24, 10, 45, 37, 892, DateTimeKind.Local).AddTicks(7921),
                             FirstName = "Volodya",
                             LastName = "Putin",
                             LockoutEnabled = false,
@@ -181,21 +181,21 @@ namespace App.Entities.Migrations
                             PhoneNumberConfirmed = false,
                             PlaceId = 0,
                             PwdSalt = "gg",
-                            SecurityStamp = "7559bade-969e-4c22-8d4b-c93479bf7f57",
+                            SecurityStamp = "ba04f5c4-3de7-4f33-8e72-d2f056e794e1",
                             TwoFactorEnabled = false,
                             UserName = "VZPutin"
                         },
                         new
                         {
-                            Id = "f1c22bfb-8ae4-4738-ab6e-10f6aaf6e57d",
+                            Id = "04ebf8b0-f8d9-4971-91e9-7ac8de67041a",
                             AccessFailedCount = 0,
-                            BeginDate = new DateTime(2017, 5, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BeginDate = new DateTime(2017, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthDate = new DateTime(1980, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "3c6befc2-e781-4179-947f-e43ab6aa2c4b",
+                            ConcurrencyStamp = "b7cb239c-c497-4e80-86f9-77bff9e13f6d",
                             DepartmentId = 0,
                             Email = "killer@gmail.com",
                             EmailConfirmed = false,
-                            EndDate = new DateTime(2022, 5, 23, 20, 30, 24, 883, DateTimeKind.Local).AddTicks(8939),
+                            EndDate = new DateTime(2022, 5, 24, 10, 45, 37, 892, DateTimeKind.Local).AddTicks(7941),
                             FirstName = "Vlad",
                             LastName = "Vladov",
                             LockoutEnabled = false,
@@ -206,10 +206,97 @@ namespace App.Entities.Migrations
                             PhoneNumberConfirmed = false,
                             PlaceId = 0,
                             PwdSalt = "hh",
-                            SecurityStamp = "6a599ccc-a65a-478b-9fa9-aed7037c3834",
+                            SecurityStamp = "e9ed185f-6bf7-488c-951c-97e6fd1c6127",
                             TwoFactorEnabled = false,
                             UserName = "Killer"
                         });
+                });
+
+            modelBuilder.Entity("App.Entities.Dto.CompetentionDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ShortTitle")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Competents");
+                });
+
+            modelBuilder.Entity("App.Entities.Dto.ParticipantDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CompetentionId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SecondName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ThirdName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompetentionId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Participants");
+                });
+
+            modelBuilder.Entity("App.Entities.Dto.RoleDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Organizer")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RolesDto");
+                });
+
+            modelBuilder.Entity("App.Entities.Dto.TeamDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CompetentionId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompetentionId");
+
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("App.Entities.Manufacture", b =>
@@ -413,6 +500,36 @@ namespace App.Entities.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("App.Entities.Dto.ParticipantDto", b =>
+                {
+                    b.HasOne("App.Entities.Dto.CompetentionDto", "Competention")
+                        .WithMany()
+                        .HasForeignKey("CompetentionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("App.Entities.Dto.RoleDto", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Competention");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("App.Entities.Dto.TeamDto", b =>
+                {
+                    b.HasOne("App.Entities.Dto.CompetentionDto", "Competention")
+                        .WithMany()
+                        .HasForeignKey("CompetentionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Competention");
                 });
 
             modelBuilder.Entity("App.Entities.Product", b =>

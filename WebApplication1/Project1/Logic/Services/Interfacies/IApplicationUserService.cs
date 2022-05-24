@@ -12,6 +12,6 @@ namespace ReportApp.Logic.Services.Interfacies
         void Delete(int id);
         List<ApplicationUser> GetUsers();
         ApplicationUser GetUserById(int id);
-        Task<ApplicationUser> GetUserByLogin(string login);
+        ApplicationUser GetUserByLogin(string login);
     }
 }
