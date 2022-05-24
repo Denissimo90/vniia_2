@@ -20,7 +20,6 @@ namespace ReportApp.Logic.Services.Interfacies
         public void RemoveCompetetion(Competention competention);
         public void InsertOrUpdateCompetetion(Competention competention);
         public void InsertOrUpdateTeam(Team team);
-        public void InsertOrUpdateParticipant(Participant participant);
 
     }
 }

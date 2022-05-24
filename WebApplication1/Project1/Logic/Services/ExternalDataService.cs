@@ -90,16 +90,16 @@ namespace ReportApp.Logic.Services
 
         public List<Team> GetTeams()
         {
-            return uow.TeamRepository.GetEntities().ToList();
+            return uow.TeamRepository.AllIncluding(t => t.Competention,
+            t => t.TeamDto).ToList();
         }
 
         public void InsertOrUpdateTeamDto(TeamDto action)
         {
-            /*action.ParticipantDtos = null;
-            action.TeamDtos = null;
-            */
+            action.Competention = null;
+            
             var existingAction = uow.TeamDtoRepository.GetEntity(action.Id);
-            if(existingAction != null)
+            if (existingAction != null)
             {
                 uow.TeamDtoRepository.Update(action);
             }
@@ -125,21 +125,7 @@ namespace ReportApp.Logic.Services
             }
             uow.Save();
         }
-
-        public void InsertOrUpdateParticipant(Participant participant)
-        {
-            /*var existing = uow.CompetentionRepository.GetEntity(participant.Id);
-            if (existing != null)
-            {
-                uow.ParticipantRepository.Update(participant);
-            }
-            else
-            {
-                uow.ParticipantRepository.Add(participant);
-            }
-            uow.Save();*/
-        }
-
+               
         public void InsertOrUpdateTeam(Team team)
         {
             var existing = uow.TeamRepository.GetEntity(team.Id);
@@ -156,8 +142,8 @@ namespace ReportApp.Logic.Services
 
         public void RemoveTeamDto(TeamDto action)
         {
-           /* action.ParticipantDtos = null;
-            action.TeamDtos = null;*/
+            /* action.ParticipantDtos = null;
+             action.TeamDtos = null;*/
             uow.TeamDtoRepository.Delete(action);
             uow.Save();
         }
@@ -180,7 +166,7 @@ namespace ReportApp.Logic.Services
 
         public void RemoveParticipant(Participant participant)
         {
-            
+
             uow.ParticipantRepository.Delete(participant);
         }
 

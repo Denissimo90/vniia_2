@@ -8,6 +8,7 @@ namespace ReportApp.Common
 {
     public interface IBaseRepository<T> where T : class
     {
+
         T GetEntity(int id);
         IQueryable<T> GetEntities();
         void Add(T entity);
@@ -17,7 +18,7 @@ namespace ReportApp.Common
         void Update(T entity);
 
         void Attach(T entity);
-        IQueryable<T> AllIncluding(Expression<Func<T, bool>> expression);
+        IQueryable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties);
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
         //void Create(T item);
         //T FindById(int id);

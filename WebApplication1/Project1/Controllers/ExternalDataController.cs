@@ -25,7 +25,6 @@ namespace ReportApp.Controllers
             _externalDataService = externalDataService;
         }
 
-
         [HttpGet]
         [Route("refresh-api-external-data/{competentionId}")]
         public IActionResult UpsertDataFromApi(int competentionId)
@@ -36,7 +35,6 @@ namespace ReportApp.Controllers
                 return BadRequest();
         }
 
-
         [HttpGet]
         [Route("roles")]
         public List<RoleApiDto> Roles()
@@ -46,6 +44,15 @@ namespace ReportApp.Controllers
 
             return roles;
         }
+
+
+        [HttpGet]
+        [Route("role")]
+        public RoleApiDto Role()
+        {
+            return _externalDataService.GetRole(null);
+        }
+
 
         [HttpGet]
         [Route("team")]
@@ -66,13 +73,6 @@ namespace ReportApp.Controllers
         public List<ApplicationUser> Participants()
         {
             return _externalDataService.GetParticipants();
-        }
-
-        [HttpGet]
-        [Route("new-role")]
-        public RoleApiDto Role()
-        {
-            return _externalDataService.GetRole(null);
         }
 
         [HttpGet]
