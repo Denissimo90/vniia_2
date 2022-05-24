@@ -5,9 +5,9 @@ using App.Entities.Dto;
 
 namespace ReportApp.Logic.Repositories
 {
-    public class RoleDtoRepository : BaseRepository<RoleApiDto>, IRoleDtoRepository
+    public class CompetentionRepository : BaseRepository<Competention>, ICompetentionRepository
     {
-        public RoleDtoRepository(ApplicationDbContext dbContext) : base(dbContext)
+        public CompetentionRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
     }

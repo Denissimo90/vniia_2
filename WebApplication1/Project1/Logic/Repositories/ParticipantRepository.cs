@@ -5,9 +5,9 @@ using App.Entities.Dto;
 
 namespace ReportApp.Logic.Repositories
 {
-    public class RoleDtoRepository : BaseRepository<RoleApiDto>, IRoleDtoRepository
+    public class ParticipantRepository : BaseRepository<Participant>, IParticipantRepository
     {
-        public RoleDtoRepository(ApplicationDbContext dbContext) : base(dbContext)
+        public ParticipantRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
     }

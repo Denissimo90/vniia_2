@@ -17,18 +17,18 @@ namespace ReportApp.Logic.Services
             this.uow = uow;
         }
 
-        public List<RoleDto> GetApiRoles()
+        public List<RoleApiDto> GetApiRoles()
         {
-            List<RoleDto> roles;
+            List<RoleApiDto> roles;
             string values = EndpointService.GetRequestFromEndpoint("role", new List<string>().ToArray()).Result + "";
 
             if (!string.IsNullOrEmpty(values))
             {
-                roles = JsonSerializer.Deserialize<List<RoleDto>>(values);
+                roles = JsonSerializer.Deserialize<List<RoleApiDto>>(values);
                 return roles;
             }
 
-            return new List<RoleDto>();
+            return new List<RoleApiDto>();
         }
 
 

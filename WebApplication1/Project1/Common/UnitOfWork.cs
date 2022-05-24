@@ -16,21 +16,26 @@ namespace ReportApp.Common
 
         public IProductQtyRepository ProductQtyRepository { get; }
 
+        public ICompetentionRepository CompetentionRepository { get; }
+
+        public IParticipantRepository ParticipantRepository { get; }
+
+        public IRoleDtoRepository RoleDtoRepository { get; }
+
+        public ITeamRepository TeamRepository { get; }
+        public ITeamDtoRepository TeamDtoRepository { get; }
+
         public ICompetentionDtoRepository CompetentionDtoRepository { get; }
 
         public IParticipantDtoRepository ParticipantDtoRepository { get; }
 
-        public IRoleDtoRepository RoleDtoRepository { get; }
-
-        public ITeamDtoRepository TeamDtoRepository { get; }
-        public IActionDtoRepository ActionDtoRepository { get; }
-
         public UnitOfWork(ApplicationDbContext dbContext,
             IManufactureRepository manufactureRepository,
             IProductRepository productRepository, IApplicationUserRepository userRepository,
-            IProductQtyRepository productQtyRepository , ICompetentionDtoRepository competentionDtoRepository,
-            IParticipantDtoRepository participantDtoRepository,
-            IRoleDtoRepository roleDtoRepository, ITeamDtoRepository teamDtoRepository, IActionDtoRepository actionDtoRepository)
+            IProductQtyRepository productQtyRepository , ICompetentionRepository competentionRepository,
+            IParticipantRepository participantRepository,
+            IRoleDtoRepository roleDtoRepository, ITeamRepository teamRepository, ITeamDtoRepository actionDtoRepository,
+            ICompetentionDtoRepository competentionDtoRepository, IParticipantDtoRepository participantDtoRepository)
         {
             this._context = dbContext;
             ProductQtyRepository = productQtyRepository;
@@ -38,10 +43,14 @@ namespace ReportApp.Common
             ProductRepository = productRepository;
             UserRepository = userRepository;
             RoleDtoRepository = roleDtoRepository;
-            TeamDtoRepository = teamDtoRepository;
+
+            TeamRepository = teamRepository;
+            ParticipantRepository = participantRepository;
+            CompetentionRepository = competentionRepository;
+
             ParticipantDtoRepository = participantDtoRepository;
             CompetentionDtoRepository = competentionDtoRepository;
-            ActionDtoRepository = actionDtoRepository;
+            TeamDtoRepository = actionDtoRepository;
         }
         /* public int Save()
          {

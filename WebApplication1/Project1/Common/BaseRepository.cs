@@ -84,9 +84,14 @@ namespace ReportApp.Common
 
         }
 
-        public IQueryable<T> AllIncluding(Expression<Func<T, bool>> expression)
+        public IQueryable<T> AllIncluding(params Expression<Func<T, object>>[] includeProperties)
         {
-            return _context.Set<T>().Include(expression);
+            IQueryable<T> query = _context.Set<T>();
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+            return query;
         }
 
         //ApplicationDbContext _context;

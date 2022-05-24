@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 namespace App.Entities.Dto
 {
     [Serializable]
+    [Table("TeamDto")]
     public class TeamDto
     {
         [JsonPropertyName("id")]
@@ -13,11 +14,8 @@ namespace App.Entities.Dto
         [JsonPropertyName("name")]
         public string Name { get; set; }
         [JsonPropertyName("competentionId")]
-        public int CompetentionId { get; set; }
-        [ForeignKey("CompetentionId")]
+        public int? CompetentionId { get; set; }
         public CompetentionDto Competention { get; set; }
-        public int ActionId { get; set; }
-        public ActionDto Action { get; set; }
         public List<ParticipantDto> Participants { get; set; }
 
 

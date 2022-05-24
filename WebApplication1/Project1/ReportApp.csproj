@@ -33,11 +33,15 @@
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Compile Remove="ClientApp\src\Areas\**" />
+    <Compile Remove="wwwroot\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\src\Areas\**" />
+    <Content Remove="wwwroot\**" />
     <EmbeddedResource Remove="ClientApp\src\Areas\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="ClientApp\src\Areas\**" />
+    <None Remove="wwwroot\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -49,10 +53,6 @@
     <None Include="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,21 +3,38 @@ using System;
 using App.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace App.Entities.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220524174855_ApplicationUserOneToOne")]
+    partial class ApplicationUserOneToOne
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            modelBuilder.Entity("App.Entities.ActionDto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ActionName")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ActionDto");
+                });
 
             modelBuilder.Entity("App.Entities.ApplicationUser", b =>
                 {
@@ -33,9 +50,6 @@ namespace App.Entities.Migrations
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("timestamp without time zone");
-
-                    b.Property<int?>("CompetentionId")
-                        .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -83,9 +97,6 @@ namespace App.Entities.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.Property<int?>("ParticipantDtoId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
 
@@ -119,17 +130,8 @@ namespace App.Entities.Migrations
                     b.Property<string>("PwdSalt")
                         .HasColumnType("text");
 
-                    b.Property<int?>("RoleApiDtoId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("RoleDtoId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
-
-                    b.Property<int?>("TeamId")
-                        .HasColumnType("integer");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
@@ -140,8 +142,6 @@ namespace App.Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompetentionId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -149,64 +149,85 @@ namespace App.Entities.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.HasIndex("ParticipantDtoId");
-
-                    b.HasIndex("RoleApiDtoId");
-
-                    b.HasIndex("TeamId");
-
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
                         new
                         {
-                            Id = "303b444b-857c-4c09-9561-384606ac8424",
+                            Id = "97b62bcf-2076-4f69-b1ef-812d825f813a",
                             AccessFailedCount = 0,
-                            BeginDate = new DateTime(2020, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BeginDate = new DateTime(2020, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthDate = new DateTime(1970, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "7cbe40ef-4a87-4009-92c9-4d63a9148132",
+                            ConcurrencyStamp = "51d514b6-d27a-41ef-a77e-8cc009ad23b0",
                             DepartmentCode = "0035",
                             DepartmentId = 4,
-                            Email = "admin@mail.ru",
+                            Email = "Vasya0Pupka@mail.ru",
                             EmailConfirmed = false,
-                            EndDate = new DateTime(2022, 5, 25, 1, 26, 14, 343, DateTimeKind.Local).AddTicks(6393),
+                            EndDate = new DateTime(2022, 5, 24, 20, 48, 54, 204, DateTimeKind.Local).AddTicks(5248),
                             FirstName = "Vasya",
-                            LastName = "Vasya",
+                            LastName = "Pupkin",
                             LockoutEnabled = false,
                             MiddleName = "Vitlievich",
-                            PasswordHash = "admin",
+                            PasswordHash = "123456",
                             PersonId = 1,
                             PersonalNumber = "664363",
                             PhoneNumberConfirmed = false,
                             PlaceId = 1,
                             PwdSalt = "sal",
-                            SecurityStamp = "732fab37-a89d-4bb8-9fcf-810f08f4b7d0",
+                            SecurityStamp = "f11e416a-1280-4019-9bd6-5ed04f3f5a07",
                             TwoFactorEnabled = false,
-                            UserName = "admin"
+                            UserName = "nagibator228"
+                        },
+                        new
+                        {
+                            Id = "c0e4c637-bbed-4957-9a2f-3dab761c8127",
+                            AccessFailedCount = 0,
+                            BeginDate = new DateTime(2012, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthDate = new DateTime(1960, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "6db5295a-f5d7-46ab-8b35-fbbbcb3bc5f3",
+                            DepartmentId = 0,
+                            Email = "killer@gmail.com",
+                            EmailConfirmed = false,
+                            EndDate = new DateTime(2022, 5, 24, 20, 48, 54, 205, DateTimeKind.Local).AddTicks(4764),
+                            FirstName = "Volodya",
+                            LastName = "Putin",
+                            LockoutEnabled = false,
+                            MiddleName = "Vladimirivich",
+                            PasswordHash = "ukrainIsMine",
+                            PersonId = 2,
+                            PersonalNumber = "44325",
+                            PhoneNumberConfirmed = false,
+                            PlaceId = 0,
+                            PwdSalt = "gg",
+                            SecurityStamp = "3879d95e-31ce-47f2-bb01-a44008de5815",
+                            TwoFactorEnabled = false,
+                            UserName = "VZPutin"
+                        },
+                        new
+                        {
+                            Id = "a3e69134-b680-4629-a31a-31e0b0ee2136",
+                            AccessFailedCount = 0,
+                            BeginDate = new DateTime(2017, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthDate = new DateTime(1980, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "25b6166a-34cb-4ec8-a399-5559a367054e",
+                            DepartmentId = 0,
+                            Email = "killer@gmail.com",
+                            EmailConfirmed = false,
+                            EndDate = new DateTime(2022, 5, 24, 20, 48, 54, 205, DateTimeKind.Local).AddTicks(4790),
+                            FirstName = "Vlad",
+                            LastName = "Vladov",
+                            LockoutEnabled = false,
+                            MiddleName = "Vladimirivich",
+                            PasswordHash = "12345",
+                            PersonId = 3,
+                            PersonalNumber = "1999",
+                            PhoneNumberConfirmed = false,
+                            PlaceId = 0,
+                            PwdSalt = "hh",
+                            SecurityStamp = "6c408136-d29f-4109-b777-988d49ee2276",
+                            TwoFactorEnabled = false,
+                            UserName = "Killer"
                         });
-                });
-
-            modelBuilder.Entity("App.Entities.Competention", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CompetentionDtoId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ShortTitle")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompetentionDtoId");
-
-                    b.ToTable("Compitentions");
                 });
 
             modelBuilder.Entity("App.Entities.Dto.CompetentionDto", b =>
@@ -224,7 +245,7 @@ namespace App.Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CompetentionDto");
+                    b.ToTable("Competents");
                 });
 
             modelBuilder.Entity("App.Entities.Dto.ParticipantDto", b =>
@@ -234,10 +255,13 @@ namespace App.Entities.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("CompetentionDtoId")
+                    b.Property<int>("ActionId")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("CompetentionId")
+                    b.Property<string>("ApplicationUserForeignKey")
+                        .HasColumnType("text");
+
+                    b.Property<int>("CompetentionId")
                         .HasColumnType("integer");
 
                     b.Property<string>("FirstName")
@@ -249,7 +273,7 @@ namespace App.Entities.Migrations
                     b.Property<string>("SecondName")
                         .HasColumnType("text");
 
-                    b.Property<int?>("TeamDtoId")
+                    b.Property<int>("TeamId")
                         .HasColumnType("integer");
 
                     b.Property<string>("ThirdName")
@@ -257,16 +281,21 @@ namespace App.Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompetentionDtoId");
+                    b.HasIndex("ActionId");
+
+                    b.HasIndex("ApplicationUserForeignKey")
+                        .IsUnique();
+
+                    b.HasIndex("CompetentionId");
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("TeamDtoId");
+                    b.HasIndex("TeamId");
 
-                    b.ToTable("ParticipantDto");
+                    b.ToTable("Participants");
                 });
 
-            modelBuilder.Entity("App.Entities.Dto.RoleApiDto", b =>
+            modelBuilder.Entity("App.Entities.Dto.RoleDto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -281,7 +310,7 @@ namespace App.Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RoleDto");
+                    b.ToTable("RolesDto");
                 });
 
             modelBuilder.Entity("App.Entities.Dto.TeamDto", b =>
@@ -291,7 +320,7 @@ namespace App.Entities.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("CompetentionId")
+                    b.Property<int>("CompetentionId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
@@ -301,7 +330,7 @@ namespace App.Entities.Migrations
 
                     b.HasIndex("CompetentionId");
 
-                    b.ToTable("TeamDto");
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("App.Entities.Manufacture", b =>
@@ -323,18 +352,6 @@ namespace App.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Manufactures");
-                });
-
-            modelBuilder.Entity("App.Entities.Participant", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Participants");
                 });
 
             modelBuilder.Entity("App.Entities.Product", b =>
@@ -387,31 +404,6 @@ namespace App.Entities.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductQties");
-                });
-
-            modelBuilder.Entity("App.Entities.Team", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int?>("CompetentionId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("TeamDtoId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompetentionId");
-
-                    b.HasIndex("TeamDtoId");
-
-                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -544,62 +536,54 @@ namespace App.Entities.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("App.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("App.Entities.Dto.ParticipantDto", b =>
                 {
-                    b.HasOne("App.Entities.Competention", null)
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("CompetentionId");
-
-                    b.HasOne("App.Entities.Dto.ParticipantDto", null)
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("ParticipantDtoId");
-
-                    b.HasOne("App.Entities.Dto.RoleApiDto", null)
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("RoleApiDtoId");
-
-                    b.HasOne("App.Entities.Team", null)
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("TeamId");
-                });
-
-            modelBuilder.Entity("App.Entities.Competention", b =>
-                {
-                    b.HasOne("App.Entities.Dto.CompetentionDto", "CompetentionDto")
+                    b.HasOne("App.Entities.ActionDto", "Action")
                         .WithMany()
-                        .HasForeignKey("CompetentionDtoId")
+                        .HasForeignKey("ActionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CompetentionDto");
-                });
+                    b.HasOne("App.Entities.ApplicationUser", "ApplicationUser")
+                        .WithOne("ParticipantDto")
+                        .HasForeignKey("App.Entities.Dto.ParticipantDto", "ApplicationUserForeignKey");
 
-            modelBuilder.Entity("App.Entities.Dto.ParticipantDto", b =>
-                {
-                    b.HasOne("App.Entities.Dto.CompetentionDto", "CompetentionDto")
-                        .WithMany()
-                        .HasForeignKey("CompetentionDtoId");
+                    b.HasOne("App.Entities.Dto.CompetentionDto", "Competention")
+                        .WithMany("ParticipantDtos")
+                        .HasForeignKey("CompetentionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("App.Entities.Dto.RoleApiDto", "RoleDto")
-                        .WithMany()
+                    b.HasOne("App.Entities.Dto.RoleDto", "Role")
+                        .WithMany("ParticipantDtos")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("App.Entities.Dto.TeamDto", null)
+                    b.HasOne("App.Entities.Dto.TeamDto", "Team")
                         .WithMany("Participants")
-                        .HasForeignKey("TeamDtoId");
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("CompetentionDto");
+                    b.Navigation("Action");
 
-                    b.Navigation("RoleDto");
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Competention");
+
+                    b.Navigation("Role");
+
+                    b.Navigation("Team");
                 });
 
             modelBuilder.Entity("App.Entities.Dto.TeamDto", b =>
                 {
                     b.HasOne("App.Entities.Dto.CompetentionDto", "Competention")
-                        .WithMany()
-                        .HasForeignKey("CompetentionId");
+                        .WithMany("TeamDtos")
+                        .HasForeignKey("CompetentionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Competention");
                 });
@@ -624,21 +608,6 @@ namespace App.Entities.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("App.Entities.Team", b =>
-                {
-                    b.HasOne("App.Entities.Competention", "Competention")
-                        .WithMany("Teams")
-                        .HasForeignKey("CompetentionId");
-
-                    b.HasOne("App.Entities.Dto.TeamDto", "TeamDto")
-                        .WithMany()
-                        .HasForeignKey("TeamDtoId");
-
-                    b.Navigation("Competention");
-
-                    b.Navigation("TeamDto");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -692,21 +661,21 @@ namespace App.Entities.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("App.Entities.Competention", b =>
+            modelBuilder.Entity("App.Entities.ApplicationUser", b =>
                 {
-                    b.Navigation("ApplicationUsers");
-
-                    b.Navigation("Teams");
+                    b.Navigation("ParticipantDto");
                 });
 
-            modelBuilder.Entity("App.Entities.Dto.ParticipantDto", b =>
+            modelBuilder.Entity("App.Entities.Dto.CompetentionDto", b =>
                 {
-                    b.Navigation("ApplicationUsers");
+                    b.Navigation("ParticipantDtos");
+
+                    b.Navigation("TeamDtos");
                 });
 
-            modelBuilder.Entity("App.Entities.Dto.RoleApiDto", b =>
+            modelBuilder.Entity("App.Entities.Dto.RoleDto", b =>
                 {
-                    b.Navigation("ApplicationUsers");
+                    b.Navigation("ParticipantDtos");
                 });
 
             modelBuilder.Entity("App.Entities.Dto.TeamDto", b =>
@@ -722,11 +691,6 @@ namespace App.Entities.Migrations
             modelBuilder.Entity("App.Entities.Product", b =>
                 {
                     b.Navigation("Qties");
-                });
-
-            modelBuilder.Entity("App.Entities.Team", b =>
-                {
-                    b.Navigation("ApplicationUsers");
                 });
 #pragma warning restore 612, 618
         }

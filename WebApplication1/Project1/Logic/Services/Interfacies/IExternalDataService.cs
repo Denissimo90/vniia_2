@@ -7,22 +7,19 @@ namespace ReportApp.Logic.Services.Interfacies
 {
     public interface IExternalDataService
     {
-        public List<RoleDto> GetRoles();
-        public List<CompetentionDto> GetCompitetions();
-        public List<TeamDto> GetTeams();
-        public List<ParticipantDto> GetParticipants();
-        public RoleDto GetRole(int? id);
-        public CompetentionDto GetCompitetion(int? id);
-        public TeamDto GetTeam(int? id);
-        public ParticipantDto GetParticipant(int? id);
-        public void RemoveParticipant(ParticipantDto participant);
-        public void RemoveTeam(TeamDto team);
-        public void RemoveAction(ActionDto action);
-        public void RemoveCompetetion(CompetentionDto competention);
-        public void InsertOrUpdateCompetetion(CompetentionDto competention);
-        public void InsertOrUpdateAction(ActionDto action);
-        public void InsertOrUpdateTeam(TeamDto team);
-        public void InsertOrUpdateParticipant(ParticipantDto participant);
+        public List<RoleApiDto> GetRoles();
+        public List<Competention> GetCompitetions();
+        public List<Team> GetTeams();
+        public List<ApplicationUser> GetParticipants();
+        public RoleApiDto GetRole(int? id);
+        public Competention GetCompitetion(int? id);
+        public Team GetTeam(int? id);
+        public ApplicationUser GetParticipant(int? id);
+        public void RemoveParticipant(Participant participant);
+        public void RemoveTeam(Team team);
+        public void RemoveCompetetion(Competention competention);
+        public void InsertOrUpdateCompetetion(Competention competention);
+        public void InsertOrUpdateTeam(Team team);
 
     }
 }

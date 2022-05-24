@@ -23,11 +23,13 @@ namespace ReportApp.Logic
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductQtyRepository, ProductQtyRepository>();
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+            services.AddScoped<ICompetentionRepository, CompetentionRepository>();
+            services.AddScoped<IParticipantRepository, ParticipantRepository>();
             services.AddScoped<ICompetentionDtoRepository, CompetentionDtoRepository>();
             services.AddScoped<IParticipantDtoRepository, ParticipantDtoRepository>();
             services.AddScoped<IRoleDtoRepository, RoleDtoRepository>();
+            services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<ITeamDtoRepository, TeamDtoRepository>();
-            services.AddScoped<IActionDtoRepository, ActionDtoRepository>();
 
             return services;
         }

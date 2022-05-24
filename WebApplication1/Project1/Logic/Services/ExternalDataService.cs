@@ -17,51 +17,51 @@ namespace ReportApp.Logic.Services
             this.uow = uow;
         }
 
-        public CompetentionDto GetCompitetion(int? id)
+        public Competention GetCompitetion(int? id)
         {
             if (id == null)
-                return new CompetentionDto()
+                return new Competention()
                 {
-                    ParticipantDtos = new List<ParticipantDto>(),
-                    TeamDtos = new List<TeamDto>(),
+                    //ApplicationUsers = new List<ApplicationUser>()
                 };
             else
             {
-                return uow.CompetentionDtoRepository.GetEntity((int)id);
+                return uow.CompetentionRepository.GetEntity((int)id);
             }
         }
 
-        public List<CompetentionDto> GetCompitetions()
+        public List<Competention> GetCompitetions()
         {
-            return uow.CompetentionDtoRepository.GetEntities().ToList();
+            return uow.CompetentionRepository.GetEntities().ToList();
         }
 
-        public ParticipantDto GetParticipant(int? id)
+        public ApplicationUser GetParticipant(int? id)
         {
             if (id == null)
-                return new ParticipantDto()
+                return new ApplicationUser()
                 {
-                    Action = new ActionDto(),
-                    Competention = new CompetentionDto(),
-                    Role = new RoleDto()
+                    /*ParticipantDto = new ParticipantDto(),
+                    RoleDto = new RoleDto(),
+                    Team = new Team(),
+                    Competention = new Competention()*/
                 };
             else
             {
-                return uow.ParticipantDtoRepository.GetEntity((int)id);
+                return uow.UserRepository.GetEntity((int)id);
             }
         }
 
-        public List<ParticipantDto> GetParticipants()
+        public List<ApplicationUser> GetParticipants()
         {
-            return uow.ParticipantDtoRepository.GetEntities().ToList();
+            return uow.UserRepository.GetEntities().ToList();
         }
 
-        public RoleDto GetRole(int? id)
+        public RoleApiDto GetRole(int? id)
         {
             if (id == null)
-                return new RoleDto()
+                return new RoleApiDto()
                 {
-                    ParticipantDtos = new List<ParticipantDto>()
+                    //ApplicationUsers = new List<ApplicationUser>()
                 };
             else
             {
@@ -69,116 +69,111 @@ namespace ReportApp.Logic.Services
             }
         }
 
-        public List<RoleDto> GetRoles()
+        public List<RoleApiDto> GetRoles()
         {
             return uow.RoleDtoRepository.GetEntities().ToList();
         }
 
-        public TeamDto GetTeam(int? id)
+        public Team GetTeam(int? id)
         {
             if (id == null)
-                return new TeamDto()
+                return new Team()
                 {
-                    Competention = new CompetentionDto()
+                    //TeamDto = new TeamDto(),
+                    //ApplicationUsers = new List<ApplicationUser>()
                 };
             else
             {
-                return uow.TeamDtoRepository.GetEntity((int)id);
+                return uow.TeamRepository.GetEntity((int)id);
             }
         }
 
-        public List<TeamDto> GetTeams()
+        public List<Team> GetTeams()
         {
-            return uow.TeamDtoRepository.GetEntities().ToList();
+            return uow.TeamRepository.AllIncluding(t => t.Competention,
+            t => t.TeamDto).ToList();
         }
 
-        public void InsertOrUpdateAction(ActionDto action)
+        public void InsertOrUpdateTeamDto(TeamDto action)
         {
-            action.ParticipantDtos = null;
-            action.TeamDtos = null;
-
-            var existingAction = uow.ActionDtoRepository.GetEntity(action.Id);
-            if(existingAction != null)
+            action.Competention = null;
+            
+            var existingAction = uow.TeamDtoRepository.GetEntity(action.Id);
+            if (existingAction != null)
             {
-                uow.ActionDtoRepository.Update(action);
+                uow.TeamDtoRepository.Update(action);
             }
             else
             {
-                uow.ActionDtoRepository.Add(action);
+                uow.TeamDtoRepository.Add(action);
             }
             uow.Save();
         }
 
-        public void InsertOrUpdateCompetetion(CompetentionDto competention)
+        public void InsertOrUpdateCompetetion(Competention competention)
         {
-            competention.ParticipantDtos = null;
-            competention.TeamDtos = null;
+            //competention.ApplicationUsers = null;
 
-            var existingCompetention = uow.CompetentionDtoRepository.GetEntity(competention.Id);
+            var existingCompetention = uow.CompetentionRepository.GetEntity(competention.Id);
             if (existingCompetention != null)
             {
-                uow.CompetentionDtoRepository.Update(competention);
+                uow.CompetentionRepository.Update(competention);
             }
             else
             {
-                uow.CompetentionDtoRepository.Add(competention);
+                uow.CompetentionRepository.Add(competention);
             }
             uow.Save();
         }
-
-        public void InsertOrUpdateParticipant(ParticipantDto participant)
+               
+        public void InsertOrUpdateTeam(Team team)
         {
-            var existing = uow.CompetentionDtoRepository.GetEntity(participant.Id);
+            var existing = uow.TeamRepository.GetEntity(team.Id);
             if (existing != null)
             {
-                uow.ParticipantDtoRepository.Update(participant);
+                uow.TeamRepository.Update(team);
             }
             else
             {
-                uow.ParticipantDtoRepository.Add(participant);
+                uow.TeamRepository.Add(team);
             }
             uow.Save();
         }
 
-        public void InsertOrUpdateTeam(TeamDto team)
+        public void RemoveTeamDto(TeamDto action)
         {
-            var existing = uow.TeamDtoRepository.GetEntity(team.Id);
-            if (existing != null)
+            /* action.ParticipantDtos = null;
+             action.TeamDtos = null;*/
+            uow.TeamDtoRepository.Delete(action);
+            uow.Save();
+        }
+
+        public void RemoveCompetetion(Competention competention)
+        {
+            /*foreach (var item in competention.ApplicationUsers)
             {
-                uow.TeamDtoRepository.Update(team);
-            }
-            else
+                uow.ApplicationUserRepository.Delete(item);
+            }*/
+            /*competention.ApplicationUsers = null;
+            foreach (var item in competention.Teams)
             {
-                uow.TeamDtoRepository.Add(team);
+                uow.TeamRepository.Delete(item);
             }
+            competention.Teams = null;*/
+            uow.CompetentionRepository.Delete(competention);
             uow.Save();
         }
 
-        public void RemoveAction(ActionDto action)
+        public void RemoveParticipant(Participant participant)
         {
-            action.ParticipantDtos = null;
-            action.TeamDtos = null;
-            uow.ActionDtoRepository.Delete(action);
-            uow.Save();
+
+            uow.ParticipantRepository.Delete(participant);
         }
 
-        public void RemoveCompetetion(CompetentionDto competention)
+        public void RemoveTeam(Team team)
         {
-            competention.ParticipantDtos = null;
-            competention.TeamDtos=null;
-            uow.CompetentionDtoRepository.Delete(competention);
-            uow.Save();
-        }
-
-        public void RemoveParticipant(ParticipantDto participant)
-        {
-            uow.ParticipantDtoRepository.Delete(participant);
-        }
-
-        public void RemoveTeam(TeamDto team)
-        {
-            team.Participants = null;
-            uow.TeamDtoRepository.Delete(team);
+            //team.ApplicationUsers = null;
+            uow.TeamRepository.Delete(team);
             uow.Save();
         }
     }

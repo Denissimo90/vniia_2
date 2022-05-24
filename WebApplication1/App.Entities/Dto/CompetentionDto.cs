@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace App.Entities.Dto
 {
     [Serializable]
+    [Table("CompetentionDto")]
     public class CompetentionDto
     {
         //[JsonIgnore]
@@ -19,8 +21,5 @@ namespace App.Entities.Dto
 
         [JsonPropertyName("shortTitle")]
         public string ShortTitle { get; set; }
-
-        public List<ParticipantDto> ParticipantDtos { get; set; }
-        public List<TeamDto> TeamDtos { get; set; }
     }
 }
