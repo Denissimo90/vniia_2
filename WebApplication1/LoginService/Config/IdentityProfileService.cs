@@ -42,6 +42,8 @@ namespace IdentityAuthority.Configs
             claims.Add(new Claim("department", JsonConvert.SerializeObject(user)));
             claims.Add(new Claim("description", "test"));
             claims.Add(new Claim("realm_access", "test"));
+            claims.Add(new Claim("change_password", (true).ToString()));
+            claims.Add(new Claim("roles", "admin,user"));
 
             //Add more claims like this
             //claims.Add(new System.Security.Claims.Claim("MyProfileID", user.Id));

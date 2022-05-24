@@ -40,32 +40,35 @@
           </div>  
     </p-toolbar>
   
-    <div class="v-flex-grow">
-      <app-table2 #t
-                  [(selection)]="selectedCompetents"
-                  selectionMode="multiple"
-                  (cellClicked)="onCellClicked($event)"
-                  [filter]="filter"
-                  [lazy]="false"
-                  [value]="competents"
-                  [getRowId]="getRowId"
-                  settingsKey="Competent-list">
-        <column field="id" header="№ заявки" [width]="140"></column>
-        <column field="CompetentType.typeTitle" header="Тип заявки"></column>
-        <column field="CompetentStatus.statusTitle" header="Статус заявки"></column>
-        <column field="applicantFullName" header="Заявитель (кому справка)"></column>
-        <column field="applicant.personalNumber" header="Табельный №" [width]="140"></column>
-        <column field="applicant.department.code" header="Подразделение" [width]="140"></column>
-        <column field="registrationDate" header="Дата создания" type="date" [width]="140"></column>
-        <column field="copiesCount" header="Количество копий" [width]="100"></column>
-        <column field="period" header="Период" [width]="140"></column>
-        <column field="requirementPlace" header="Место требования"></column>
-        <column field="authorNotes" header="Примечание автора"></column>
-        <column field="authorFullName" header="Автор"></column>
-        <column field="executorFullName" header="Исполнитель"></column>
-        <column field="executionDate" header="Дата исполнения" type="date" [width]="140"></column>
-        <column field="executorComments" header="Комментарий исполнителя"></column>
-      </app-table2>
+    <ng-template #detail let-params>
+        <app-competent-participant-list [data]="params.data" (onInit)="onDetailInit($event)">
+        </app-competent-participant-list>
+      </ng-template>
+    
+      <div class="v-flex-grow">
+        <app-table2 #t
+                    [lazy]="false"
+                    (filterChanged)="onFilterChanged($event)"
+                    (onDataSourceReady)="onGridReady($event)"
+                    (rowSelected)="onRowSelected($event)"
+                    [deltaRowDataMode]="deltaRowDataMode"
+                    [filter]="filter"
+                    [value]="nodes"
+                    [masterDetail]="true"
+                    [getRowId]="getMatrixItemId"
+                    [embedFullWidthRows]="false"
+                    [detailRowHeight]="360"
+                    [detailCellRendererParams]="{template: detail}"
+                    [loading]="loading"
+                    [settingsKey]="'competents'"
+                    [selectionMode]="'multiple'"
+        >
+          <column header="Основной">
+            <column [pinned]="true" [lockPinned]="true" [type]="'group'" [width]="380" field="title"
+                    header="Обозначение"></column>
+            <column [visible]="false" field="id" header="ID" type="number"></column>
+          </column>
+        </app-table2>
     </div>
   </div>
   

@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfigurationService, DialogService, LazyLoadEvent, UserService } from '@prism/common';
+import { GridApi } from 'ag-grid-community';
 import { MessageService } from 'primeng';
 import { Competent } from '../../../domain/Competent';
 import { LoadService } from '../../../services/load.service';
@@ -14,16 +15,36 @@ import { CompetentRegistrationComponent } from '../../forms/registration/compete
 export class CompetentListComponent implements OnInit {
   filter: boolean;
   selectedCompetents: Competent[] = [];
-  competents: Competent[] = [];
+  nodes: Competent[] = [];
   blockingMask = false;
   timeouts = {};
   alfaUrl = this.configService.config['alfaApi'];
   isOnlyActual = false;
   isFirstLoad = true;
+  title: string;
+  total = 0;
+  totalPositions = 0;
+  pinnedRow = [];
+  summaryItemsMap = new Map<string, boolean>();
+
+  treeMode: false;
+  deltaRowDataMode = true;
+  loading = false;
+
+  leftovers: { [productId: number]: number };
+
+  workshopsForCurrentItems = [];
+
+  gridApi: GridApi;
+  detailGridApi: GridApi;
+  albumsOnly = false;
+
+  @Input() tabHeader: String;
 
   @ViewChild('t') htmlTable;
 
   getRowId = (row) => '' + row.id;
+  getMatrixItemId = (row: Competent) => row.id;
 
   constructor(
     public user: UserService,
@@ -46,7 +67,7 @@ export class CompetentListComponent implements OnInit {
 
   async onLoad() {
     try {
-      this.competents = await this.loadService.searchCompetents();
+      this.nodes = await this.loadService.searchCompetents();
       this.selectCompetentByUrl();
     } catch (e) {
       this.messageService.add({ severity: 'error', summary: 'Ошибка', detail: e.error?.message || 'Ошибка запроса' });
@@ -54,6 +75,25 @@ export class CompetentListComponent implements OnInit {
       this.isFirstLoad = false;
     }
   }
+  
+  onFilterChanged(event: any) {
+    this.totalPositions = this.gridApi.getDisplayedRowCount();
+    const filteredRows = [];
+    this.htmlTable.gridApi.forEachNodeAfterFilter(node => filteredRows.push(node.data));
+  }
+  
+  onRowSelected(event) {
+  }
+
+  onGridReady(e) {
+    this.gridApi = e;
+  }
+
+
+  async onDetailInit(event: any) {
+    this.detailGridApi = event.gridApi;
+  }
+
 
   selectCompetentByUrl() {
     if (!this.isFirstLoad) {

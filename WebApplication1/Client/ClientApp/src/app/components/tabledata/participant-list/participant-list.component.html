@@ -1,1 +1,58 @@
-<p>participant-list works!</p>
+
+<div class="v-flex">
+    <p-toolbar>
+      <div class="ui-toolbar-group-left">
+        <button pButton label="Журнал участников"
+                class="caption" disabled
+                style="background: none">
+        </button>
+  
+        <div class="splitter"></div>
+  
+        <button pButton icon="fa fa-sync-alt"
+                (click)="t.reload()" pTooltip="Обновить таблицу">
+        </button>
+  
+        <button pButton icon="fa fa-filter"
+                (click)="filter=!filter" pTooltip="Открыть панель фильтров">
+        </button>
+  
+          <div class="splitter"></div>
+  
+          <button pButton icon="fa fa-plus"
+                  pTooltip="Создать черновик участника" (click)="startCreateParticipant()">
+          </button>
+  
+          <button pButton icon="fa fa-pencil-alt"
+                  pTooltip="Редактирование участника"
+                  (click)="startUpdateParticipant()">
+          </button>
+  
+          <button pButton icon="fas fa-trash-alt"
+                  class="ui-button-danger"
+                  [pTooltip]="selectedParticipants.length > 1 ? 'Удалить участников' : 'Удалить участника'"
+                  (click)="deleteParticipant()">
+          </button>
+          </div>  
+    </p-toolbar>
+  
+    <div class="v-flex-grow">
+      <app-table2 #t
+                  [(selection)]="selectedParticipants"
+                  selectionMode="multiple"
+                  (cellClicked)="onCellClicked($event)"
+                  [filter]="filter"
+                  [lazy]="false"
+                  [value]="participants"
+                  [getRowId]="getRowId"
+                  settingsKey="participant-list">
+                  <column field="id" header="ID" [visible]="false"></column>
+                  <column header="Участники">
+                  <column field="firstName" header="Имя" [width]="160"></column>
+                    <column field="secondName" header="Фамилия" [width]="160"></column>
+          
+                  </column>
+      </app-table2>
+    </div>
+  </div>
+  

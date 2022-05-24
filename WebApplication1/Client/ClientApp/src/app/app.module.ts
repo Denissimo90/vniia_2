@@ -71,6 +71,7 @@ import { CompetentListComponent } from './components/tabledata/competent-list/co
 import { CompetentRegistrationComponent } from './components/forms/registration/competent-registration/competent-registration.component';
 import { TeamRegistrationComponent } from './components/forms/registration/team-registration/team-registration.component';
 import { ParticipantRegistrationComponent } from './components/forms/registration/participant-registration/participant-registration.component';
+import { CompetentParticipantListComponent } from './components/tabledata/competent-list/competent-participant-list/competent-participant-list.component';
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import { ParticipantRegistrationComponent } from './components/forms/registratio
     CompetentListComponent,
     CompetentRegistrationComponent,
     TeamRegistrationComponent,
-    ParticipantRegistrationComponent
+    ParticipantRegistrationComponent,
+    CompetentParticipantListComponent
   ],
   imports: [
     CommonModule.forRoot(),

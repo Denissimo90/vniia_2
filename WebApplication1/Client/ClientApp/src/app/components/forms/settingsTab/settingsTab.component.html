@@ -1,24 +1,23 @@
-  <div class="v-flex">
-<p-tabView [(activeIndex)]="tabIndex" (activeIndexChange)="refreshTabs()" class="tabview-flex">
+<p-tabView (activeIndexChange)="refreshTabs()" class="tabview-flex"
+[class.v-flex-grow]="true">
   <p-tabPanel header="Участники">
-      <div class="flex-form-page">
-        <app-participant-list></app-participant-list>
-      </div>
+      <ng-template pTemplate="content">
+        <app-participant-list  class="v-flex"></app-participant-list>
+      </ng-template>
   </p-tabPanel>
   <p-tabPanel header="Компетенции">
-    <div class="flex-form-page">
-      <app-competent-list></app-competent-list>
-    </div>
+    <ng-template pTemplate="content">
+      <app-competent-list  class="v-flex"></app-competent-list>
+    </ng-template>
   </p-tabPanel>
   <p-tabPanel header="Комманды">
-    <div class="flex-form-page">
-      <app-team-list></app-team-list>
-    </div>    
+    <ng-template pTemplate="content">
+      <app-team-list  class="v-flex"></app-team-list>
+    </ng-template>
   </p-tabPanel>
   <p-tabPanel header="Роли">
-    <div class="flex-form-page">
-      <app-role-list></app-role-list>
-    </div>    
+    <ng-template pTemplate="content">
+      <app-role-list  class="v-flex"></app-role-list>
+    </ng-template>
   </p-tabPanel>
 </p-tabView>
-</div>

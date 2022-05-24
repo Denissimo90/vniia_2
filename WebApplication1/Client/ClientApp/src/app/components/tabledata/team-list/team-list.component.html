@@ -1,1 +1,38 @@
-<p>team-list works!</p>
+
+<div class="v-flex">
+    <p-toolbar>
+      <div class="ui-toolbar-group-left">
+        <button pButton label="Журнал команд"
+                class="caption" disabled
+                style="background: none">
+        </button>
+  
+        <div class="splitter"></div>
+  
+        <button pButton icon="fa fa-sync-alt"
+                (click)="t.reload()" pTooltip="Обновить таблицу">
+        </button>
+  
+        <button pButton icon="fa fa-filter"
+                (click)="filter=!filter" pTooltip="Открыть панель фильтров">
+        </button>
+  
+          </div>  
+    </p-toolbar>
+  
+    <div class="v-flex-grow">
+      <app-table2 #t
+                  [(selection)]="selectedCompetents"
+                  selectionMode="multiple"
+                  (cellClicked)="onCellClicked($event)"
+                  [filter]="filter"
+                  [lazy]="false"
+                  [value]="competents"
+                  [getRowId]="getRowId"
+                  settingsKey="Competent-list">
+                  <column field="id" header="Id" [width]="140"></column>
+                  <column field="name" header="Наименование"></column>
+      </app-table2>
+    </div>
+  </div>
+  
