@@ -1,4 +1,3 @@
-
 <div class="v-flex">
     <p-toolbar>
       <div class="ui-toolbar-group-left">
@@ -6,30 +5,30 @@
                 class="caption" disabled
                 style="background: none">
         </button>
-  
+
         <div class="splitter"></div>
-  
+
         <button pButton icon="fa fa-sync-alt"
                 (click)="t.reload()" pTooltip="Обновить таблицу">
         </button>
-  
+
         <button pButton icon="fa fa-filter"
                 (click)="filter=!filter" pTooltip="Открыть панель фильтров">
         </button>
-  
+
         <ng-template #applicant>
           <div class="splitter"></div>
-  
+
           <button pButton icon="fa fa-plus"
                   pTooltip="Создать черновик компетенции" (click)="startCreateCompetent()">
           </button>
-  
+
           <button pButton icon="fa fa-pencil-alt"
                   pTooltip="Редактирование компетенции"
                   [disabled]="isDisabledButton('edit')"
                   (click)="startUpdateCompetent()">
           </button>
-  
+
           <button pButton icon="fas fa-trash-alt"
                   class="ui-button-danger"
                   [pTooltip]="selectedCompetents.length > 1 ? 'Удалить компетенции' : 'Удалить компетенцию'"
@@ -37,38 +36,34 @@
                   [disabled]="isDisabledButton('delete')">
           </button>
           </ng-template>
-          </div>  
+          </div>
     </p-toolbar>
-  
+
     <ng-template #detail let-params>
         <app-competent-participant-list [data]="params.data" (onInit)="onDetailInit($event)">
         </app-competent-participant-list>
       </ng-template>
-    
+
       <div class="v-flex-grow">
         <app-table2 #t
-                    [lazy]="false"
-                    (filterChanged)="onFilterChanged($event)"
-                    (onDataSourceReady)="onGridReady($event)"
-                    (rowSelected)="onRowSelected($event)"
-                    [deltaRowDataMode]="deltaRowDataMode"
-                    [filter]="filter"
-                    [value]="nodes"
-                    [masterDetail]="true"
-                    [getRowId]="getMatrixItemId"
-                    [embedFullWidthRows]="false"
-                    [detailRowHeight]="360"
-                    [detailCellRendererParams]="{template: detail}"
-                    [loading]="loading"
-                    [settingsKey]="'competents'"
-                    [selectionMode]="'multiple'"
+        [lazy]="false"
+        [value]="nodes"
+        [getRowId]="getRowId"
+        [filter]="filter"
+        [masterDetail]="true"
+        [isRowMaster]="false"
+        (onDataSourceReady)="onGridReady($event)"
+        [embedFullWidthRows]="false"
+        [detailRowHeight]="240"
+        [detailCellRenderer]="'customDetailComponent'"
+        [detailCellRendererParams]="{template: detail}"
+        [settingsKey]="'productionPlanAnalyticsGroup'"
+        [disableSummaryRow]="true"
         >
-          <column header="Основной">
-            <column [pinned]="true" [lockPinned]="true" [type]="'group'" [width]="380" field="title"
-                    header="Обозначение"></column>
-            <column [visible]="false" field="id" header="ID" type="number"></column>
-          </column>
+
+          <column field="id" header="ID" [visible]="false"></column>
+          <column field="title" [width]="100" header="Раздел" type="group" [pinned]="true" [lockPinned]="true"></column>
+          <column field="id" header="ID" [visible]="true"></column>
         </app-table2>
     </div>
   </div>
-  

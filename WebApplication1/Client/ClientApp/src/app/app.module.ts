@@ -1,4 +1,5 @@
-import {CommonModule} from '@prism/common';
+import {environment} from '../environments/environment';
+import {CommonModule, InputNumberModule} from '@prism/common';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -56,9 +57,11 @@ import {ToolbarModule} from 'primeng/toolbar';
 import {TooltipModule} from 'primeng/tooltip';
 import {TreeTableModule} from 'primeng/treetable';
 
+import {SidebarModule as NgSidebarModule} from 'ng-sidebar';
+
 import {AppComponent} from './app.component';
 import {MenusquareComponent} from './components/menu/menusquare/menusquare.component';
-import {ChartModule} from 'primeng';
+import {ChartModule, InputTextareaModule, SliderModule} from 'primeng';
 import {AppRoutingModule} from './routing';
 import {CorrectionComponent} from './components/forms/correction/correction.component';
 import {SettingsTabComponent} from './components/forms/settingsTab/settingsTab.component';
@@ -73,6 +76,7 @@ import { TeamRegistrationComponent } from './components/forms/registration/team-
 import { ParticipantRegistrationComponent } from './components/forms/registration/participant-registration/participant-registration.component';
 import { CompetentParticipantListComponent } from './components/tabledata/competent-list/competent-participant-list/competent-participant-list.component';
 import { InputSelectorComponent } from './components/forms/input-selector/input-selector.component';
+import { DropdownCellEditorComponent } from './components/dropdown-cell-editor.component';
 
 
 @NgModule({
@@ -94,16 +98,15 @@ import { InputSelectorComponent } from './components/forms/input-selector/input-
     CompetentParticipantListComponent
   ],
   imports: [
-    CommonModule.forRoot(),
+    CommonModule.forRoot(environment.configName),
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    SidebarModuleAngular.forRoot(),
-    SidebarModule,
     FormsModule,
     ReactiveFormsModule,
     CardModule,
     InputTextModule,
+    InputTextareaModule,
     CalendarModule,
     AccordionModule,
     TableModule,
@@ -146,13 +149,15 @@ import { InputSelectorComponent } from './components/forms/input-selector/input-
     ToggleButtonModule,
     ScrollPanelModule,
     DynamicDialogModule,
-    ColorPickerModule,
     LoggerModule.forRoot(null),
-    AgGridModule.withComponents([]),
+    SidebarModule,
+    NgSidebarModule.forRoot(),
+    ColorPickerModule,
     SelectButtonModule,
-    BrowserModule,
+    AgGridModule.withComponents([DropdownCellEditorComponent]),
     PrimeNgCalendarMaskModule,
-    ChartModule
+    SliderModule,
+    InputNumberModule
   ],
   providers: [
     MessageService,

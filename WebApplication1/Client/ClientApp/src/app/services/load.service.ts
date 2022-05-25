@@ -28,48 +28,33 @@ export class LoadService extends BaseService {
   }
 
   async searchCompetents(): Promise<any> {
-    const contentts = new Competent();
-    contentts.id = 1;
-    contentts.title = "Компет 1"
+    const result = [];
+    for (let i = 1; i < 100; i++) {
+      const competent = new Competent();
+      competent.id = i;
+      competent.title = 'Titile ' + i;
+      competent.teams = [];
+      competent.participants = [];
 
-    let team = new Team();
-    team.id = 1;
-    team.name = "Team1";
-    let team2 = new Team();
-    team2.id = 2;
-    team2.name = "Team2";
+      for (let j = 1; j < Math.random() * 50 + 1; j++) {
+        const team = new Team();
+        team.id = j * i;
+        team.name = 'Name ' + team.id;
+        competent.teams.push(team);
+      }
 
-    const p1 = new Participant();
-    p1.id = 1;
-    p1.firstName = "111";
-    const p2 = new Participant();
-    p2.id = 2;
-    p2.firstName = "222";
+      for (let j = 1; j < Math.random() * 50 + 1; j++) {
+        const participant = new Participant();
+        participant.id = j * i;
+        participant.firstName = 'FirstName ' + participant.id;
+        participant.secondName = 'SecondName ' + participant.id;
+        participant.thirdName = 'ThirdName ' + participant.id;
+        competent.participants.push(participant);
+      }
+      result.push(competent);
+    }
 
-    contentts.teams = [team, team2];
-    contentts.participants = [p1,p2];
-
-    const contentts2 = new Competent();
-    contentts2.id = 2;
-    contentts2.title = "Компет 2"
-
-    let team3 = new Team();
-    team3.id = 3;
-    team3.name = "Team3";
-    let team4 = new Team();
-    team4.id = 4;
-    team4.name = "Team4";
-
-    const p11 = new Participant();
-    p11.id = 3;
-    p11.firstName = "444";
-    const p21 = new Participant();
-    p21.id = 4;
-    p21.firstName = "333";
-
-    contentts2.teams = [team3, team4];
-    contentts2.participants = [p11,p21];
-    return [contentts, contentts2];
+    return result;
   }
 
   async searchRoles(): Promise<any> {
