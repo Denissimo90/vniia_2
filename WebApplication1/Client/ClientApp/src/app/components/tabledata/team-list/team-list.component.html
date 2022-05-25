@@ -1,5 +1,4 @@
-
-<div class="v-flex">
+  <div class="v-flex">
     <p-toolbar>
       <div class="ui-toolbar-group-left">
         <button pButton label="Журнал команд"
@@ -17,22 +16,61 @@
                 (click)="filter=!filter" pTooltip="Открыть панель фильтров">
         </button>
   
+          <div class="splitter"></div>
+
+          <div class="ui-toolbar-group-left">
+            <span>Выберите компетенцию: </span>
+            <p-dropdown [(ngModel)]="selectedCompetent" placeholder="Выберите значение из списка"
+                        [options]="nodes" (onChange)="onComponentModeChange()"
+                        [style]="{width: '450px'}">
+            </p-dropdown>
+          </div>
+  
+          <button pButton icon="fa fa-plus"
+                  pTooltip="Создать команду" (click)="startCreateTeam()">
+          </button>
+  
+          <button pButton icon="fa fa-pencil-alt"
+                  pTooltip="Редактирование команды"
+                  (click)="startUpdateTeam()">
+          </button>
+
+          <button pButton icon="fas fa-trash-alt"
+                  class="ui-button-danger"
+                  [pTooltip]="'Удалить команду'"
+                  (click)="deleteTeam()"
+                  [disabled]="false">
+          </button>
           </div>  
     </p-toolbar>
   
-    <div class="v-flex-grow">
-      <app-table2 #t
-                  [(selection)]="selectedCompetents"
-                  selectionMode="multiple"
-                  (cellClicked)="onCellClicked($event)"
-                  [filter]="filter"
-                  [lazy]="false"
-                  [value]="competents"
-                  [getRowId]="getRowId"
-                  settingsKey="Competent-list">
-                  <column field="id" header="Id" [width]="140"></column>
-                  <column field="name" header="Наименование"></column>
-      </app-table2>
+    <ng-template #detail let-params>
+        <app-team-participant-list [data]="params.data" (onInit)="onDetailInit($event)">
+        </app-team-participant-list>
+      </ng-template>
+    
+      <div class="v-flex-grow">
+        <app-table2 #t
+                    [lazy]="false"
+                    (filterChanged)="onFilterChanged($event)"
+                    (onDataSourceReady)="onGridReady($event)"
+                    (rowSelected)="onRowSelected($event)"
+                    [deltaRowDataMode]="deltaRowDataMode"
+                    [filter]="filter"
+                    [value]="nodes"
+                    [masterDetail]="true"
+                    [getRowId]="getItemId"
+                    [embedFullWidthRows]="false"
+                    [detailRowHeight]="360"
+                    [detailCellRendererParams]="{template: detail}"
+                    [loading]="loading"
+                    [settingsKey]="'competents'"
+                    [selectionMode]="'single'"
+        >
+            <column [pinned]="true" [lockPinned]="true" [type]="'group'" [width]="380" field="title"
+                    header="Обозначение"></column>
+            <column [visible]="false" field="id" header="ID" type="number"></column>
+        </app-table2>
     </div>
   </div>
-  
+

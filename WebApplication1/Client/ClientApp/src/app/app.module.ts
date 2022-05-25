@@ -73,6 +73,12 @@ import { TeamRegistrationComponent } from './components/forms/registration/team-
 import { ParticipantRegistrationComponent } from './components/forms/registration/participant-registration/participant-registration.component';
 import { CompetentParticipantListComponent } from './components/tabledata/competent-list/competent-participant-list/competent-participant-list.component';
 import { InputSelectorComponent } from './components/forms/input-selector/input-selector.component';
+import { WorkplaceRegistrationComponent } from './components/forms/registration/workplace-registration/workplace-registration.component';
+import { WorkplaceListComponent } from './components/tabledata/workplace-list/workplace-list.component';
+import { TeamParticipantListComponent } from './components/tabledata/team-list/team-participant-list/team-participant-list.component';
+import { ParticipantSelectorComponent } from './components/forms/participant-selector/participant-selector.component';
+import { CompetentWorkplaceListComponent } from './components/tabledata/competent-list/competent-workplace-list/competent-workplace-list.component';
+import { WorkplaceSelectorComponent } from './components/forms/workplace-selector/workplace-selector.component';
 
 
 @NgModule({
@@ -91,7 +97,13 @@ import { InputSelectorComponent } from './components/forms/input-selector/input-
     TeamRegistrationComponent,
     ParticipantRegistrationComponent,
     InputSelectorComponent,
-    CompetentParticipantListComponent
+    CompetentParticipantListComponent,
+    WorkplaceRegistrationComponent,
+    WorkplaceListComponent,
+    TeamParticipantListComponent,
+    ParticipantSelectorComponent,
+    CompetentWorkplaceListComponent,
+    WorkplaceSelectorComponent
   ],
   imports: [
     CommonModule.forRoot(),

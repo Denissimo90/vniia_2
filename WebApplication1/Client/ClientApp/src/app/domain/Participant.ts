@@ -1,8 +1,13 @@
 
 
 export class Participant {
-  id: number;
+  
+  id: string;
+  personId: number;
   firstName: string;
-  secondName: string;
-  thirdName: string;
+  lastName: string;
+  middleName: string;
+  birthDate: Date;
+  shortName: string;
+  fullName: string;
 }

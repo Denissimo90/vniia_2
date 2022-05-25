@@ -1,20 +1,23 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DialogComponent } from '@prism/common';
 import { MessageService } from 'primeng';
-import { LoadService } from '../../../../services/load.service';
-import { Participant } from '../../../../domain/Participant';
+import { Team } from '../../../domain/Team';
+import { Participant } from '../../../domain/Participant';
+import { LoadService } from '../../../services/load.service';
 
 @Component({
-  selector: 'app-participant-registration',
-  templateUrl: './participant-registration.component.html',
-  styleUrls: ['./participant-registration.component.css']
+  selector: 'app-participant-selector',
+  templateUrl: './participant-selector.component.html',
+  styleUrls: ['./participant-selector.component.css']
 })
-export class ParticipantRegistrationComponent  extends DialogComponent implements OnInit {
+export class ParticipantSelectorComponent  extends DialogComponent implements OnInit {
 
   @Output() result = new EventEmitter();
+  participants: Participant[] = [];
   participant: Participant;
+  team: Team;
 
-  isEditMode: boolean;
+  
   constructor(
     private loadService: LoadService,
     private messageService: MessageService) { super(); }
@@ -22,16 +25,8 @@ export class ParticipantRegistrationComponent  extends DialogComponent implement
   ngOnInit(): void {
   }
   
-  async init(participant?: Participant) {
+  async init() {
     this.loading = true;
-if (!!participant) {
-  this.participant = participant;
-  this.isEditMode = true;
-}
-else{
-  this.participant = new Participant();
-  this.participant.firstName = "1111";
-}
     //await this.getPlacesFromApi();
 
     /*if (authorId == null) {
@@ -66,5 +61,7 @@ else{
     }
   }
 
+  onParticipantChange() {
+  }
 
 }

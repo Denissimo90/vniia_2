@@ -3,15 +3,15 @@ import { ConfigurationService, DialogService, Table2Component } from '@prism/com
 import { GridApi } from 'ag-grid-community';
 import { MessageService } from 'primeng';
 import { LoadService } from '../../../../services/load.service';
-import { Participant } from '../../../../domain/Participant';
-import { ParticipantSelectorComponent } from '../../../../components/forms/participant-selector/participant-selector.component';
+import { Workplace } from '../../../../domain/Workplace';
+import { WorkplaceSelectorComponent } from '../../../../components/forms/workplace-selector/workplace-selector.component';
 
 @Component({
-  selector: 'app-competent-participant-list',
-  templateUrl: './competent-participant-list.component.html',
-  styleUrls: ['./competent-participant-list.component.css']
+  selector: 'app-competent-workplace-list',
+  templateUrl: './competent-workplace-list.component.html',
+  styleUrls: ['./competent-workplace-list.component.css']
 })
-export class CompetentParticipantListComponent implements OnInit {
+export class CompetentWorkplaceListComponent implements OnInit {
 
   loading = false;
   title: string;
@@ -19,13 +19,13 @@ export class CompetentParticipantListComponent implements OnInit {
   total = 0;
   gridApi: GridApi;
 
-  items: Participant[];
+  items: Workplace[];
   @Input() data: any;
   @Input() isGridDetail = true;
   @ViewChild('t') htmlTable: Table2Component;
   @Output() onInit = new EventEmitter<any>();
 
-  getRowId = (row: Participant) => row.id;
+  getRowId = (row: Workplace) => row.id;
 
   constructor(
     private dialogService: DialogService,
@@ -59,7 +59,7 @@ export class CompetentParticipantListComponent implements OnInit {
 
     try {
       this.loading = true;
-      this.items = await this.data.participants;
+      this.items = await this.data.workplaces;
       // (this.data.workshopPlanId);
     } catch (e) {
       this.messageService.add({severity: 'error', summary: 'Ошибка', detail: e.error?.message || 'Ошибка запроса'});
@@ -68,24 +68,23 @@ export class CompetentParticipantListComponent implements OnInit {
     }
   }
   
-  async addParticipant() {
-    const dialog = this.dialogService.createDialog(ParticipantSelectorComponent);
+  async addWorkplace() {
+    const dialog = this.dialogService.createDialog(WorkplaceSelectorComponent);
     await dialog.init();
     dialog.result.subscribe((result) => {
       result.forEach(r => this.htmlTable.addRow(r));
     });
   }
 
-
-  async deleteParticipant() {
+  async deleteWorkplace() {
     //this.blockingMask = true;
     try {
-      //await this.loadService.deleteParticipants(this.selectedParticipants);
-      this.htmlTable.removeRowsById(this.items.map(c => c.id), 'Участник удален');
+      //await this.loadService.deleteWorkplaces(this.selectedWorkplaces);
+      this.htmlTable.removeRowsById(this.items.map(c => c.id), 'Рабочее место удалено');
       this.items = [];
       this.messageService.add({
         severity: 'success', summary: 'Выполнено',
-        detail: this.items.length > 1 ? 'Участники удалены' : 'Участник удален'
+        detail: this.items.length > 1 ? 'Рабочие места удалены' : 'Рабочее место удалено'
       });
     } finally {
       //this.blockingMask = false;

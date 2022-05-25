@@ -1,4 +1,4 @@
-<div style="margin-top: 0; margin-bottom: 0; padding: 0; width: 100%; height: 100%">
+<div class="ui-g-11" style="margin-top: 0; margin-bottom: 0; padding: 0; width: 100%; height: 100%">
     <div *ngIf="!!this.data?.participants" class="v-flex" [style.marginLeft]= "'30px'">
       <p-toolbar [class.detail-ui-toolbar]="isGridDetail">
         <div class="ui-toolbar-group-left">
@@ -11,13 +11,13 @@
           <div class="splitter"></div>
   
           <button pButton icon="fa fa-plus"
-                  pTooltip="Добавить участника" (click)="addParticipant()">
+                  pTooltip="Добавить участника" (click)="addWorkplace()">
           </button>
   
           <button pButton icon="fas fa-trash-alt"
                   class="ui-button-danger"
                   [pTooltip]="'Удалить участника'"
-                  (click)="deleteParticipant()"
+                  (click)="deleteWorkplace()"
                   [disabled]="false">
           </button>
         </div>
@@ -29,15 +29,14 @@
                     [filter]="filter"
                     [lazy]="false"
                     [loading]="loading"
-                    [value]="this.data.participants"
+                    [value]="this.data.workplaces"
                     [getRowId]="getRowId"
-                    [settingsKey]="'participantDetail'"
+                    [settingsKey]="'workplaceDetail'"
                     [enableTooltips]="true"
                     (onDataSourceReady)="this.onGridReady($event)"
         >
           <column field="id" header="ID" [visible]="false"></column>
-            <column field="firstName" header="Имя" [width]="160"></column>
-            <column field="secondName" header="Фамилия" [width]="160"></column>
+            <column field="designation" header="Имя" [width]="160"></column>
         </app-table2>
       </div>
     </div>

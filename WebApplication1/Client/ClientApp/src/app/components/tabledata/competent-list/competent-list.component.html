@@ -17,26 +17,7 @@
                 (click)="filter=!filter" pTooltip="Открыть панель фильтров">
         </button>
   
-        <ng-template #applicant>
           <div class="splitter"></div>
-  
-          <button pButton icon="fa fa-plus"
-                  pTooltip="Создать черновик компетенции" (click)="startCreateCompetent()">
-          </button>
-  
-          <button pButton icon="fa fa-pencil-alt"
-                  pTooltip="Редактирование компетенции"
-                  [disabled]="isDisabledButton('edit')"
-                  (click)="startUpdateCompetent()">
-          </button>
-  
-          <button pButton icon="fas fa-trash-alt"
-                  class="ui-button-danger"
-                  [pTooltip]="selectedCompetents.length > 1 ? 'Удалить компетенции' : 'Удалить компетенцию'"
-                  (click)="deleteCompetent()"
-                  [disabled]="isDisabledButton('delete')">
-          </button>
-          </ng-template>
           </div>  
     </p-toolbar>
   
@@ -55,7 +36,7 @@
                     [filter]="filter"
                     [value]="nodes"
                     [masterDetail]="true"
-                    [getRowId]="getMatrixItemId"
+                    [getRowId]="getItemId"
                     [embedFullWidthRows]="false"
                     [detailRowHeight]="360"
                     [detailCellRendererParams]="{template: detail}"
@@ -63,11 +44,9 @@
                     [settingsKey]="'competents'"
                     [selectionMode]="'multiple'"
         >
-          <column header="Основной">
             <column [pinned]="true" [lockPinned]="true" [type]="'group'" [width]="380" field="title"
                     header="Обозначение"></column>
             <column [visible]="false" field="id" header="ID" type="number"></column>
-          </column>
         </app-table2>
     </div>
   </div>

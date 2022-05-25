@@ -6,6 +6,7 @@ import {Competent} from '../domain/Competent';
 import { Role } from '../domain/Role';
 import { Team } from '../domain/Team';
 import { Participant } from '../domain/Participant';
+import { Workplace } from '../domain/Workplace';
 
 
 @Injectable({
@@ -40,14 +41,22 @@ export class LoadService extends BaseService {
     team2.name = "Team2";
 
     const p1 = new Participant();
-    p1.id = 1;
+    p1.id = "1";
     p1.firstName = "111";
     const p2 = new Participant();
-    p2.id = 2;
+    p2.id = "2";
     p2.firstName = "222";
+    
+    const w1 = new Workplace();
+    w1.id = 1;
+    w1.designation = "111";
+    const w2 = new Workplace();
+    w2.id = 2;
+    w2.designation = "222";
 
     contentts.teams = [team, team2];
     contentts.participants = [p1,p2];
+    contentts.workplaces = [w1,w2];
 
     const contentts2 = new Competent();
     contentts2.id = 2;
@@ -61,14 +70,15 @@ export class LoadService extends BaseService {
     team4.name = "Team4";
 
     const p11 = new Participant();
-    p11.id = 3;
+    p11.id = "3";
     p11.firstName = "444";
     const p21 = new Participant();
-    p21.id = 4;
+    p21.id = "4";
     p21.firstName = "333";
 
     contentts2.teams = [team3, team4];
     contentts2.participants = [p11,p21];
+    contentts2.workplaces = [w1,w2];
     return [contentts, contentts2];
   }
 
@@ -82,6 +92,12 @@ export class LoadService extends BaseService {
 
   async searchParticipants(): Promise<any> {
     const p = new Participant();
+    p.id = "1"; 
+    return [p];
+  }
+
+  async searchWorkplaces(): Promise<any> {
+    const p = new Workplace();
     p.id = 1;
     return [p];
   }

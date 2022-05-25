@@ -1,3 +1,37 @@
-<p-dialog>
-    </p-dialog>
-    
+<p-dialog [resizable]="true"
+          [header]="(isEditMode ? 'Редактирование' : 'Создание') + ' записи в справочнике участников'">
+  <form #form="ngForm">
+    <div class="form-row">
+      <label class="required">Имя:</label>
+      <input name="name" pInputText maxlength="255" [(ngModel)]="participant.firstName" required/>
+    </div>
+    <div class="form-row">
+      <label class="required">Фамилия:</label>
+      <input name="name" pInputText maxlength="255" [(ngModel)]="participant.lastName" required/>
+    </div>
+    <div class="form-row">
+      <label class="required">Отчетство:</label>
+      <input name="name" pInputText maxlength="255" [(ngModel)]="participant.middleName" required/>
+    </div>
+    <div class="form-row">
+      <label class="required">Дата рождения:</label>
+      <p-calendar appendTo="body" name="participant" dateFormat="dd.mm.yy" required
+                  [(ngModel)]="participant.birthDate"
+                  [readonlyInput]="true"
+                  [monthNavigator]="true"
+                  [showOtherMonths]="false">
+      </p-calendar>
+    </div>
+  </form>
+
+  <p-footer>
+    <button (click)="save()"
+            pButton label="Сохранить"
+            [disabled]="form.invalid">
+    </button>
+    <button (click)="visible = false"
+            pButton label="Отмена"
+            class="ui-button-secondary">
+    </button>
+  </p-footer>
+</p-dialog>

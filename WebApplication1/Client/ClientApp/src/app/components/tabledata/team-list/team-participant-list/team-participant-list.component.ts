@@ -4,14 +4,13 @@ import { GridApi } from 'ag-grid-community';
 import { MessageService } from 'primeng';
 import { LoadService } from '../../../../services/load.service';
 import { Participant } from '../../../../domain/Participant';
-import { ParticipantSelectorComponent } from '../../../../components/forms/participant-selector/participant-selector.component';
 
 @Component({
-  selector: 'app-competent-participant-list',
-  templateUrl: './competent-participant-list.component.html',
-  styleUrls: ['./competent-participant-list.component.css']
+  selector: 'app-team-participant-list',
+  templateUrl: './team-participant-list.component.html',
+  styleUrls: ['./team-participant-list.component.css']
 })
-export class CompetentParticipantListComponent implements OnInit {
+export class TeamParticipantListComponent implements OnInit {
 
   loading = false;
   title: string;
@@ -67,29 +66,4 @@ export class CompetentParticipantListComponent implements OnInit {
       this.loading = false;
     }
   }
-  
-  async addParticipant() {
-    const dialog = this.dialogService.createDialog(ParticipantSelectorComponent);
-    await dialog.init();
-    dialog.result.subscribe((result) => {
-      result.forEach(r => this.htmlTable.addRow(r));
-    });
-  }
-
-
-  async deleteParticipant() {
-    //this.blockingMask = true;
-    try {
-      //await this.loadService.deleteParticipants(this.selectedParticipants);
-      this.htmlTable.removeRowsById(this.items.map(c => c.id), 'Участник удален');
-      this.items = [];
-      this.messageService.add({
-        severity: 'success', summary: 'Выполнено',
-        detail: this.items.length > 1 ? 'Участники удалены' : 'Участник удален'
-      });
-    } finally {
-      //this.blockingMask = false;
-    }
-  }
-
 }

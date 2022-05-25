@@ -18,7 +18,6 @@ export class CompetentListComponent implements OnInit {
   nodes: Competent[] = [];
   blockingMask = false;
   timeouts = {};
-  alfaUrl = this.configService.config['alfaApi'];
   isOnlyActual = false;
   isFirstLoad = true;
   title: string;
@@ -31,8 +30,6 @@ export class CompetentListComponent implements OnInit {
   deltaRowDataMode = true;
   loading = false;
 
-  leftovers: { [productId: number]: number };
-
   workshopsForCurrentItems = [];
 
   gridApi: GridApi;
@@ -44,7 +41,7 @@ export class CompetentListComponent implements OnInit {
   @ViewChild('t') htmlTable;
 
   getRowId = (row) => '' + row.id;
-  getMatrixItemId = (row: Competent) => row.id;
+  getItemId = (row: Competent) => row.id;
 
   constructor(
     public user: UserService,
@@ -134,7 +131,7 @@ export class CompetentListComponent implements OnInit {
     this.blockingMask = true;
     try {
       //await this.loadService.deleteCompetents(this.selectedCompetents);
-      this.htmlTable.removeRowsById(this.selectedCompetents.map(c => c.id), 'Заявка удалена');
+      this.htmlTable.removeRowsById(this.selectedCompetents.map(c => c.id), 'Компетенция удалена');
       this.selectedCompetents = [];
       this.messageService.add({
         severity: 'success', summary: 'Выполнено',

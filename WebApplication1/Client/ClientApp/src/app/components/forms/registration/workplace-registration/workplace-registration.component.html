@@ -1,0 +1,20 @@
+<p-dialog [resizable]="true"
+          [header]="(isEditMode ? 'Редактирование' : 'Создание') + ' записи в справочнике рабочих мест'">
+  <form #form="ngForm">
+    <div class="form-row">
+      <label class="required">Описание рабочего места:</label>
+      <input name="name" pInputText maxlength="255" [(ngModel)]="workplace.designation" required/>
+    </div>
+  </form>
+
+  <p-footer>
+    <button (click)="save()"
+            pButton label="Сохранить"
+            [disabled]="form.invalid">
+    </button>
+    <button (click)="visible = false"
+            pButton label="Отмена"
+            class="ui-button-secondary">
+    </button>
+  </p-footer>
+</p-dialog>

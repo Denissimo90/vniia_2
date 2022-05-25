@@ -1,20 +1,20 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DialogComponent } from '@prism/common';
 import { MessageService } from 'primeng';
 import { LoadService } from '../../../../services/load.service';
-import { Participant } from '../../../../domain/Participant';
+import { Workplace } from '../../../../domain/Workplace';
 
 @Component({
-  selector: 'app-participant-registration',
-  templateUrl: './participant-registration.component.html',
-  styleUrls: ['./participant-registration.component.css']
+  selector: 'app-workplace-registration',
+  templateUrl: './workplace-registration.component.html',
+  styleUrls: ['./workplace-registration.component.css']
 })
-export class ParticipantRegistrationComponent  extends DialogComponent implements OnInit {
+export class WorkplaceRegistrationComponent  extends DialogComponent implements OnInit {
 
   @Output() result = new EventEmitter();
-  participant: Participant;
-
+  workplace: Workplace;
   isEditMode: boolean;
+
   constructor(
     private loadService: LoadService,
     private messageService: MessageService) { super(); }
@@ -22,15 +22,15 @@ export class ParticipantRegistrationComponent  extends DialogComponent implement
   ngOnInit(): void {
   }
   
-  async init(participant?: Participant) {
+  async init(workplace?: Workplace) {
     this.loading = true;
-if (!!participant) {
-  this.participant = participant;
-  this.isEditMode = true;
+if (!!workplace) {
+  this.workplace = workplace;
 }
 else{
-  this.participant = new Participant();
-  this.participant.firstName = "1111";
+  this.workplace = new Workplace();
+  this.workplace.id = 0;
+  this.workplace.designation = "1111";
 }
     //await this.getPlacesFromApi();
 
@@ -42,7 +42,7 @@ else{
     }*/
     this.loading = false;
   }
-  
+
   async save() {
     this.loading = true;
 
@@ -57,9 +57,9 @@ else{
       this.messageService.add({
         severity: 'success',
         summary: 'Выполнено',
-        detail: 'Участник сохранён'
+        detail: 'Рабочее место сохранёно'
       });
-      this.result.emit(this.participant);
+      this.result.emit(this.workplace);
       this.visible = false;
     } finally {
       this.loading = false;
@@ -68,3 +68,4 @@ else{
 
 
 }
+
