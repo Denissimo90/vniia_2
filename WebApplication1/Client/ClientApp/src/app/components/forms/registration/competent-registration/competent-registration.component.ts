@@ -11,6 +11,7 @@ export class CompetentRegistrationComponent extends DialogComponent implements O
 
   @Output() result = new EventEmitter();
   competent: Competent;
+  isEditMode: boolean;
 
   constructor() { super(); }
 
@@ -21,6 +22,7 @@ export class CompetentRegistrationComponent extends DialogComponent implements O
     this.loading = true;
 if (!!competent) {
   this.competent = competent;
+  this.isEditMode = true;
 }
     //await this.getPlacesFromApi();
 

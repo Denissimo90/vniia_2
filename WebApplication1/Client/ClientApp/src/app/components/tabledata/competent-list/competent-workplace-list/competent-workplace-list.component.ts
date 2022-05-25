@@ -1,16 +1,17 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { ConfigurationService, DialogService, Table2Component } from '@prism/common';
 import { GridApi } from 'ag-grid-community';
 import { MessageService } from 'primeng';
 import { LoadService } from '../../../../services/load.service';
-import { Participant } from '../../../../domain/Participant';
+import { Workplace } from '../../../../domain/Workplace';
+import { WorkplaceSelectorComponent } from '../../../../components/forms/workplace-selector/workplace-selector.component';
 
 @Component({
-  selector: 'app-competent-participant-list',
-  templateUrl: './competent-participant-list.component.html',
-  styleUrls: ['./competent-participant-list.component.css']
+  selector: 'app-competent-workplace-list',
+  templateUrl: './competent-workplace-list.component.html',
+  styleUrls: ['./competent-workplace-list.component.css']
 })
-export class CompetentParticipantListComponent implements OnInit {
+export class CompetentWorkplaceListComponent implements OnInit {
 
   loading = false;
   title: string;
@@ -18,33 +19,36 @@ export class CompetentParticipantListComponent implements OnInit {
   total = 0;
   gridApi: GridApi;
 
-  items: Participant[];
+  items: Workplace[];
   @Input() data: any;
   @Input() isGridDetail = true;
   @ViewChild('t') htmlTable: Table2Component;
-
-
-  getRowId = (row: Participant) => row.id;
   @Output() onInit = new EventEmitter<any>();
+
+  getRowId = (row: Workplace) => row.id;
 
   constructor(
     private dialogService: DialogService,
     private messageService: MessageService,
     private configService: ConfigurationService,
     private loadService: LoadService) { }
-
-  ngOnInit() {
-    console.log('test');
-    this.update();
+  
+  async ngOnInit() {
   }
 
   async update() {
-      if (this.data) {
-        setTimeout(async () =>{
-          await this.loadItems();
-        }, 50);
-    } else {
-      this.items = [];
+    if (this.data) {
+      setTimeout(async () =>{
+        await this.loadItems();
+      }, 50);
+  } else {
+    this.items = [];
+  }
+  }
+
+  async ngOnChanges(changes: SimpleChanges) {
+    if (!!changes?.data) {
+      await this.update();
     }
   }
 
@@ -63,12 +67,31 @@ export class CompetentParticipantListComponent implements OnInit {
       this.loading = false;
     }
   }
-
-  onGridReady(event:any){
-    this.gridApi = event;
-    this.onInit.emit(event);
+  
+  async addWorkplace() {
+    const dialog = this.dialogService.createDialog(WorkplaceSelectorComponent);
+    await dialog.init();
+    dialog.result.subscribe((result) => {
+      result.forEach(r => this.htmlTable.addRow(r));
+    });
   }
 
+  async deleteWorkplace() {
+    //this.blockingMask = true;
+    try {
+      //await this.loadService.deleteWorkplaces(this.selectedWorkplaces);
+      this.htmlTable.removeRowsById(this.items.map(c => c.id), 'Рабочее место удалено');
+      this.items = [];
+      this.messageService.add({
+        severity: 'success', summary: 'Выполнено',
+        detail: this.items.length > 1 ? 'Рабочие места удалены' : 'Рабочее место удалено'
+      });
+    } finally {
+      //this.blockingMask = false;
+    }
+  }
+
+  
   deepCopy(obj): any {
     let copy;
 

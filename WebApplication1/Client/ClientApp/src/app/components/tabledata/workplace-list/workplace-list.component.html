@@ -1,7 +1,8 @@
+
 <div class="v-flex">
     <p-toolbar>
       <div class="ui-toolbar-group-left">
-        <button pButton label="Журнал участников"
+        <button pButton label="Журнал рабочих мест"
                 class="caption" disabled
                 style="background: none">
         </button>
@@ -19,39 +20,35 @@
           <div class="splitter"></div>
   
           <button pButton icon="fa fa-plus"
-                  pTooltip="Создать черновик участника" (click)="startCreateParticipant()">
+                  pTooltip="Создать описание рабочего места" (click)="startCreateWorkplace()">
           </button>
   
           <button pButton icon="fa fa-pencil-alt"
-                  pTooltip="Редактирование участника"
-                  (click)="startUpdateParticipant()">
+                  pTooltip="Редактирование рабочего места"
+                  (click)="startUpdateWorkplace()">
           </button>
   
           <button pButton icon="fas fa-trash-alt"
                   class="ui-button-danger"
-                  [pTooltip]="selectedParticipants.length > 1 ? 'Удалить участников' : 'Удалить участника'"
-                  (click)="deleteParticipant()">
+                  [pTooltip]="selectedWorkplaces.length > 1 ? 'Удалить рабочие места' : 'Удалить рабочее места'"
+                  (click)="deleteWorkplace()">
           </button>
           </div>  
     </p-toolbar>
   
     <div class="v-flex-grow">
       <app-table2 #t
-                  [(selection)]="selectedParticipants"
+                  [(selection)]="selectedWorkplaces"
                   selectionMode="multiple"
                   (cellClicked)="onCellClicked($event)"
                   [filter]="filter"
                   [lazy]="false"
-                  [value]="participants"
+                  [value]="workPlaces"
                   [getRowId]="getRowId"
                   settingsKey="participant-list">
                   <column field="id" header="ID" [visible]="false"></column>
-                  <column field="firstName" header="Имя" [width]="160"></column>
-                  <column field="lastName" header="Фамилия" [width]="160"></column>
-                  <column field="middleName" header="Отчетство" [width]="160"></column>
-                  <column field="birthDate" header="Дата рождения" [width]="160"></column>
-                  <column field="shortName" header="ФИО" [width]="160"></column>
-                  <column field="fullName" header="Полное имя" [width]="160"></column>
+                  <column field="designation" header="Описание" [width]="160"></column>
       </app-table2>
     </div>
   </div>
+  

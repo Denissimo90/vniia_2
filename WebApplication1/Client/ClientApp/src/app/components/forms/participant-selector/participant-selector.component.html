@@ -1,0 +1,35 @@
+<p-dialog 
+          [header]="'Выберите участника'">
+  <form #form="ngForm">    
+    <app-lookup name="participants" [(ngModel)]="participants"
+    header="Список доступных для выбора участников" [style]="{width: '100%'}"
+    (ngModelChange)="onParticipantChange()"
+    required>
+<ng-template #lookupAutoComplete>
+<p-autoComplete name="applicant" [(ngModel)]="participant" [suggestions]="participants"
+            (completeMethod)="searchParticipants($event)" [forceSelection]="true"
+            [inputStyle]="{width: '100%'}"
+            [style]="{width: '100%'}"
+            (ngModelChange)="onParticipantChange()"
+            (onClear)="participant = null; onParticipantChange()"
+            field="fullName" appendTo="body"
+            placeholder="Введите фамилию участника"
+            emptyMessage="Участник не найден">
+</p-autoComplete>
+</ng-template>
+<ng-template #lookupTable>
+</ng-template>
+</app-lookup>
+  </form>
+
+  <p-footer>
+    <button (click)="save()"
+            pButton label="Сохранить"
+            [disabled]="form.invalid">
+    </button>
+    <button (click)="visible = false"
+            pButton label="Отмена"
+            class="ui-button-secondary">
+    </button>
+  </p-footer>
+</p-dialog>
