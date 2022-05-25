@@ -45,29 +45,33 @@ namespace ReportApp.Logic.Services
         {
             //    var pwdHash = PasswordCrypt.HashPassword(user.Password);
             //    var verify = PasswordCrypt.VerifyHashedPassword(pwdHash, user.Password);
-
-            var existPartisipantDto = uow.ParticipantDtoRepository.GetEntities()
-                .FirstOrDefault(d => (d.FirstName == user.FirstName
-                && d.SecondName == user.LastName
-                && d.ThirdName == user.MiddleName));
-            
-            if (existPartisipantDto != null)
+            var existingUser = uow.UserRepository.FindByCondition(u => u.UserName == user.UserName && u.PasswordHash == user.PasswordHash).FirstOrDefault();
+            string str =string.Empty;
+            if (existingUser == null)
             {
-                var existingUser = uow.UserRepository.FindByCondition(u => u.UserName == user.UserName && u.PasswordHash == user.PasswordHash).FirstOrDefault();
-                if (existingUser == null)
-                {
-                    //user.CompetentionId = existPartisipantDto.CompetentionId;
-                    user.RoleDtoId = existPartisipantDto.RoleId;
-                    user.ParticipantDtoId = existPartisipantDto.Id;
+                var existPartisipantDto = uow.ParticipantDtoRepository.GetEntities()
+                  .FirstOrDefault(d => (d.FirstName == user.FirstName
+                  && d.SecondName == user.LastName
+                  && d.ThirdName == user.MiddleName));
+                if (existPartisipantDto == null) return "Пользователя с таким ФИО невозможно создать, так как он не является участником.";
+                //user.CompetentionId = existPartisipantDto.CompetentionId;
+                user.RoleDtoId = existPartisipantDto.RoleId;
+                user.ParticipantDtoId = existPartisipantDto.Id;
+                user.IsNew = true;
 
-                    uow.UserRepository.Add(user);
-                }
-                else
-                    uow.UserRepository.Update(user);
-                return uow.Save() == 1 ? "Операция прошла успешно." : "Ошибка!";
+
+                uow.UserRepository.Add(user);
             }
             else
-                return "Пользователя с таким ФИО невозможно создать, так как он не является участником.";
+            {
+
+                if (existingUser.PasswordHash != user.PasswordHash) { str = "Пароль изменен."; user.IsNew = false; }
+
+                uow.UserRepository.Update(user);
+            }
+            return uow.Save() == 1 ? "Операция прошла успешно." + str : "Ошибка!";
+
+
         }
 
         public List<ApplicationUser> GetUsersByCompetentionId(int compId)
@@ -78,6 +82,7 @@ namespace ReportApp.Logic.Services
                     t => t.Competention)*/GetEntities().Where(u => u.CompetentionId == compId).ToList();
             return users;
         }
+
 
     }
 }

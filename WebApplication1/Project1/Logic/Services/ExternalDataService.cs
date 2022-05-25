@@ -32,7 +32,7 @@ namespace ReportApp.Logic.Services
 
         public List<Competention> GetCompitetions()
         {
-            return uow.CompetentionRepository.GetEntities().ToList();
+            return uow.CompetentionRepository.AllIncluding(c=>c.Teams).ToList();
         }
 
         public ApplicationUser GetParticipant(int? id)
