@@ -1,0 +1,33 @@
+<div class="v-flex">
+    <div *ngIf="!!this.data?.participants" class="v-flex" [style.marginLeft]= "'30px'">
+      <p-toolbar [class.detail-ui-toolbar]="isGridDetail">
+        <div class="ui-toolbar-group-left">
+          <button pButton icon="fa fa-sync-alt"
+                  pTooltip="Обновить таблицу" (click)="loadItems()"></button>
+          <button pButton icon="fa fa-filter"
+                  (click)="filter=!filter" pTooltip="Открыть панель фильтров"></button>
+
+  
+          <div class="splitter"></div>
+        </div>
+      </p-toolbar>
+  
+      <div class="v-flex-grow">
+        <app-table2 #t
+                    [selectionMode]="'single'"
+                    [filter]="filter"
+                    [lazy]="false"
+                    [loading]="loading"
+                    [value]="this.data.participants"
+                    [getRowId]="getRowId"
+                    [settingsKey]="'participantDetail'"
+                    [enableTooltips]="true"
+                    (onDataSourceReady)="this.onGridReady($event)"
+        >
+          <column field="id" header="ID" [visible]="false"></column>
+            <column field="firstName" header="Имя" [width]="160"></column>
+            <column field="secondName" header="Фамилия" [width]="160"></column>
+        </app-table2>
+      </div>
+    </div>
+  </div>

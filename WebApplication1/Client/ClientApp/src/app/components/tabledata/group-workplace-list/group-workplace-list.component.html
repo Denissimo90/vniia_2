@@ -1,0 +1,75 @@
+<div class="v-flex">
+    <p-toolbar>
+      <div class="ui-toolbar-group-left">
+        <button pButton label="Журнал команд"
+                class="caption" disabled
+                style="background: none">
+        </button>
+  
+        <div class="splitter"></div>
+  
+        <button pButton icon="fa fa-sync-alt"
+                (click)="t.reload()" pTooltip="Обновить таблицу">
+        </button>
+  
+        <button pButton icon="fa fa-filter"
+                (click)="filter=!filter" pTooltip="Открыть панель фильтров">
+        </button>
+  
+          <div class="splitter"></div>
+
+          <div class="ui-toolbar-group-left">
+            <span>Выберите компетенцию: </span>
+            <p-dropdown [(ngModel)]="selectedCompetent" placeholder="Выберите значение из списка"
+                        [options]="nodes" (onChange)="onComponentModeChange()"
+                        [style]="{width: '450px'}">
+            </p-dropdown>
+          </div>
+  
+          <button pButton icon="fa fa-plus"
+                  pTooltip="Создать команду" (click)="startCreateGroupWorkplace()">
+          </button>
+  
+          <button pButton icon="fa fa-pencil-alt"
+                  pTooltip="Редактирование команды"
+                  (click)="startUpdateGroupWorkplace()">
+          </button>
+
+          <button pButton icon="fas fa-trash-alt"
+                  class="ui-button-danger"
+                  [pTooltip]="'Удалить команду'"
+                  (click)="deleteGroupWorkplace()"
+                  [disabled]="false">
+          </button>
+          </div>  
+    </p-toolbar>
+  
+    <ng-template #detail let-params>
+        <app-groupWorkplace-participant-list [data]="params.data" (onInit)="onDetailInit($event)">
+        </app-groupWorkplace-participant-list>
+      </ng-template>
+    
+      <div class="v-flex-grow">
+        <app-table2 #t
+                    [lazy]="false"
+                    (filterChanged)="onFilterChanged($event)"
+                    (onDataSourceReady)="onGridReady($event)"
+                    (rowSelected)="onRowSelected($event)"
+                    [deltaRowDataMode]="deltaRowDataMode"
+                    [filter]="filter"
+                    [value]="nodes"
+                    [masterDetail]="true"
+                    [getRowId]="getItemId"
+                    [embedFullWidthRows]="false"
+                    [detailRowHeight]="360"
+                    [detailCellRendererParams]="{template: detail}"
+                    [loading]="loading"
+                    [settingsKey]="'competents'"
+                    [selectionMode]="'single'"
+        >
+            <column [pinned]="true" [lockPinned]="true" [type]="'group'" [width]="380" field="title"
+                    header="Обозначение"></column>
+            <column [visible]="false" field="id" header="ID" type="number"></column>
+        </app-table2>
+    </div>
+  </div>

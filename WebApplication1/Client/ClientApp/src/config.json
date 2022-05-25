@@ -13,7 +13,7 @@
     "noLogsMenu": true,
     "clientId": "angular-client",
     "mainMenu": [
-        { "url": "/app-home", "title": "Проведение мероприятий", "color": "3ea95e", "icon": "fa fa-user-tie", "group": "Проведение мероприятий" },
+        { "url": "/app-competention-team-list", "title": "Проведение мероприятий", "color": "3ea95e", "icon": "fa fa-user-tie", "group": "Проведение мероприятий" },
         { "url": "/app-settingsTab", "title": "Настройка мероприятий", "color": "f3c405", "icon": "fa fa-user-tie", "group": "Настройка системы", "role": "admin" }
     ]
 }

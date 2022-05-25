@@ -4,6 +4,7 @@ import { GridApi } from 'ag-grid-community';
 import { MessageService } from 'primeng';
 import { LoadService } from '../../../../services/load.service';
 import { Participant } from '../../../../domain/Participant';
+import { ParticipantSelectorComponent } from '../../../../components/forms/participant-selector/participant-selector.component';
 
 @Component({
   selector: 'app-competent-participant-list',
@@ -105,6 +106,29 @@ export class CompetentParticipantListComponent implements OnInit {
     }
 
     throw new Error('Unable to copy obj! Its type isnt supported.');
+}
+
+async addParticipant() {
+  const dialog = this.dialogService.createDialog(ParticipantSelectorComponent);
+  await dialog.init();
+  dialog.result.subscribe((result) => {
+    result.forEach(r => this.htmlTable.addRow(r));
+  });
+}
+
+async deleteParticipant() {
+  //this.blockingMask = true;
+  try {
+    //await this.loadService.deleteParticipants(this.selectedParticipants);
+    this.htmlTable.removeRowsById(this.items.map(c => c.id), 'Участник удален');
+    this.items = [];
+    this.messageService.add({
+      severity: 'success', summary: 'Выполнено',
+      detail: 'Участник удален'
+    });
+  } finally {
+    //this.blockingMask = false;
+  }
 }
 
 }

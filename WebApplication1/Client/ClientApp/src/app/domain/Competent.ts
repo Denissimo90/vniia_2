@@ -1,3 +1,4 @@
+import { GroupWorkplace } from "./GroupWorkplace";
 import { Participant } from "./Participant";
 import { Team } from "./Team";
 import { Workplace } from "./Workplace";
@@ -11,4 +12,5 @@ export class Competent {
   participants: Participant[];
   teams: Team[];
   workplaces: Workplace[];
+  groupWorkplaces: GroupWorkplace[];
 }

@@ -5,6 +5,7 @@ import {LoginGuard} from '@prism/common';
 import {AccessGuard} from './access.guard';
 import { HomeComponent } from '../home/home.component';
 import { SettingsTabComponent } from '../components/forms/settingsTab/settingsTab.component';
+import { CompetentionTeamListComponent } from '../components/tabledata/competention-team-list/competention-team-list.component';
 
 const appRoutes: Routes = [
   {
@@ -13,8 +14,8 @@ const appRoutes: Routes = [
     canActivate: [LoginGuard]
   },
   {
-    path: 'app-home',
-    component: HomeComponent,
+    path: 'app-competention-team-list',
+    component: CompetentionTeamListComponent,
     canActivate: [LoginGuard, AccessGuard]
   },
   {
