@@ -4,7 +4,7 @@ import {ApplicationUser} from '../dto/ApplicationUser';
 
 @Injectable()
 export class ApplicationUserService extends BaseService {
-  private url = this.baseUrl + '/users';
+  private url = this.baseUrl + '/user';
 
   public async createUser(user: ApplicationUser): Promise<ApplicationUser> {
     const result = await this.http.post<ApplicationUser>(this.url + '/insert-or-update', user).toPromise();

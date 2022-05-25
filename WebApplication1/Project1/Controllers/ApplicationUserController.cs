@@ -40,7 +40,29 @@ namespace ReportApp.Controllers
             {
                 _userService.InsertOrUpdate(user);
             }
-            catch(Exception ex)
+            catch (Exception ex)
+            {
+                Console.WriteLine("Не удалось удалить пользователя.");
+            }
+        }
+
+
+        public class UserPassword{
+            public string Id { get; set; }
+            public string Password { get; set; }
+        }
+
+        [HttpPost, Route("change-password")]
+        public void ChangePassword([FromBody] UserPassword value)
+        {
+            try
+            {
+                ApplicationUser user = _userService.GetUserById(value.Id);
+                user.PasswordHash = value.Password;
+                user.IsNew = false;
+                _userService.InsertOrUpdate(user);
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("Не удалось удалить пользователя.");
             }

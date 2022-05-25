@@ -11,6 +11,7 @@ import * as Color from 'color';
 import {TestService} from '../../../services/test.service';
 import {CorrectionComponent} from '../../forms/correction/correction.component';
 import { InputSelectorComponent } from '../../forms/input-selector/input-selector.component';
+import { NewUserService } from '../../../services/new.user.service';
 
 @Component({
   selector: 'app-menusquare',
@@ -29,7 +30,8 @@ export class MenusquareComponent implements OnInit {
     private httpClient: HttpClient,
     private location: Location,
     private sanitizer: DomSanitizer,
-    private auth: AuthService
+    private auth: AuthService,
+    private appUserService: NewUserService
   ) {
   }
 
@@ -46,12 +48,14 @@ export class MenusquareComponent implements OnInit {
       this.showMessage('Не найден файл конфигурации меню!');
     }
 
-    if (!this.user?.user?.changePassword) 
+    console.log(this.user?.user.changePassword, !!this.user?.user.changePassword);
+     if (!!this.user?.user.changePassword + "" == "True") 
     {
       const dialog = this.dialogService.createDialog(InputSelectorComponent);
       dialog.init('Смена пароля', 'Пароль', 'Сменить', 'Ваш пароль устарел, требуется обновление',
       null, true, false, null, null, null, null, null, false);
-      dialog.result.subscribe(() => {
+      dialog.result.subscribe(async (secret) => {
+        await this.appUserService.changePassword(this.user?.user?.employeeId, secret);
         console.log('await change password');
         this.auth.logout();
       });

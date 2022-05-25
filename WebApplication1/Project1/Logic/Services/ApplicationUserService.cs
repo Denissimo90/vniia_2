@@ -31,6 +31,12 @@ namespace ReportApp.Logic.Services
 
         }
 
+        public ApplicationUser GetUserById(string id)
+        {
+            return uow.UserRepository.FindByCondition(p => p.Id == id).FirstOrDefault();
+
+        }
+
         public ApplicationUser GetUserByLogin(string login)
         {
             return uow.UserRepository.GetApplicationUserByLogin(login);
@@ -45,8 +51,8 @@ namespace ReportApp.Logic.Services
         {
             //    var pwdHash = PasswordCrypt.HashPassword(user.Password);
             //    var verify = PasswordCrypt.VerifyHashedPassword(pwdHash, user.Password);
-            var existingUser = uow.UserRepository.FindByCondition(u => u.UserName == user.UserName && u.PasswordHash == user.PasswordHash).FirstOrDefault();
-            string str =string.Empty;
+            var existingUser = uow.UserRepository.FindByCondition(u => u.Id == user.Id).FirstOrDefault();
+            string str = string.Empty;
             if (existingUser == null)
             {
                 var existPartisipantDto = uow.ParticipantDtoRepository.GetEntities()

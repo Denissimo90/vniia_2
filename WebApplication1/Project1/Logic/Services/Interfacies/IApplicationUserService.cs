@@ -12,6 +12,7 @@ namespace ReportApp.Logic.Services.Interfacies
         void Delete(int id);
         List<ApplicationUser> GetUsers();
         ApplicationUser GetUserById(int id);
+        ApplicationUser GetUserById(string id);
         ApplicationUser GetUserByLogin(string login);
         public List<ApplicationUser> GetUsersByCompetentionId(int compId);
     }
