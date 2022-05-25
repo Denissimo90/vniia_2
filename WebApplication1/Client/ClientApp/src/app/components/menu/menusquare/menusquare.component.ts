@@ -48,8 +48,8 @@ export class MenusquareComponent implements OnInit {
       this.showMessage('Не найден файл конфигурации меню!');
     }
 
-    console.log(this.user?.user.changePassword, !!this.user?.user.changePassword);
-     if (!!this.user?.user.changePassword + "" == "True") 
+    console.log(this.user?.user.changePassword, !!this.user?.user.changePassword, this.user?.user.changePassword + "", this.user?.user.changePassword + "" === "True");
+     if (this.user?.user.changePassword + "" === "True") 
     {
       const dialog = this.dialogService.createDialog(InputSelectorComponent);
       dialog.init('Смена пароля', 'Пароль', 'Сменить', 'Ваш пароль устарел, требуется обновление',
