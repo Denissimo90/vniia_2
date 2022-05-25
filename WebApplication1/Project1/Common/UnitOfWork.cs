@@ -29,13 +29,18 @@ namespace ReportApp.Common
 
         public IParticipantDtoRepository ParticipantDtoRepository { get; }
 
+        public IGroupWorkplaceRepository GroupWorkplaceRepository { get; }
+
+        public IWorkplaceRepository WorkplaceRepository { get; }
+
         public UnitOfWork(ApplicationDbContext dbContext,
             IManufactureRepository manufactureRepository,
             IProductRepository productRepository, IApplicationUserRepository userRepository,
             IProductQtyRepository productQtyRepository , ICompetentionRepository competentionRepository,
             IParticipantRepository participantRepository,
             IRoleDtoRepository roleDtoRepository, ITeamRepository teamRepository, ITeamDtoRepository actionDtoRepository,
-            ICompetentionDtoRepository competentionDtoRepository, IParticipantDtoRepository participantDtoRepository)
+            ICompetentionDtoRepository competentionDtoRepository, IParticipantDtoRepository participantDtoRepository,
+            IWorkplaceRepository workplaceRepository, IGroupWorkplaceRepository groupWorkplaceRepository)
         {
             this._context = dbContext;
             ProductQtyRepository = productQtyRepository;
@@ -47,7 +52,8 @@ namespace ReportApp.Common
             TeamRepository = teamRepository;
             ParticipantRepository = participantRepository;
             CompetentionRepository = competentionRepository;
-
+            GroupWorkplaceRepository = groupWorkplaceRepository;
+            WorkplaceRepository = workplaceRepository;
             ParticipantDtoRepository = participantDtoRepository;
             CompetentionDtoRepository = competentionDtoRepository;
             TeamDtoRepository = actionDtoRepository;
