@@ -152,18 +152,18 @@ namespace App.Entities.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "da2a0a07-8efd-4598-8b21-066227fe0652",
+                            Id = "b4545349-a202-4f77-bb03-6a56eba3bb74",
                             AccessFailedCount = 0,
                             BeginDate = new DateTime(2020, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthDate = new DateTime(1970, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "7d171bd7-1177-41b3-8a89-c04c1a0f402f",
+                            ConcurrencyStamp = "1a4b5767-6e13-41bf-8266-75696bdaea70",
                             DepartmentCode = "0035",
                             DepartmentId = 4,
                             Email = "admin@mail.ru",
                             EmailConfirmed = false,
-                            EndDate = new DateTime(2022, 5, 25, 15, 39, 28, 136, DateTimeKind.Local).AddTicks(1609),
+                            EndDate = new DateTime(2022, 5, 25, 14, 45, 55, 713, DateTimeKind.Local).AddTicks(668),
                             FirstName = "Vasya",
-                            IsNew = false,
+                            IsNew = true,
                             LastName = "Vasya",
                             LockoutEnabled = false,
                             MiddleName = "Vitlievich",
@@ -173,7 +173,7 @@ namespace App.Entities.Migrations
                             PhoneNumberConfirmed = false,
                             PlaceId = 1,
                             PwdSalt = "sal",
-                            SecurityStamp = "1775b146-4126-49a4-8388-fad079c953c4",
+                            SecurityStamp = "f111a926-1031-4bd4-9de2-16a8af67a073",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -319,8 +319,6 @@ namespace App.Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompetentionId");
-
                     b.ToTable("Teams");
                 });
 
@@ -465,15 +463,6 @@ namespace App.Entities.Migrations
                     b.Navigation("RoleDto");
                 });
 
-            modelBuilder.Entity("App.Entities.Team", b =>
-                {
-                    b.HasOne("App.Entities.Competention", "Competention")
-                        .WithMany("Teams")
-                        .HasForeignKey("CompetentionId");
-
-                    b.Navigation("Competention");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -523,11 +512,6 @@ namespace App.Entities.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("App.Entities.Competention", b =>
-                {
-                    b.Navigation("Teams");
                 });
 #pragma warning restore 612, 618
         }

@@ -96,7 +96,7 @@ namespace App.Entities
                     PlaceId = 1,
                     DepartmentCode="0035",
                     DepartmentId = 4,
-                    IsNew = false/*,
+                    IsNew = true/*,
                     CompetentionId = -1,
                     ParticipantDtoId = -1,
                     RoleDtoId = -1,

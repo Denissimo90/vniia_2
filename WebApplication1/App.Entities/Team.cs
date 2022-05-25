@@ -15,7 +15,7 @@ namespace App.Entities
         public int? TeamDtoId { get; set; }
         //public TeamDto TeamDto { get; set; }
         public int? CompetentionId { get; set; }
-        public Competention Competention { get; set; }
-        //public List<ApplicationUser> ApplicationUsers { get; set; }
+       /* public Competention Competention { get; set; }
+        public List<ApplicationUser> ApplicationUsers { get; set; }*/
     }
 }
