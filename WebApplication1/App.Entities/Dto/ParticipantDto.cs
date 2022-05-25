@@ -26,7 +26,7 @@ namespace App.Entities.Dto
         [ForeignKey("RoleId")]
         public RoleApiDto RoleDto { get; set; }
         [JsonPropertyName("competentionId")]
-        public int? CompetentionId { get; set; }
+        public int CompetentionId { get; set; }
         public CompetentionDto CompetentionDto { get; set; }
 
         public List<ApplicationUser> ApplicationUsers { get; set; }

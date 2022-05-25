@@ -111,15 +111,15 @@ namespace App.Entities
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
 
+        public DbSet<TeamDto> TeamsDto { get; set; }
+        public DbSet<ParticipantDto> ParticipantsDto { get; set; }
+        public DbSet<RoleApiDto> RolesDto { get; set; }
+        public DbSet<CompetentionDto> CompetentsDto { get; set; }
         public DbSet<Competention> Compitentions { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<Participant> Participants { get; set; }
 
 
-        public DbSet<TeamDto> TeamsDto { get; set; }
-        public DbSet<ParticipantDto> ParticipantsDto { get; set; }
-        public DbSet<RoleApiDto> RolesDto { get; set; }
-        public DbSet<CompetentionDto> CompetentsDto { get; set; }
 
     }
 }

@@ -15,6 +15,11 @@ namespace App.Entities
         public string ShortTitle { get; set; }
         public int CompetentionDtoId { get; set; }
         public CompetentionDto CompetentionDto { get; set; }
+
+        public int GroupWorkplaceId { get;set; }
+        public GroupWorkplace GroupWorkplace { get; set; }
+
+        public List<Workplace> Workplaces { get; set; }
         public List<ApplicationUser> ApplicationUsers { get; set; }
         public List<Team> Teams { get; set; }
     }
