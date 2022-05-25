@@ -1,0 +1,68 @@
+<p-dialog [resizable]="true"
+          [header]="(isEditMode ? 'Редактирование' : 'Создание') + ' записи в справочнике команд'">
+  <form #form="ngForm">
+    <div class="v-flex">
+        <p-toolbar>
+          <div class="ui-toolbar-group-left">
+            <button pButton label="Журнал участников"
+                    class="caption" disabled
+                    style="background: none">
+            </button>
+      
+            <div class="splitter"></div>
+      
+            <button pButton icon="fa fa-sync-alt"
+                    (click)="t.reload()" pTooltip="Обновить таблицу">
+            </button>
+      
+            <button pButton icon="fa fa-filter"
+                    (click)="filter=!filter" pTooltip="Открыть панель фильтров">
+            </button>
+      
+              <div class="splitter"></div>
+      
+              <button pButton icon="fa fa-plus"
+                      pTooltip="Добавить участника" (click)="startCreateWorkplace()">
+              </button>
+      
+              <button pButton icon="fas fa-trash-alt"
+                      class="ui-button-danger"
+                      [pTooltip]="selectedWorkplaces.length > 1 ? 'Удалить участников' : 'Удалить участника'"
+                      (click)="deleteWorkplace()">
+              </button>
+              </div>  
+        </p-toolbar>
+      
+        <div class="v-flex-grow">
+          <app-table2 #t
+                      [(selection)]="selectedWorkplaces"
+                      selectionMode="multiple"
+                      [filter]="filter"
+                      [lazy]="false"
+                      [value]="groupWorkplace?.workplaces"
+                      [getRowId]="getRowId"
+                      settingsKey="groupWorkplace-workplace-list">
+                      <column field="id" header="ID" [visible]="false"></column>
+                      <column field="firstName" header="Имя" [width]="160"></column>
+                      <column field="lastName" header="Фамилия" [width]="160"></column>
+                      <column field="middleName" header="Отчетство" [width]="160"></column>
+                      <column field="birthDate" header="Дата рождения" [width]="160"></column>
+                      <column field="shortName" header="ФИО" [width]="160"></column>
+                      <column field="fullName" header="Полное имя" [width]="160"></column>
+          </app-table2>
+        </div>
+      </div>
+
+  </form>
+
+  <p-footer>
+    <button (click)="save()"
+            pButton label="Сохранить"
+            [disabled]="form.invalid">
+    </button>
+    <button (click)="visible = false"
+            pButton label="Отмена"
+            class="ui-button-secondary">
+    </button>
+  </p-footer>
+</p-dialog>

@@ -36,6 +36,7 @@ export class LoadService extends BaseService {
       competent.title = 'Titile ' + i;
       competent.teams = [];
       competent.participants = [];
+      competent.workplaces = [];
 
       for (let j = 1; j < Math.random() * 50 + 1; j++) {
         const team = new Team();
@@ -51,6 +52,13 @@ export class LoadService extends BaseService {
         participant.middleName = 'SecondName ' + participant.id;
         participant.lastName = 'ThirdName ' + participant.id;
         competent.participants.push(participant);
+      }
+
+      for (let j = 1; j < Math.random() * 50 + 1; j++) {
+        const workplace = new Workplace();
+        workplace.id = j * i;
+        workplace.designation = 'Designation ' + workplace.id;
+        competent.workplaces.push(workplace);
       }
       result.push(competent);
     }

@@ -7,6 +7,16 @@
           <button pButton icon="fa fa-filter"
                   (click)="filter=!filter" pTooltip="Открыть панель фильтров"></button>
           <div class="splitter"></div>
+          <button pButton icon="fa fa-plus"
+                  pTooltip="Добавить участника" (click)="addParticipant()">
+          </button>
+  
+          <button pButton icon="fas fa-trash-alt"
+                  class="ui-button-danger"
+                  [pTooltip]="'Удалить участника'"
+                  (click)="deleteParticipant()"
+                  [disabled]="false">
+          </button>
         </div>
       </p-toolbar>
 

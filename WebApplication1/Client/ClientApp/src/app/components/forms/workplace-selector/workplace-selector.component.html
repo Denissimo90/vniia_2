@@ -1,20 +1,20 @@
 <p-dialog 
-          [header]="'Выберите участника'">
+          [header]="'Выберите рабочее место'">
   <form #form="ngForm">    
-    <app-lookup name="participants" [(ngModel)]="participants"
-    header="Список доступных для выбора участников" [style]="{width: '100%'}"
+    <app-lookup name="workplaces" [(ngModel)]="workplaces"
+    header="Список доступных для выбора рабочих мест" [style]="{width: '100%'}"
     (ngModelChange)="onWorkplaceChange()"
     required>
 <ng-template #lookupAutoComplete>
-<p-autoComplete name="applicant" [(ngModel)]="participant" [suggestions]="participants"
+<p-autoComplete name="workplace" [(ngModel)]="workplace" [suggestions]="workplaces"
             (completeMethod)="searchWorkplaces($event)" [forceSelection]="true"
             [inputStyle]="{width: '100%'}"
             [style]="{width: '100%'}"
             (ngModelChange)="onWorkplaceChange()"
-            (onClear)="participant = null; onWorkplaceChange()"
+            (onClear)="workplace = null; onWorkplaceChange()"
             field="fullName" appendTo="body"
-            placeholder="Введите фамилию участника"
-            emptyMessage="Участник не найден">
+            placeholder="Введите рабочее место"
+            emptyMessage="Рабочее место не найден">
 </p-autoComplete>
 </ng-template>
 <ng-template #lookupTable>

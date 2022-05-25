@@ -6,7 +6,7 @@
     (ngModelChange)="onParticipantChange()"
     required>
 <ng-template #lookupAutoComplete>
-<p-autoComplete name="applicant" [(ngModel)]="participant" [suggestions]="participants"
+<p-autoComplete name="participant" [(ngModel)]="participant" [suggestions]="participants"
             (completeMethod)="searchParticipants($event)" [forceSelection]="true"
             [inputStyle]="{width: '100%'}"
             [style]="{width: '100%'}"

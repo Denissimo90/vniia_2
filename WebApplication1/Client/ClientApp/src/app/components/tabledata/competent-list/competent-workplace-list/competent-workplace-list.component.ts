@@ -51,6 +51,11 @@ export class CompetentWorkplaceListComponent implements OnInit {
       await this.update();
     }
   }
+  
+  onGridReady(event:any){
+    this.gridApi = event;
+    this.onInit.emit(event);
+  }
 
   async loadItems() {
     if (! this.data?.id) {
@@ -59,7 +64,7 @@ export class CompetentWorkplaceListComponent implements OnInit {
 
     try {
       this.loading = true;
-      this.items = this.deepCopy(this.data.participants);
+      this.items = this.deepCopy(this.data.workplaces);
       // (this.data.workshopPlanId);
     } catch (e) {
       this.messageService.add({severity: 'error', summary: 'Ошибка', detail: e.error?.message || 'Ошибка запроса'});

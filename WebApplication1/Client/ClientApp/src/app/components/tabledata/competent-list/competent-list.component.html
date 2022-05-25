@@ -40,8 +40,15 @@
     </p-toolbar>
 
     <ng-template #detail let-params>
-        <app-competent-participant-list [data]="params.data" (onInit)="onDetailInit($event)">
-        </app-competent-participant-list>
+        <p-tabView class="tabview-flex" [class.v-flex-grow]="true">
+  <p-tabPanel header="Участники">
+    <app-competent-participant-list [data]="params.data" (onInit)="onDetailInit($event)">
+    </app-competent-participant-list></p-tabPanel>            
+  <p-tabPanel header="Рабочие места">
+    <app-competent-workplace-list [data]="params.data" (onInit)="onDetailInit($event)">
+    </app-competent-workplace-list>
+</p-tabPanel>
+        </p-tabView>
       </ng-template>
 
       <div class="v-flex-grow">
