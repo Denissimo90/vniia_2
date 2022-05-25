@@ -10,7 +10,7 @@ namespace App.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<Workplace> Workplaces { get; set; }
-        public List<Competention> Competents { get; set; }
+       /* public List<Workplace> Workplaces { get; set; }
+        public List<Competention> Competents { get; set; }*/
     }
 }

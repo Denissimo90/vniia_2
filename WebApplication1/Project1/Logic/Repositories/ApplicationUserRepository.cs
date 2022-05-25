@@ -22,11 +22,17 @@ namespace ReportApp.Logic.Repositories
 
         public ApplicationUser GetApplicationUserById(int id)
         {
-            return FindByCondition(user => user.Id.Equals(id)).FirstOrDefault();
+            return /*AllIncluding(t => t.ParticipantDto,
+                    t => t.RoleDto,
+                    t => t.Team,
+                    t => t.Competention)*/GetEntities().FirstOrDefault(user => user.Id.Equals(id));
         }
         public ApplicationUser GetApplicationUserByLogin(string login)
         {
-            return FindByCondition(user => user.UserName.Equals(login)).FirstOrDefault();
+            return /*AllIncluding(t => t.ParticipantDto,
+                    t => t.RoleDto,
+                    t => t.Team,
+                    t => t.Competention)*/GetEntities().Where(user => user.UserName.Equals(login)).FirstOrDefault();
         }
     }
 }

@@ -17,11 +17,14 @@ namespace ReportApp.Controllers
 
         private readonly ILogger<ApplicationUserController> _logger;
         private readonly IApplicationUserService _userService;
+        private readonly IExternalDataService _extDataService;
 
-        public ApplicationUserController(ILogger<ApplicationUserController> logger, IApplicationUserService userService)
+        public ApplicationUserController(ILogger<ApplicationUserController> logger, IApplicationUserService userService,
+            IExternalDataService externalDataService)
         {
             _logger = logger;
             _userService = userService;
+            _extDataService = externalDataService;
         }
 
         [HttpGet("{id}")]
@@ -64,10 +67,10 @@ namespace ReportApp.Controllers
             return  _userService.GetUsers();
         }
 
-        [HttpGet, Route("all2")]
-        public List<ApplicationUser> GetUsers2()
+        [HttpGet, Route("users-by-competention/{competentionId}")]
+        public List<ApplicationUser> UsersByCompetentionId( int compId)
         {
-            return _userService.GetUsers();
+            return _userService.GetUsersByCompetentionId(compId);
         }
 
         [HttpGet, Route("employments")]

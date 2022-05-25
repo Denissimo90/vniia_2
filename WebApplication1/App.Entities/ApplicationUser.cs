@@ -54,16 +54,13 @@ namespace App.Entities
         //[RegularExpression(@"/^(?!.*@.*@.*$)(?!.*@.*\-\-.*\..*$)(?!.*@.*\-\..*$)(?!.*@.*\-$)(.*@.+(\..{1,11})?)$/")]
 
         public int? ParticipantDtoId { get; set; }
-        [NotMapped]
-        public ParticipantDto ParticipantDto { get; set; }
+        //public ParticipantDto ParticipantDto { get; set; }
         public int? RoleDtoId { get; set; }
-        [NotMapped]
-        public RoleApiDto RoleDto { get; set; }
+        //public RoleApiDto RoleDto { get; set; }
         public int? CompetentionId { get; set; }
-        [NotMapped]
-        public Competention Competention { get; set; }
+        //public Competention Competention { get; set; }
         public int? TeamId { get; set; }
-        [NotMapped]
-        public Team Team { get; set; }
+        //public Team Team { get; set; }
+        public bool IsNew { get; set; }
     }
 }

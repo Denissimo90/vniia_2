@@ -90,13 +90,13 @@ namespace ReportApp.Logic.Services
 
         public List<Team> GetTeams()
         {
-            return uow.TeamRepository.AllIncluding(t => t.Competention,
-            t => t.TeamDto).ToList();
+            return uow.TeamRepository./*AllIncluding(t => t.Competention,
+            t => t.TeamDto)*/GetEntities().ToList();
         }
 
         public void InsertOrUpdateTeamDto(TeamDto action)
         {
-            action.Competention = null;
+            //action.Competention = null;
             
             var existingAction = uow.TeamDtoRepository.GetEntity(action.Id);
             if (existingAction != null)

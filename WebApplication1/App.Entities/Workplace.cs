@@ -12,10 +12,10 @@ namespace App.Entities
         public string Designation { get; set; }
 
 
-        public int GroupWorkplaceId { get; set; }
-        public GroupWorkplace GroupWorkplace { get; set; }
-        public int CompetentionId { get; set; } 
-        public Competention Competention { get; set; }
+        public int? GroupWorkplaceId { get; set; }
+        //public GroupWorkplace GroupWorkplace { get; set; }
+        public int? CompetentionId { get; set; } 
+        //public Competention Competention { get; set; }
 
     }
 }

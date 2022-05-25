@@ -18,17 +18,24 @@ namespace ReportApp.Common
 
         public void InsertOrUpdate(T entity, int id)
         {
-            var _record = GetEntity(id);
-            //string entityId = entity.GetType().GetProperty("Id").GetValue(entity, null).ToString();
-            //_context.Entry(entity).State = entityId == "0" ? EntityState.Added : EntityState.Modified;
-            //_context.SaveChanges();
-            if (_record == null)
+            if (id == 0)
             {
                 Add(entity);
             }
             else
             {
-                _context.Entry(entity).State = EntityState.Modified;
+                var _record = GetEntity(id);
+                //string entityId = entity.GetType().GetProperty("Id").GetValue(entity, null).ToString();
+                //_context.Entry(entity).State = entityId == "0" ? EntityState.Added : EntityState.Modified;
+                //_context.SaveChanges();
+                if (_record == null)
+                {
+                    Add(entity);
+                }
+                else
+                {
+                    _context.Entry(entity).State = EntityState.Modified;
+                }
             }
         }
         public void ForceUpdate(T entity)

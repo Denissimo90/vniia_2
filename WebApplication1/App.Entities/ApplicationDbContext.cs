@@ -95,7 +95,8 @@ namespace App.Entities
                     PersonalNumber = "664363",
                     PlaceId = 1,
                     DepartmentCode="0035",
-                    DepartmentId = 4/*,
+                    DepartmentId = 4,
+                    IsNew = true/*,
                     CompetentionId = -1,
                     ParticipantDtoId = -1,
                     RoleDtoId = -1,
@@ -105,9 +106,9 @@ namespace App.Entities
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Manufacture> Manufactures { get; set; }
+        /*public DbSet<Manufacture> Manufactures { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductQty> ProductQties { get; set; }
+        public DbSet<ProductQty> ProductQties { get; set; }*/
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
 

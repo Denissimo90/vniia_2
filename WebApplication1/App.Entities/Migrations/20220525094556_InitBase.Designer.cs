@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace App.Entities.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220525043114_Init")]
-    partial class Init
+    [Migration("20220525094556_InitBase")]
+    partial class InitBase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,6 +64,9 @@ namespace App.Entities.Migrations
 
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsNew")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("LastName")
                         .HasColumnType("text");
@@ -121,9 +124,6 @@ namespace App.Entities.Migrations
                     b.Property<string>("PwdSalt")
                         .HasColumnType("text");
 
-                    b.Property<int?>("RoleApiDtoId")
-                        .HasColumnType("integer");
-
                     b.Property<int?>("RoleDtoId")
                         .HasColumnType("integer");
 
@@ -142,8 +142,6 @@ namespace App.Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompetentionId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -151,28 +149,23 @@ namespace App.Entities.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.HasIndex("ParticipantDtoId");
-
-                    b.HasIndex("RoleApiDtoId");
-
-                    b.HasIndex("TeamId");
-
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
                         new
                         {
-                            Id = "7b4797b7-147e-4d8e-931d-d4882df4e335",
+                            Id = "b4545349-a202-4f77-bb03-6a56eba3bb74",
                             AccessFailedCount = 0,
                             BeginDate = new DateTime(2020, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthDate = new DateTime(1970, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "7b526197-058f-42e0-8464-a67a029ed495",
+                            ConcurrencyStamp = "1a4b5767-6e13-41bf-8266-75696bdaea70",
                             DepartmentCode = "0035",
                             DepartmentId = 4,
                             Email = "admin@mail.ru",
                             EmailConfirmed = false,
-                            EndDate = new DateTime(2022, 5, 25, 9, 31, 13, 868, DateTimeKind.Local).AddTicks(1590),
+                            EndDate = new DateTime(2022, 5, 25, 14, 45, 55, 713, DateTimeKind.Local).AddTicks(668),
                             FirstName = "Vasya",
+                            IsNew = true,
                             LastName = "Vasya",
                             LockoutEnabled = false,
                             MiddleName = "Vitlievich",
@@ -182,7 +175,7 @@ namespace App.Entities.Migrations
                             PhoneNumberConfirmed = false,
                             PlaceId = 1,
                             PwdSalt = "sal",
-                            SecurityStamp = "148ef2a9-79c4-4cd4-bf38-be1b7accc1e3",
+                            SecurityStamp = "f111a926-1031-4bd4-9de2-16a8af67a073",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
@@ -198,7 +191,7 @@ namespace App.Entities.Migrations
                     b.Property<int>("CompetentionDtoId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("GroupWorkplaceId")
+                    b.Property<int?>("GroupWorkplaceId")
                         .HasColumnType("integer");
 
                     b.Property<string>("ShortTitle")
@@ -208,10 +201,6 @@ namespace App.Entities.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompetentionDtoId");
-
-                    b.HasIndex("GroupWorkplaceId");
 
                     b.ToTable("Compitentions");
                 });
@@ -241,9 +230,6 @@ namespace App.Entities.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("CompetentionDtoId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("CompetentionId")
                         .HasColumnType("integer");
 
@@ -256,7 +242,7 @@ namespace App.Entities.Migrations
                     b.Property<string>("SecondName")
                         .HasColumnType("text");
 
-                    b.Property<int?>("TeamDtoId")
+                    b.Property<int>("TeamId")
                         .HasColumnType("integer");
 
                     b.Property<string>("ThirdName")
@@ -264,11 +250,7 @@ namespace App.Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompetentionDtoId");
-
                     b.HasIndex("RoleId");
-
-                    b.HasIndex("TeamDtoId");
 
                     b.ToTable("ParticipantDto");
                 });
@@ -306,45 +288,7 @@ namespace App.Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompetentionId");
-
                     b.ToTable("TeamDto");
-                });
-
-            modelBuilder.Entity("App.Entities.GroupWorkplace", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("GroupWorkplace");
-                });
-
-            modelBuilder.Entity("App.Entities.Manufacture", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Caption")
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("Entered")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("IpAddress")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Manufactures");
                 });
 
             modelBuilder.Entity("App.Entities.Participant", b =>
@@ -357,58 +301,6 @@ namespace App.Entities.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Participants");
-                });
-
-            modelBuilder.Entity("App.Entities.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Articul")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Caption")
-                        .HasColumnType("text");
-
-                    b.Property<int>("ManufactureId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Measure")
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ManufactureId");
-
-                    b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("App.Entities.ProductQty", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("DateOfManufacture")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductQties");
                 });
 
             modelBuilder.Entity("App.Entities.Team", b =>
@@ -429,36 +321,7 @@ namespace App.Entities.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompetentionId");
-
-                    b.HasIndex("TeamDtoId");
-
                     b.ToTable("Teams");
-                });
-
-            modelBuilder.Entity("App.Entities.Workplace", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CompetentionId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Designation")
-                        .HasColumnType("text");
-
-                    b.Property<int>("GroupWorkplaceId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompetentionId");
-
-                    b.HasIndex("GroupWorkplaceId");
-
-                    b.ToTable("Workplace");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -591,130 +454,15 @@ namespace App.Entities.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("App.Entities.ApplicationUser", b =>
-                {
-                    b.HasOne("App.Entities.Competention", null)
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("CompetentionId");
-
-                    b.HasOne("App.Entities.Dto.ParticipantDto", null)
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("ParticipantDtoId");
-
-                    b.HasOne("App.Entities.Dto.RoleApiDto", null)
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("RoleApiDtoId");
-
-                    b.HasOne("App.Entities.Team", null)
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("TeamId");
-                });
-
-            modelBuilder.Entity("App.Entities.Competention", b =>
-                {
-                    b.HasOne("App.Entities.Dto.CompetentionDto", "CompetentionDto")
-                        .WithMany()
-                        .HasForeignKey("CompetentionDtoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("App.Entities.GroupWorkplace", "GroupWorkplace")
-                        .WithMany("Competents")
-                        .HasForeignKey("GroupWorkplaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CompetentionDto");
-
-                    b.Navigation("GroupWorkplace");
-                });
-
             modelBuilder.Entity("App.Entities.Dto.ParticipantDto", b =>
                 {
-                    b.HasOne("App.Entities.Dto.CompetentionDto", "CompetentionDto")
-                        .WithMany()
-                        .HasForeignKey("CompetentionDtoId");
-
                     b.HasOne("App.Entities.Dto.RoleApiDto", "RoleDto")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("App.Entities.Dto.TeamDto", null)
-                        .WithMany("Participants")
-                        .HasForeignKey("TeamDtoId");
-
-                    b.Navigation("CompetentionDto");
-
                     b.Navigation("RoleDto");
-                });
-
-            modelBuilder.Entity("App.Entities.Dto.TeamDto", b =>
-                {
-                    b.HasOne("App.Entities.Dto.CompetentionDto", "Competention")
-                        .WithMany()
-                        .HasForeignKey("CompetentionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Competention");
-                });
-
-            modelBuilder.Entity("App.Entities.Product", b =>
-                {
-                    b.HasOne("App.Entities.Manufacture", "Manufacture")
-                        .WithMany("Products")
-                        .HasForeignKey("ManufactureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Manufacture");
-                });
-
-            modelBuilder.Entity("App.Entities.ProductQty", b =>
-                {
-                    b.HasOne("App.Entities.Product", "Product")
-                        .WithMany("Qties")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("App.Entities.Team", b =>
-                {
-                    b.HasOne("App.Entities.Competention", "Competention")
-                        .WithMany("Teams")
-                        .HasForeignKey("CompetentionId");
-
-                    b.HasOne("App.Entities.Dto.TeamDto", "TeamDto")
-                        .WithMany()
-                        .HasForeignKey("TeamDtoId");
-
-                    b.Navigation("Competention");
-
-                    b.Navigation("TeamDto");
-                });
-
-            modelBuilder.Entity("App.Entities.Workplace", b =>
-                {
-                    b.HasOne("App.Entities.Competention", "Competention")
-                        .WithMany("Workplaces")
-                        .HasForeignKey("CompetentionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("App.Entities.GroupWorkplace", "GroupWorkplace")
-                        .WithMany("Workplaces")
-                        .HasForeignKey("GroupWorkplaceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Competention");
-
-                    b.Navigation("GroupWorkplace");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -766,52 +514,6 @@ namespace App.Entities.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("App.Entities.Competention", b =>
-                {
-                    b.Navigation("ApplicationUsers");
-
-                    b.Navigation("Teams");
-
-                    b.Navigation("Workplaces");
-                });
-
-            modelBuilder.Entity("App.Entities.Dto.ParticipantDto", b =>
-                {
-                    b.Navigation("ApplicationUsers");
-                });
-
-            modelBuilder.Entity("App.Entities.Dto.RoleApiDto", b =>
-                {
-                    b.Navigation("ApplicationUsers");
-                });
-
-            modelBuilder.Entity("App.Entities.Dto.TeamDto", b =>
-                {
-                    b.Navigation("Participants");
-                });
-
-            modelBuilder.Entity("App.Entities.GroupWorkplace", b =>
-                {
-                    b.Navigation("Competents");
-
-                    b.Navigation("Workplaces");
-                });
-
-            modelBuilder.Entity("App.Entities.Manufacture", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("App.Entities.Product", b =>
-                {
-                    b.Navigation("Qties");
-                });
-
-            modelBuilder.Entity("App.Entities.Team", b =>
-                {
-                    b.Navigation("ApplicationUsers");
                 });
 #pragma warning restore 612, 618
         }

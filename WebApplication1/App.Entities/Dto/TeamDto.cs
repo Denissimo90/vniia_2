@@ -15,8 +15,8 @@ namespace App.Entities.Dto
         public string Name { get; set; }
         [JsonPropertyName("competentionId")]
         public int CompetentionId { get; set; }
-        public CompetentionDto Competention { get; set; }
-        public List<ParticipantDto> Participants { get; set; }
+        /*public CompetentionDto Competention { get; set; }
+        public List<ParticipantDto> Participants { get; set; }*/
 
 
     }

@@ -27,8 +27,12 @@ namespace App.Entities.Dto
         public RoleApiDto RoleDto { get; set; }
         [JsonPropertyName("competentionId")]
         public int CompetentionId { get; set; }
-        public CompetentionDto CompetentionDto { get; set; }
+       // public CompetentionDto CompetentionDto { get; set; }
 
-        public List<ApplicationUser> ApplicationUsers { get; set; }
+        [JsonPropertyName("teamId")]
+        public int TeamId{get; set; }
+        /*public TeamDto TeamDto { get; set; }
+
+        public List<ApplicationUser> ApplicationUsers { get; set; }*/
     }
 }

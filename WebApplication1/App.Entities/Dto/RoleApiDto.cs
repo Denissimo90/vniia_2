@@ -16,7 +16,7 @@ namespace App.Entities.Dto
         [JsonPropertyName("organizer")]
         public bool IsOrganizer { get; set; }
 
-        public List<ApplicationUser> ApplicationUsers { get; set; }
+        //public List<ApplicationUser> ApplicationUsers { get; set; }
 
     }
 }
