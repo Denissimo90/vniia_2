@@ -6,7 +6,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
-import {SidebarModule as SidebarModuleAngular} from 'ng-sidebar';
 import {LoggerModule} from 'ngx-logger';
 import {PrimeNgCalendarMaskModule} from 'racoon-mask-primeng';
 import {AgGridModule} from 'ag-grid-angular';
@@ -77,7 +76,6 @@ import { ParticipantRegistrationComponent } from './components/forms/registratio
 import { CompetentParticipantListComponent } from './components/tabledata/competent-list/competent-participant-list/competent-participant-list.component';
 import { InputSelectorComponent } from './components/forms/input-selector/input-selector.component';
 import { WorkplaceRegistrationComponent } from './components/forms/registration/workplace-registration/workplace-registration.component';
-import { DropdownCellEditorComponent } from './components/dropdown-cell-editor.component';
 import { WorkplaceListComponent } from './components/tabledata/workplace-list/workplace-list.component';
 import { TeamParticipantListComponent } from './components/tabledata/team-list/team-participant-list/team-participant-list.component';
 import { ParticipantSelectorComponent } from './components/forms/participant-selector/participant-selector.component';
@@ -174,7 +172,7 @@ import { CompetentionTeamDetailListComponent } from './components/tabledata/comp
     NgSidebarModule.forRoot(),
     ColorPickerModule,
     SelectButtonModule,
-    AgGridModule.withComponents([DropdownCellEditorComponent]),
+    AgGridModule.withComponents([]),
     PrimeNgCalendarMaskModule,
     SliderModule,
     InputNumberModule
