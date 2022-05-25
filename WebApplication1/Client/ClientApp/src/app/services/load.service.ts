@@ -68,6 +68,13 @@ export class LoadService extends BaseService {
     .toPromise();
     let value = await this.http.get<any>(`/${this.restPath}/competentions`, this.httpOptions)
     .toPromise();
+    value.forEach(async element => {
+      element.participants = await this.http.get<any>(`/${this.restPath}/participants`, this.httpOptions)
+      .toPromise();
+      value.workplaces = [];
+    });
+    
+    console.log(value);
     return value;
   }
 
@@ -77,8 +84,14 @@ export class LoadService extends BaseService {
   }
 
   async searchTeams(): Promise<any> {
-    return await this.http.get<any>(`/${this.restPath}/team`, this.httpOptions)
+    let value = await this.http.get<any>(`/${this.restPath}/team`, this.httpOptions)
     .toPromise();
+    value.forEach(async element => {
+      element.participants = await this.http.get<any>(`/${this.restPath}/participants`, this.httpOptions)
+      .toPromise();
+    });
+    console.log(value);
+    return value;
   }
 
   async searchParticipants(): Promise<any> {

@@ -71,7 +71,8 @@ export class CompetentionTeamListComponent implements OnInit {
       {
         this.selectedCompetent = this.competents[0];
 
-      this.nodes = await this.loadService.searchTeams();
+      this.nodes = await this.selectedCompetent.teams;
+      console.log(this.nodes);
       }
     } catch (e) {
       this.messageService.add({ severity: 'error', summary: 'Ошибка', detail: e.error?.message || 'Ошибка запроса' });
