@@ -13,7 +13,7 @@ import { Workplace } from '../domain/Workplace';
   providedIn: 'root'
 })
 export class LoadService extends BaseService {
-  private restPath = '/dto';
+  private restPath = '/external-data';
 
   constructor(
     protected httpClient: HttpClient,
@@ -29,7 +29,7 @@ export class LoadService extends BaseService {
   }
 
   async searchCompetents(): Promise<any> {
-    const result = [];
+    /*const result = [];
     for (let i = 1; i < 100; i++) {
       const competent = new Competent();
       competent.id = i;
@@ -63,21 +63,27 @@ export class LoadService extends BaseService {
       result.push(competent);
     }
 
-    return result;
+    return result;*/
+    await this.http.get<any>(`/${this.restPath}/refresh-api-external-data`, this.httpOptions)
+    .toPromise();
+    let value = await this.http.get<any>(`/${this.restPath}/competentions`, this.httpOptions)
+    .toPromise();
+    return value;
   }
 
   async searchRoles(): Promise<any> {
-    return new Role();
+    return await this.http.get<any>(`/${this.restPath}/roles`, this.httpOptions)
+    .toPromise();
   }
 
   async searchTeams(): Promise<any> {
-    return new Team();
+    return await this.http.get<any>(`/${this.restPath}/team`, this.httpOptions)
+    .toPromise();
   }
 
   async searchParticipants(): Promise<any> {
-    const p = new Participant();
-    p.id = "1"; 
-    return [p];
+    return await this.http.get<any>(`/${this.restPath}/participants`, this.httpOptions)
+    .toPromise();
   }
 
   async searchWorkplaces(): Promise<any> {

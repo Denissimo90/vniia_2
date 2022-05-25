@@ -1,0 +1,21 @@
+
+.ui-button-success-multi {
+    background: #5eb35f !important;
+    border: none;
+    zoom: 0.5;
+    padding: 0.1em !important;
+    min-height: 0px;
+  }
+  
+  .ui-button-danger-multi {
+    background: #f03444 !important;
+    border: none;
+    zoom: 0.5;
+    padding: 0.2em !important;
+    min-height: 0px;
+  }
+  
+  ::ng-deep .ui-toolbar {
+    padding: 0.2em !important;
+  }
+  

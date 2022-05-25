@@ -9,7 +9,6 @@ using System.Collections.Generic;
 namespace ReportApp.Controllers
 {
     [ApiController]
-    [EnableCors()]
     [Route("external-data")]
     public class ExternalDataController : Controller
     {
@@ -23,6 +22,21 @@ namespace ReportApp.Controllers
             _logger = logger;
             _service = restService;
             _externalDataService = externalDataService;
+        }
+
+        [HttpGet]
+        [Route("refresh-api-external-data")]
+        public IActionResult UpsertDataFromApi()
+        {
+            bool success = false;
+            foreach (CompetentionDto dto in _service.GetApiCompetentions())
+            {
+                success = _service.UpsertDataFromApi(dto.Id);
+            }
+            if (success)
+                return Ok();
+            else
+                return BadRequest();
         }
 
         [HttpGet]

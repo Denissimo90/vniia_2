@@ -9,7 +9,7 @@
         <div class="splitter"></div>
   
         <button pButton icon="fa fa-sync-alt"
-                (click)="t.reload()" pTooltip="Обновить таблицу">
+                (click)="onLoad()" pTooltip="Обновить таблицу">
         </button>
   
         <button pButton icon="fa fa-filter"
@@ -21,7 +21,7 @@
           <div class="ui-toolbar-group-left">
             <span>Выберите компетенцию: </span>
             <p-dropdown [(ngModel)]="selectedCompetent" placeholder="Выберите значение из списка"
-                        [options]="nodes" (onChange)="onComponentModeChange()"
+                        [options]="componentModes" (onChange)="onComponentModeChange()"
                         [style]="{width: '450px'}">
             </p-dropdown>
           </div>
@@ -67,7 +67,7 @@
                     [settingsKey]="'competents'"
                     [selectionMode]="'single'"
         >
-            <column [pinned]="true" [lockPinned]="true" [type]="'group'" [width]="380" field="title"
+            <column [pinned]="true" [lockPinned]="true" [type]="'group'" [width]="380" field="name"
                     header="Обозначение"></column>
             <column [visible]="false" field="id" header="ID" type="number"></column>
         </app-table2>

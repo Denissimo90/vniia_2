@@ -35,8 +35,21 @@ export class GroupWorkplaceRegistrationComponent extends DialogComponent impleme
     @ViewChild('t') htmlTable;
     @Output() onInit = new EventEmitter<any>();
 
-  ngOnInit(): void {
-  }
+
+    ngOnInit(): void {
+      this.onLoad();
+    }
+  
+    async onLoad() {
+      /*try {
+        this.nodes = await this.loadService.searchTeams();
+      } catch (e) {
+        this.messageService.add({ severity: 'error', summary: 'Ошибка', detail: e.error?.message || 'Ошибка запроса' });
+      } finally {
+        this.isFirstLoad = false;
+      }*/
+    }
+  
   
   async init(groupWorkplace?: GroupWorkplace) {
     this.loading = true;

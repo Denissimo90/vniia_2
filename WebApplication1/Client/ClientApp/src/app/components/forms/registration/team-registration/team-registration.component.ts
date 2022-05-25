@@ -34,8 +34,20 @@ export class TeamRegistrationComponent extends DialogComponent implements OnInit
     @ViewChild('t') htmlTable;
     @Output() onInit = new EventEmitter<any>();
 
-  ngOnInit(): void {
-  }
+
+    ngOnInit(): void {
+      this.onLoad();
+    }
+  
+    async onLoad() {
+      try {
+        this.team = await this.loadService.searchTeams()[0];
+      } catch (e) {
+        this.messageService.add({ severity: 'error', summary: 'Ошибка', detail: e.error?.message || 'Ошибка запроса' });
+      } finally {
+      }
+    }
+  
   
   async init(team?: Team) {
     this.loading = true;

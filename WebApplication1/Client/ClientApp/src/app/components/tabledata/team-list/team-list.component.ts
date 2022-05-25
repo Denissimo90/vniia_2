@@ -17,7 +17,8 @@ export class TeamListComponent implements OnInit {
   filter: boolean;
   selectedTeams: Team[] = [];
   nodes: Team[] = [];
-  selectedCompetent: Competent[] = [];
+  selectedCompetent;
+  componentModes = [];
   competents: Competent[] = [];
   blockingMask = false;
   timeouts = {};
@@ -56,9 +57,28 @@ export class TeamListComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.nodes = [];
+    this.onLoad();
   }
 
+  async onLoad() {
+    try {
+      this.competents = await this.loadService.searchCompetents();
+      this.componentModes = [];
+      this.competents.forEach(element => {
+        this.componentModes.push({ label: element.title, value: element});
+      });
+      if (this.competents.length > 0)
+      {
+        this.selectedCompetent = this.competents[0];
+
+      this.nodes = await this.loadService.searchTeams();
+      }
+    } catch (e) {
+      this.messageService.add({ severity: 'error', summary: 'Ошибка', detail: e.error?.message || 'Ошибка запроса' });
+    } finally {
+      this.isFirstLoad = false;
+    }
+  }
 
 
 async onComponentModeChange() {  

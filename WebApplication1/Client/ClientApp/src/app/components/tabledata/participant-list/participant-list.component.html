@@ -9,7 +9,7 @@
         <div class="splitter"></div>
   
         <button pButton icon="fa fa-sync-alt"
-                (click)="t.reload()" pTooltip="Обновить таблицу">
+                (click)="onLoad()" pTooltip="Обновить таблицу">
         </button>
   
         <button pButton icon="fa fa-filter"
@@ -49,7 +49,7 @@
                   <column field="firstName" header="Имя" [width]="160"></column>
                   <column field="lastName" header="Фамилия" [width]="160"></column>
                   <column field="middleName" header="Отчетство" [width]="160"></column>
-                  <column field="birthDate" header="Дата рождения" [width]="160"></column>
+                  <column field="birthDate" header="Дата рождения" [width]="160" type="date"></column>
                   <column field="shortName" header="ФИО" [width]="160"></column>
                   <column field="fullName" header="Полное имя" [width]="160"></column>
       </app-table2>

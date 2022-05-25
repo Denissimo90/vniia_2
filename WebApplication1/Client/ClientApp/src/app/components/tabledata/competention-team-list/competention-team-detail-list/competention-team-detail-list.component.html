@@ -1,76 +1,30 @@
-<div class="v-flex">
-    <p-toolbar>
-      <div class="ui-toolbar-group-left">
-        <button pButton label="Журнал команд"
-                class="caption" disabled
-                style="background: none">
-        </button>
-  
-        <div class="splitter"></div>
-  
-        <button pButton icon="fa fa-sync-alt"
-                (click)="t.reload()" pTooltip="Обновить таблицу">
-        </button>
-  
-        <button pButton icon="fa fa-filter"
-                (click)="filter=!filter" pTooltip="Открыть панель фильтров">
-        </button>
-  
-          <div class="splitter"></div>
-
-          <div class="ui-toolbar-group-left">
-            <span>Выберите компетенцию: </span>
-            <p-dropdown [(ngModel)]="selectedCompetent" placeholder="Выберите значение из списка"
-                        [options]="nodes" (onChange)="onComponentModeChange()"
-                        [style]="{width: '450px'}">
-            </p-dropdown>
+<div class="ui-g-11" style="margin-top: 0; margin-bottom: 0; padding: 0; width: 100%; height: 100%">
+        <div *ngIf="!!this.data?.participants" class="v-flex" [style.marginLeft]= "'30px'">
+          <p-toolbar [class.detail-ui-toolbar]="isGridDetail">            
+    <div class="ui-toolbar-group-left">
+        <button pButton icon="fa fa-play" [class]="'ui-button-success-multi'"
+           (click)="play()"></button>
+   <button pButton icon="fa fa-pause" [class]="'ui-button-danger-multi'"
+           (click)="pause()"></button> </div>
+          </p-toolbar>
+      
+          <div class="v-flex-grow">
+            <app-table2 #t
+                        [selectionMode]="'single'"
+                        [filter]="filter"
+                        [lazy]="false"
+                        [loading]="loading"
+                        [value]="this.data.participants"
+                        [getRowId]="getRowId"
+                        [settingsKey]="'participantDetail'"
+                        [enableTooltips]="true"
+                        (onDataSourceReady)="this.onGridReady($event)"
+            >
+              <column field="id" header="ID" [visible]="false"></column>
+                <column field="firstName" header="Имя" [width]="160"></column>
+                <column field="secondName" header="Фамилия" [width]="160"></column>
+              <column field="time" header="Таймер" [valueGetter]="getTimer" (onGetColumnStyle)="onGetTimerStyle($event)"></column>
+            </app-table2>
           </div>
-  
-          <button pButton icon="fa fa-plus"
-                  pTooltip="Создать команду" (click)="startCreateTeam()">
-          </button>
-  
-          <button pButton icon="fa fa-pencil-alt"
-                  pTooltip="Редактирование команды"
-                  (click)="startUpdateTeam()">
-          </button>
-
-          <button pButton icon="fas fa-trash-alt"
-                  class="ui-button-danger"
-                  [pTooltip]="'Удалить команду'"
-                  (click)="deleteTeam()"
-                  [disabled]="false">
-          </button>
-          </div>  
-    </p-toolbar>
-  
-    <ng-template #detail let-params>
-        <app-team-participant-list [data]="params.data" (onInit)="onDetailInit($event)">
-        </app-team-participant-list>
-      </ng-template>
-    
-      <div class="v-flex-grow">
-        <app-table2 #t
-                    [lazy]="false"
-                    (filterChanged)="onFilterChanged($event)"
-                    (onDataSourceReady)="onGridReady($event)"
-                    (rowSelected)="onRowSelected($event)"
-                    [deltaRowDataMode]="deltaRowDataMode"
-                    [filter]="filter"
-                    [value]="nodes"
-                    [masterDetail]="true"
-                    [getRowId]="getItemId"
-                    [embedFullWidthRows]="false"
-                    [detailRowHeight]="360"
-                    [detailCellRendererParams]="{template: detail}"
-                    [loading]="loading"
-                    [settingsKey]="'competents'"
-                    [selectionMode]="'single'"
-        >
-            <column [pinned]="true" [lockPinned]="true" [type]="'group'" [width]="380" field="title"
-                    header="Обозначение"></column>
-            <column [visible]="false" field="id" header="ID" type="number"></column>
-        </app-table2>
-    </div>
-  </div>
-
+        </div>
+      </div>

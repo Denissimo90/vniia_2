@@ -16,9 +16,7 @@ export class RoleListComponent implements OnInit {
   roles: Role[] = [];
   blockingMask = false;
   timeouts = {};
-  alfaUrl = this.configService.config['alfaApi'];
   isOnlyActual = false;
-  isFirstLoad = true;
 
   @ViewChild('t') htmlTable;
 
@@ -46,31 +44,12 @@ export class RoleListComponent implements OnInit {
   async onLoad() {
     try {
       this.roles = await this.loadService.searchRoles();
-      this.selectRoleByUrl();
     } catch (e) {
       this.messageService.add({ severity: 'error', summary: 'Ошибка', detail: e.error?.message || 'Ошибка запроса' });
     } finally {
-      this.isFirstLoad = false;
     }
   }
 
-  selectRoleByUrl() {
-    if (!this.isFirstLoad) {
-      return;
-    }
-    // Выделение нужной строки если id в url
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      const node = this.htmlTable.grid.api.getRowNode(id);
-      this.htmlTable.gridApi.ensureNodeVisible(node);
-      if (node) {
-        node.setSelected(true);
-        this.htmlTable.gridApi.ensureNodeVisible(node, 'middle');
-      } else {
-        this.router.navigate(['/roles']);
-      }
-    }
-  }
 /*
   async startCreateRole() {
     const dialog = this.dialogService.createDialog(RoleRegistrationComponent);

@@ -1,7 +1,7 @@
 
 
 export class Participant {
-  
+
   id: string;
   personId: number;
   firstName: string;
@@ -10,4 +10,5 @@ export class Participant {
   birthDate: Date;
   shortName: string;
   fullName: string;
+  time: Date = new Date();
 }

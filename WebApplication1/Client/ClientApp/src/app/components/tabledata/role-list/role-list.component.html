@@ -9,7 +9,7 @@
         <div class="splitter"></div>
   
         <button pButton icon="fa fa-sync-alt"
-                (click)="t.reload()" pTooltip="Обновить таблицу">
+                (click)="onLoad()" pTooltip="Обновить таблицу">
         </button>
   
         <button pButton icon="fa fa-filter"
@@ -23,7 +23,6 @@
       <app-table2 #t
                   [(selection)]="selectedRoles"
                   selectionMode="multiple"
-                  (cellClicked)="onCellClicked($event)"
                   [filter]="filter"
                   [lazy]="false"
                   [value]="roles"
@@ -31,7 +30,7 @@
                   settingsKey="Role-list">
         <column field="id" header="Id" [width]="140"></column>
         <column field="name" header="Наименование"></column>
-        <column field="isOrganizer" header="Организатор" type="bool"></column>
+        <column field="organizer" header="Организатор" type="bool"></column>
       </app-table2>
     </div>
   </div>
