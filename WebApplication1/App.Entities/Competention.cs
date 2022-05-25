@@ -21,6 +21,6 @@ namespace App.Entities
 
         //public List<Workplace> Workplaces { get; set; }
         //public List<ApplicationUser> ApplicationUsers { get; set; }
-        //public List<Team> Teams { get; set; }
+        public List<Team> Teams { get; set; }
     }
 }
