@@ -4,6 +4,7 @@ using ReportApp.Common;
 using ReportApp.Logic.Services.Interfacies;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 
 namespace ReportApp.Logic.Services
@@ -41,19 +42,26 @@ namespace ReportApp.Logic.Services
             var participantDto = GetApiParticipants(competentionId);
             using (uow)
             {
-                foreach (var roleDto in rolesDto)
+                var existingRole = uow.RoleDtoRepository.GetEntities().ToList();
+
+                foreach (var roleDto in rolesDto.Where(r => !existingRole.Any(e => e.Name == r.Name)))
                 {
                     uow.RoleDtoRepository.InsertOrUpdate(roleDto, roleDto.Id);
                 }
-                foreach (var item in competentionDto)
+                var existingCompetention = uow.CompetentionDtoRepository.GetEntities().ToList();
+                foreach (var item in competentionDto.Where(r => !existingCompetention.Any(e => e.Title == r.Title)))
                 {
                     uow.CompetentionDtoRepository.InsertOrUpdate(item, item.Id);
                 }
-                foreach (var item in teamDto)
+                var existingTeam = uow.TeamDtoRepository.GetEntities().ToList();
+                foreach (var item in teamDto.Where(r => !existingTeam.Any(e => e.Name == r.Name && e.CompetentionId == r.CompetentionId)))
                 {
                     uow.TeamDtoRepository.InsertOrUpdate(item, item.Id);
                 }
-                foreach (var item in participantDto)
+                var existingPart = uow.ParticipantDtoRepository.GetEntities().ToList();
+                foreach (var item in participantDto.Where(r => !existingPart.Any(e => e.Id == r.Id && e.FirstName == r.FirstName
+                && e.SecondName == r.SecondName
+                && e.ThirdName == r.ThirdName)))
                 {
                     uow.ParticipantDtoRepository.InsertOrUpdate(item, item.Id);
                 }

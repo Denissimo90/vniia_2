@@ -8,7 +8,6 @@ namespace ReportApp.Logic.Services.Interfacies
     {
         bool UpsertDataFromApi(int competentionId);
         List<RoleApiDto> GetApiRoles();
-
         List<ParticipantDto> GetApiParticipants(int competentionId);
         List<TeamDto> GetApiTeams(int competentionId);
         List<CompetentionDto> GetApiCompetentions();

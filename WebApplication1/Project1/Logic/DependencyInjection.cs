@@ -30,6 +30,8 @@ namespace ReportApp.Logic
             services.AddScoped<IRoleDtoRepository, RoleDtoRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<ITeamDtoRepository, TeamDtoRepository>();
+            services.AddScoped<IWorkplaceRepository, WorkplaceRepository>();
+            services.AddScoped<IGroupWorkplaceRepository, GroupWorkplaceRepository>();
 
             return services;
         }
