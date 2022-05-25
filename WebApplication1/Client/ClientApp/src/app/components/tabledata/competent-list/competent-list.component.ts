@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfigurationService, DialogService, LazyLoadEvent, UserService } from '@prism/common';
+import { ConfigurationService, DetailCellRenderer, DialogService, LazyLoadEvent, UserService } from '@prism/common';
 import { GridApi } from 'ag-grid-community';
 import { MessageService } from 'primeng';
 import { Competent } from '../../../domain/Competent';
@@ -30,6 +30,10 @@ export class CompetentListComponent implements OnInit {
   deltaRowDataMode = true;
   loading = false;
 
+  DetailCellRenderer = DetailCellRenderer;
+
+  leftovers: { [productId: number]: number };
+
   workshopsForCurrentItems = [];
 
   gridApi: GridApi;
@@ -40,8 +44,7 @@ export class CompetentListComponent implements OnInit {
 
   @ViewChild('t') htmlTable;
 
-  getRowId = (row) => '' + row.id;
-  getItemId = (row: Competent) => row.id;
+  getRowId = (row: Competent) => row.id;
 
   constructor(
     public user: UserService,
@@ -72,13 +75,13 @@ export class CompetentListComponent implements OnInit {
       this.isFirstLoad = false;
     }
   }
-  
+
   onFilterChanged(event: any) {
     this.totalPositions = this.gridApi.getDisplayedRowCount();
     const filteredRows = [];
     this.htmlTable.gridApi.forEachNodeAfterFilter(node => filteredRows.push(node.data));
   }
-  
+
   onRowSelected(event) {
   }
 
@@ -86,13 +89,13 @@ export class CompetentListComponent implements OnInit {
     this.gridApi = e;
   }
 
-
   async onDetailInit(event: any) {
     this.detailGridApi = event.gridApi;
   }
 
 
   selectCompetentByUrl() {
+    return;
     if (!this.isFirstLoad) {
       return;
     }
@@ -121,17 +124,17 @@ export class CompetentListComponent implements OnInit {
   async startUpdateCompetent() {
     const dialog = this.dialogService.createDialog(CompetentRegistrationComponent);
     await dialog.init(this.selectedCompetents[0]);
-    dialog.result.subscribe((Competent) => {
-      this.htmlTable.updateRows(Array.isArray(Competent) ? Competent : [Competent]);
-      Object.assign(this.selectedCompetents[0], Array.isArray(Competent) ? Competent[0] : Competent);
+    dialog.result.subscribe((competent): void => {
+      this.htmlTable.updateRows(Array.isArray(competent) ? competent : [competent]);
+      Object.assign(this.selectedCompetents[0], Array.isArray(competent) ? competent[0] : competent);
     });
   }
 
   async deleteCompetent() {
     this.blockingMask = true;
     try {
-      //await this.loadService.deleteCompetents(this.selectedCompetents);
-      this.htmlTable.removeRowsById(this.selectedCompetents.map(c => c.id), 'Компетенция удалена');
+      // await this.loadService.deleteCompetents(this.selectedCompetents);
+      this.htmlTable.removeRowsById(this.selectedCompetents.map(c => c.id), 'Заявка удалена');
       this.selectedCompetents = [];
       this.messageService.add({
         severity: 'success', summary: 'Выполнено',
